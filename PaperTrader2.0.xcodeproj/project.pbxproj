@@ -9,23 +9,31 @@
 /* Begin PBXBuildFile section */
 		BF53C34D2748983D003E4C02 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF53C34C2748983D003E4C02 /* AppDelegate.swift */; };
 		BF53C34F2748983D003E4C02 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF53C34E2748983D003E4C02 /* SceneDelegate.swift */; };
-		BF53C3512748983D003E4C02 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF53C3502748983D003E4C02 /* ViewController.swift */; };
+		BF53C3512748983D003E4C02 /* SearchStockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF53C3502748983D003E4C02 /* SearchStockViewController.swift */; };
 		BF53C3542748983D003E4C02 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF53C3522748983D003E4C02 /* Main.storyboard */; };
 		BF53C3572748983D003E4C02 /* PaperTrader2_0.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BF53C3552748983D003E4C02 /* PaperTrader2_0.xcdatamodeld */; };
 		BF53C35927489840003E4C02 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF53C35827489840003E4C02 /* Assets.xcassets */; };
 		BF53C35C27489840003E4C02 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF53C35A27489840003E4C02 /* LaunchScreen.storyboard */; };
+		BF53C3642748BCCE003E4C02 /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF53C3632748BCCE003E4C02 /* SearchResult.swift */; };
+		BF53C36A2748CD43003E4C02 /* NothingFoundCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF53C3692748CD43003E4C02 /* NothingFoundCell.xib */; };
+		BF53C36D2748D174003E4C02 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF53C36B2748D174003E4C02 /* SearchResultCell.swift */; };
+		BF53C36E2748D174003E4C02 /* SearchResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF53C36C2748D174003E4C02 /* SearchResultCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		BF53C3492748983D003E4C02 /* PaperTrader2.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PaperTrader2.0.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF53C34C2748983D003E4C02 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BF53C34E2748983D003E4C02 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		BF53C3502748983D003E4C02 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		BF53C3502748983D003E4C02 /* SearchStockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchStockViewController.swift; sourceTree = "<group>"; };
 		BF53C3532748983D003E4C02 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BF53C3562748983D003E4C02 /* PaperTrader2_0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PaperTrader2_0.xcdatamodel; sourceTree = "<group>"; };
 		BF53C35827489840003E4C02 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BF53C35B27489840003E4C02 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BF53C35D27489840003E4C02 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BF53C3632748BCCE003E4C02 /* SearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
+		BF53C3692748CD43003E4C02 /* NothingFoundCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NothingFoundCell.xib; sourceTree = "<group>"; };
+		BF53C36B2748D174003E4C02 /* SearchResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
+		BF53C36C2748D174003E4C02 /* SearchResultCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchResultCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,14 +66,18 @@
 		BF53C34B2748983D003E4C02 /* PaperTrader2.0 */ = {
 			isa = PBXGroup;
 			children = (
+				BF53C36B2748D174003E4C02 /* SearchResultCell.swift */,
+				BF53C36C2748D174003E4C02 /* SearchResultCell.xib */,
+				BF53C3692748CD43003E4C02 /* NothingFoundCell.xib */,
 				BF53C34C2748983D003E4C02 /* AppDelegate.swift */,
 				BF53C34E2748983D003E4C02 /* SceneDelegate.swift */,
-				BF53C3502748983D003E4C02 /* ViewController.swift */,
+				BF53C3502748983D003E4C02 /* SearchStockViewController.swift */,
 				BF53C3522748983D003E4C02 /* Main.storyboard */,
 				BF53C35827489840003E4C02 /* Assets.xcassets */,
 				BF53C35A27489840003E4C02 /* LaunchScreen.storyboard */,
 				BF53C35D27489840003E4C02 /* Info.plist */,
 				BF53C3552748983D003E4C02 /* PaperTrader2_0.xcdatamodeld */,
+				BF53C3632748BCCE003E4C02 /* SearchResult.swift */,
 			);
 			path = PaperTrader2.0;
 			sourceTree = "<group>";
@@ -128,7 +140,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF53C35C27489840003E4C02 /* LaunchScreen.storyboard in Resources */,
+				BF53C36E2748D174003E4C02 /* SearchResultCell.xib in Resources */,
 				BF53C35927489840003E4C02 /* Assets.xcassets in Resources */,
+				BF53C36A2748CD43003E4C02 /* NothingFoundCell.xib in Resources */,
 				BF53C3542748983D003E4C02 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -140,9 +154,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF53C3512748983D003E4C02 /* ViewController.swift in Sources */,
+				BF53C3512748983D003E4C02 /* SearchStockViewController.swift in Sources */,
 				BF53C34D2748983D003E4C02 /* AppDelegate.swift in Sources */,
+				BF53C3642748BCCE003E4C02 /* SearchResult.swift in Sources */,
 				BF53C3572748983D003E4C02 /* PaperTrader2_0.xcdatamodeld in Sources */,
+				BF53C36D2748D174003E4C02 /* SearchResultCell.swift in Sources */,
 				BF53C34F2748983D003E4C02 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
