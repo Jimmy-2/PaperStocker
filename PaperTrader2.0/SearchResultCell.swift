@@ -8,7 +8,7 @@
 import UIKit
 
 class SearchResultCell: UITableViewCell {
-    @IBOutlet var nameLabel: UILabel!
+    @IBOutlet var symbolLabel: UILabel!
     @IBOutlet var stockNameLabel: UILabel!
 
 
@@ -26,13 +26,11 @@ class SearchResultCell: UITableViewCell {
     
     // MARK: - Helper Methods
     func configure(for result: SearchResult) {
-      stockNameLabel.text = result.name
+        stockNameLabel.text = result.name
 
-      if result.artist.isEmpty {
-        nameLabel.text = "Unknown"
-      } else {
-        nameLabel.text = result.artist
-      }
+     
+        symbolLabel.text = result.symbol
+      
      
     }
 }

@@ -40,8 +40,8 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="nameLabel" destination="3Nc-2y-Y1E" id="gOT-ki-Ob9"/>
                 <outlet property="stockNameLabel" destination="6b7-fa-gpm" id="AE1-2U-Gxd"/>
+                <outlet property="symbolLabel" destination="3Nc-2y-Y1E" id="gOT-ki-Ob9"/>
             </connections>
             <point key="canvasLocation" x="245.59999999999999" y="-305.84707646176912"/>
         </tableViewCell>

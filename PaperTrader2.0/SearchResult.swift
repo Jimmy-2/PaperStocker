@@ -12,9 +12,7 @@ struct SearchResult: Codable {
 
   
 
-  var artist: String {
-    return symbol ?? ""
-  }
+ 
 
 
 
