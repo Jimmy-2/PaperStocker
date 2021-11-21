@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "D13ED003-8AFC-4249-965F-ABA1C3E149FD"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "646B0CCA-8DE4-4CC6-B611-C783F0BA3E9C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PaperTrader2.0/SearchStockViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "15"
+            endingLineNumber = "15"
+            landmarkName = "SearchViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "646B0CCA-8DE4-4CC6-B611-C783F0BA3E9C - dfcc499d8bc77c72"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PaperTrader2_0.SearchViewController.searchResults.getter : Swift.Array&lt;PaperTrader2_0.SearchResult&gt;"
+                  moduleName = "PaperTrader2.0"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jimmy/Documents/PaperTrader2.0/PaperTrader2.0/SearchStockViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "16"
+                  endingLineNumber = "16"
+                  offsetFromSymbolStart = "122">
+               </Location>
+               <Location
+                  uuid = "646B0CCA-8DE4-4CC6-B611-C783F0BA3E9C - 9265596f50bed4c6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PaperTrader2_0.SearchViewController.searchResults.setter : Swift.Array&lt;PaperTrader2_0.SearchResult&gt;"
+                  moduleName = "PaperTrader2.0"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jimmy/Documents/PaperTrader2.0/PaperTrader2.0/SearchStockViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "16"
+                  endingLineNumber = "16"
+                  offsetFromSymbolStart = "148">
+               </Location>
+               <Location
+                  uuid = "646B0CCA-8DE4-4CC6-B611-C783F0BA3E9C - fd68f960e1dc846d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PaperTrader2_0.SearchViewController.searchResults.modify : Swift.Array&lt;PaperTrader2_0.SearchResult&gt;"
+                  moduleName = "PaperTrader2.0"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jimmy/Documents/PaperTrader2.0/PaperTrader2.0/SearchStockViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "18">
+               </Location>
+               <Location
+                  uuid = "646B0CCA-8DE4-4CC6-B611-C783F0BA3E9C - 37fafc57cae4a19f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PaperTrader2_0.SearchViewController.searchResults.modify : Swift.Array&lt;PaperTrader2_0.SearchResult&gt; with unmangled suffix &quot;.resume.0&quot;"
+                  moduleName = "PaperTrader2.0"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jimmy/Documents/PaperTrader2.0/PaperTrader2.0/SearchStockViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "16"
+                  endingLineNumber = "16"
+                  offsetFromSymbolStart = "8">
+               </Location>
+               <Location
+                  uuid = "646B0CCA-8DE4-4CC6-B611-C783F0BA3E9C - 33eb7eba11da5d1f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PaperTrader2_0.SearchViewController.init(nibName: Swift.Optional&lt;Swift.String&gt;, bundle: Swift.Optional&lt;__C.NSBundle&gt;) -&gt; PaperTrader2_0.SearchViewController"
+                  moduleName = "PaperTrader2.0"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jimmy/Documents/PaperTrader2.0/PaperTrader2.0/SearchStockViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "16"
+                  endingLineNumber = "16"
+                  offsetFromSymbolStart = "293">
+               </Location>
+               <Location
+                  uuid = "646B0CCA-8DE4-4CC6-B611-C783F0BA3E9C - d32dbccc52082b5d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PaperTrader2_0.SearchViewController.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;PaperTrader2_0.SearchViewController&gt;"
+                  moduleName = "PaperTrader2.0"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jimmy/Documents/PaperTrader2.0/PaperTrader2.0/SearchStockViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "16"
+                  endingLineNumber = "16"
+                  offsetFromSymbolStart = "243">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
