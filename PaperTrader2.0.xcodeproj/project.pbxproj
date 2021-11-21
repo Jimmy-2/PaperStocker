@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BF135C24274A392F00B0BE30 /* LoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF135C23274A392F00B0BE30 /* LoadingCell.xib */; };
 		BF53C34D2748983D003E4C02 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF53C34C2748983D003E4C02 /* AppDelegate.swift */; };
 		BF53C34F2748983D003E4C02 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF53C34E2748983D003E4C02 /* SceneDelegate.swift */; };
 		BF53C3512748983D003E4C02 /* SearchStockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF53C3502748983D003E4C02 /* SearchStockViewController.swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BF135C23274A392F00B0BE30 /* LoadingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingCell.xib; sourceTree = "<group>"; };
 		BF53C3492748983D003E4C02 /* PaperTrader2.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PaperTrader2.0.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF53C34C2748983D003E4C02 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BF53C34E2748983D003E4C02 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 		BF53C34B2748983D003E4C02 /* PaperTrader2.0 */ = {
 			isa = PBXGroup;
 			children = (
+				BF135C23274A392F00B0BE30 /* LoadingCell.xib */,
 				BF53C36B2748D174003E4C02 /* SearchResultCell.swift */,
 				BF53C36C2748D174003E4C02 /* SearchResultCell.xib */,
 				BF53C3692748CD43003E4C02 /* NothingFoundCell.xib */,
@@ -141,6 +144,7 @@
 			files = (
 				BF53C35C27489840003E4C02 /* LaunchScreen.storyboard in Resources */,
 				BF53C36E2748D174003E4C02 /* SearchResultCell.xib in Resources */,
+				BF135C24274A392F00B0BE30 /* LoadingCell.xib in Resources */,
 				BF53C35927489840003E4C02 /* Assets.xcassets in Resources */,
 				BF53C36A2748CD43003E4C02 /* NothingFoundCell.xib in Resources */,
 				BF53C3542748983D003E4C02 /* Main.storyboard in Resources */,

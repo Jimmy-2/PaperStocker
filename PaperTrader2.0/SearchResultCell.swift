@@ -8,19 +8,31 @@
 import UIKit
 
 class SearchResultCell: UITableViewCell {
-  @IBOutlet var nameLabel: UILabel!
-  @IBOutlet var stockNameLabel: UILabel!
+    @IBOutlet var nameLabel: UILabel!
+    @IBOutlet var stockNameLabel: UILabel!
 
 
-  override func awakeFromNib() {
-    super.awakeFromNib()
-    let selectedView = UIView(frame: CGRect.zero)
-    selectedView.backgroundColor = UIColor(named: "SearchBar")?.withAlphaComponent(0.5)
-    selectedBackgroundView = selectedView
-  }
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        let selectedView = UIView(frame: CGRect.zero)
+        selectedView.backgroundColor = UIColor(named: "SearchBar")?.withAlphaComponent(0.5)
+        selectedBackgroundView = selectedView
+    }
 
-  override func setSelected(_ selected: Bool, animated: Bool) {
-    super.setSelected(selected, animated: animated)
-    // Configure the view for the selected state
-  }
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        // Configure the view for the selected state
+    }
+    
+    // MARK: - Helper Methods
+    func configure(for result: SearchResult) {
+      stockNameLabel.text = result.name
+
+      if result.artist.isEmpty {
+        nameLabel.text = "Unknown"
+      } else {
+        nameLabel.text = result.artist
+      }
+     
+    }
 }

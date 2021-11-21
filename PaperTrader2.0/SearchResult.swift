@@ -5,9 +5,17 @@
 //  Created by Jimmy  on 11/20/21.
 //
 
-import Foundation
+struct SearchResult: Codable {
+  
+  var symbol: String? = ""
+  var name: String? = ""
 
-class SearchResult {
-  var name = ""
-  var stockName = ""
+  
+
+  var artist: String {
+    return symbol ?? ""
+  }
+
+
+
 }
