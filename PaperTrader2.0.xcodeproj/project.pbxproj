@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		BF135C24274A392F00B0BE30 /* LoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF135C23274A392F00B0BE30 /* LoadingCell.xib */; };
+		BF135C26274B325800B0BE30 /* StockDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF135C25274B325800B0BE30 /* StockDetailViewController.swift */; };
+		BF135C28274B59F400B0BE30 /* StockDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF135C27274B59F400B0BE30 /* StockDetail.swift */; };
 		BF53C34D2748983D003E4C02 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF53C34C2748983D003E4C02 /* AppDelegate.swift */; };
 		BF53C34F2748983D003E4C02 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF53C34E2748983D003E4C02 /* SceneDelegate.swift */; };
 		BF53C3512748983D003E4C02 /* SearchStockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF53C3502748983D003E4C02 /* SearchStockViewController.swift */; };
@@ -23,6 +25,8 @@
 
 /* Begin PBXFileReference section */
 		BF135C23274A392F00B0BE30 /* LoadingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingCell.xib; sourceTree = "<group>"; };
+		BF135C25274B325800B0BE30 /* StockDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDetailViewController.swift; sourceTree = "<group>"; };
+		BF135C27274B59F400B0BE30 /* StockDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDetail.swift; sourceTree = "<group>"; };
 		BF53C3492748983D003E4C02 /* PaperTrader2.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PaperTrader2.0.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF53C34C2748983D003E4C02 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BF53C34E2748983D003E4C02 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -81,6 +85,8 @@
 				BF53C35D27489840003E4C02 /* Info.plist */,
 				BF53C3552748983D003E4C02 /* PaperTrader2_0.xcdatamodeld */,
 				BF53C3632748BCCE003E4C02 /* SearchResult.swift */,
+				BF135C25274B325800B0BE30 /* StockDetailViewController.swift */,
+				BF135C27274B59F400B0BE30 /* StockDetail.swift */,
 			);
 			path = PaperTrader2.0;
 			sourceTree = "<group>";
@@ -160,6 +166,8 @@
 			files = (
 				BF53C3512748983D003E4C02 /* SearchStockViewController.swift in Sources */,
 				BF53C34D2748983D003E4C02 /* AppDelegate.swift in Sources */,
+				BF135C26274B325800B0BE30 /* StockDetailViewController.swift in Sources */,
+				BF135C28274B59F400B0BE30 /* StockDetail.swift in Sources */,
 				BF53C3642748BCCE003E4C02 /* SearchResult.swift in Sources */,
 				BF53C3572748983D003E4C02 /* PaperTrader2_0.xcdatamodeld in Sources */,
 				BF53C36D2748D174003E4C02 /* SearchResultCell.swift in Sources */,
