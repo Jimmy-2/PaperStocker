@@ -21,6 +21,10 @@ class StockDetailViewController: UIViewController {
     @IBOutlet var previousCloseLabel: UILabel!
     @IBOutlet var highLabel: UILabel!
     @IBOutlet var lowLabel: UILabel!
+    
+    @IBOutlet var warningLabel: UILabel!
+    @IBOutlet var buyButton: UIButton!
+    @IBOutlet var sellButton: UIButton!
 
     
     var searchResult: SearchResult!
@@ -42,10 +46,13 @@ class StockDetailViewController: UIViewController {
         super.viewDidLoad()
         stockNameLabel.text = searchResult.name
         symbolLabel.text = searchResult.symbol
+      
         
         if searchResult != nil {
             dataTask?.cancel()
             isLoading = true
+            warningLabel.text = ""
+            
             self.updateUI()
             let apiURL = stocksURL()
             let session = URLSession.shared
@@ -60,11 +67,23 @@ class StockDetailViewController: UIViewController {
                         DispatchQueue.main.async {
                             self.isLoading = false
                             self.updateUI()
+                            if(self.open != nil) {
+                                self.warningLabel.text = ""
+                                self.buyButton.isHidden = false
+                                self.sellButton.isHidden = false
+                            }else {
+                                self.warningLabel.text = "The API has exceeded the amount. Please try again in 1 minute"
+                                self.buyButton.isHidden = true
+                                self.sellButton.isHidden = true
+                            }
+                            
+                        
                         }
                         return
                     }
                 } else {
                     print("Failure! \(response!)")
+                    
                 }
                 DispatchQueue.main.async {
                 
@@ -83,6 +102,15 @@ class StockDetailViewController: UIViewController {
 
         // Do any additional setup after loading the view.
     }
+    // MARK: - Action Methods
+    @IBAction func buyStock() {
+        
+    }
+    
+    @IBAction func sellStock() {
+        
+    }
+    
     // MARK: - Helper Methods
     func stocksURL() -> URL {
         let urlString = String(format: "https://api.twelvedata.com/quote?symbol=%@"+"&interval=1day&apikey=313fd5808dc2469abf9380853265bca3", searchResult.symbol!)
@@ -106,6 +134,8 @@ class StockDetailViewController: UIViewController {
             let result = try decoder.decode(StockDetail.self, from: data)
             var symbol: String?  = result.symbol
             var name: String?  = result.name
+            
+            
             open = result.open
             high = result.high
             low = result.low
@@ -115,10 +145,14 @@ class StockDetailViewController: UIViewController {
             change = result.change
             percent_change = result.percent_change
             
+            print(result.open)
+            
+            
             
             
         } catch {
             print("JSON Error: \(error)")
+            //tell user to wait go back and wait a bit before continuing
             
         }
     }

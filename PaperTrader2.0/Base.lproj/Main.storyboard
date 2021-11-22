@@ -135,12 +135,36 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MUL-Rr-Lpu">
+                                <rect key="frame" x="64" y="457" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Buy"/>
+                                <state key="disabled">
+                                    <color key="titleColor" systemColor="systemPinkColor"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ygn-JA-fwx">
+                                <rect key="frame" x="228" y="457" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Sell"/>
+                                <state key="disabled">
+                                    <color key="titleColor" systemColor="systemRedColor"/>
+                                </state>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="The API has exceeded the amount. Please try again in 1 minute" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Av2-pw-GzL">
+                                <rect key="frame" x="33" y="252" width="475" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hC5-QJ-HK2"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="i67-GH-dZH"/>
                     <connections>
+                        <outlet property="buyButton" destination="MUL-Rr-Lpu" id="Mdf-ij-xXj"/>
                         <outlet property="changeLabel" destination="Kkl-qo-0bU" id="Gg9-Ja-RnF"/>
                         <outlet property="changePercentLabel" destination="eSZ-7V-Wdp" id="dcu-mK-eie"/>
                         <outlet property="currentPriceLabel" destination="w24-Pl-FSa" id="sL1-vJ-X40"/>
@@ -148,14 +172,41 @@
                         <outlet property="lowLabel" destination="aE8-Ps-GLS" id="d4r-Ba-eBz"/>
                         <outlet property="openLabel" destination="PZW-mZ-f64" id="pC2-Sp-RrA"/>
                         <outlet property="previousCloseLabel" destination="AvE-8T-aeU" id="HiZ-lL-gWg"/>
+                        <outlet property="sellButton" destination="Ygn-JA-fwx" id="HAm-Zr-2y2"/>
                         <outlet property="stockNameLabel" destination="vVt-HL-Fgt" id="10K-BF-Rmz"/>
                         <outlet property="symbolLabel" destination="x4M-P4-S4l" id="XMw-mx-EY0"/>
                         <outlet property="volumeLabel" destination="FFr-aY-JUb" id="4LZ-EK-IAJ"/>
+                        <outlet property="warningLabel" destination="Av2-pw-GzL" id="44w-SE-FJo"/>
+                        <segue destination="huU-Xo-9Z7" kind="presentation" id="jI6-Tj-SQg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dfu-ZX-PSV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2728.8000000000002" y="73.313343328335833"/>
+        </scene>
+        <!--Trade View Controller-->
+        <scene sceneID="WYs-Qg-xW0">
+            <objects>
+                <viewController id="huU-Xo-9Z7" customClass="TradeViewController" customModule="PaperTrader2_0" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="JZL-1A-8uj">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hQw-s4-ISw">
+                                <rect key="frame" x="166" y="60" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="V7A-EU-9cG"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tlc-D3-dZO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3616" y="84"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="u1d-wM-4DT">
@@ -201,6 +252,12 @@
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemPinkColor">
+            <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
