@@ -11,28 +11,42 @@ class StockDetailViewController: UIViewController {
 
     @IBOutlet var symbolLabel: UILabel!
     @IBOutlet var stockNameLabel: UILabel!
+    
+    @IBOutlet var currentPriceLabel: UILabel!
+    @IBOutlet var changeLabel: UILabel!
+    @IBOutlet var changePercentLabel: UILabel!
+    @IBOutlet var volumeLabel: UILabel!
+    
+    @IBOutlet var openLabel: UILabel!
+    @IBOutlet var previousCloseLabel: UILabel!
+    @IBOutlet var highLabel: UILabel!
+    @IBOutlet var lowLabel: UILabel!
 
     
     var searchResult: SearchResult!
     var dataTask: URLSessionDataTask?
     var isLoading = false
     
-    var open = "loading"
-    var high = "loading"
-    var low = "loading"
-    var close = "loading"
-    var volume = "loading"
-    var previous_close = "loading"
-    var change = "loading"
-    var percent_change = "loading"
+    var open: String? = "loading"
+    var high: String? = "loading"
+    var low: String? = "loading"
+    var close: String? = "loading"
+    var volume: String?  = "loading"
+    var previous_close: String?  = "loading"
+    var change: String?  = "loading"
+    var percent_change: String?  = "loading"
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        stockNameLabel.text = searchResult.name
+        symbolLabel.text = searchResult.symbol
         
         if searchResult != nil {
             dataTask?.cancel()
+            isLoading = true
+            self.updateUI()
             let apiURL = stocksURL()
             let session = URLSession.shared
             dataTask = session.dataTask(with: apiURL) {data, response, error in
@@ -45,7 +59,7 @@ class StockDetailViewController: UIViewController {
               
                         DispatchQueue.main.async {
                             self.isLoading = false
-                        
+                            self.updateUI()
                         }
                         return
                     }
@@ -64,7 +78,7 @@ class StockDetailViewController: UIViewController {
          
             
             
-            updateUI()
+            
         }
 
         // Do any additional setup after loading the view.
@@ -90,18 +104,18 @@ class StockDetailViewController: UIViewController {
         do {
             let decoder = JSONDecoder()
             let result = try decoder.decode(StockDetail.self, from: data)
-            let symbol = result.symbol
-            let name = result.name
-            open = result.open!
-            high = result.high!
-            low = result.low!
-            close = result.close!
-            volume = result.volume!
-            previous_close = result.previous_close!
-            change = result.change!
-            percent_change = result.percent_change!
+            var symbol: String?  = result.symbol
+            var name: String?  = result.name
+            open = result.open
+            high = result.high
+            low = result.low
+            close = result.close
+            volume = result.volume
+            previous_close = result.previous_close
+            change = result.change
+            percent_change = result.percent_change
             
-            print(percent_change)
+            
             
         } catch {
             print("JSON Error: \(error)")
@@ -118,10 +132,16 @@ class StockDetailViewController: UIViewController {
     }
     
     func updateUI() {
-        stockNameLabel.text = searchResult.name
-      
-      
-        symbolLabel.text = searchResult.symbol
+        
+        
+        currentPriceLabel.text = close
+        changeLabel.text = change
+        changePercentLabel.text = percent_change
+        volumeLabel.text = volume
+        openLabel.text = open
+        previousCloseLabel.text = previous_close
+        highLabel.text = high
+        lowLabel.text = low
       
       
 
