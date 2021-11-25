@@ -8,13 +8,31 @@
 import UIKit
 
 class TradeViewController: UIViewController {
+    
+    @IBOutlet var symbolLabel: UILabel!
+    @IBOutlet var currentPriceLabel: UILabel!
+    @IBOutlet var availableBalanceLabel: UILabel!
+    
+    @IBOutlet var tradeButton: UIButton!
+    
+    var symbol: String?
+    var currentPrice: String?
+    var tradeButtonText: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        symbolLabel.text = symbol
+        currentPriceLabel.text = currentPrice
+        tradeButton.setTitle(tradeButtonText, for: .normal) 
 
         // Do any additional setup after loading the view.
     }
     
+    // MARK: Actions
+    @IBAction func closeTrade() {
+        dismiss(animated: true, completion: nil)
+    }
 
     /*
     // MARK: - Navigation

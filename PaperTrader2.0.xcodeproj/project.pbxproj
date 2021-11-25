@@ -11,6 +11,11 @@
 		BF135C26274B325800B0BE30 /* StockDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF135C25274B325800B0BE30 /* StockDetailViewController.swift */; };
 		BF135C28274B59F400B0BE30 /* StockDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF135C27274B59F400B0BE30 /* StockDetail.swift */; };
 		BF135C2A274C560500B0BE30 /* TradeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF135C29274C560500B0BE30 /* TradeViewController.swift */; };
+		BF135C2C274C66E200B0BE30 /* SearchNewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF135C2B274C66E200B0BE30 /* SearchNewsViewController.swift */; };
+		BF135C2E274F5FB200B0BE30 /* SearchNewsResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF135C2D274F5FB200B0BE30 /* SearchNewsResult.swift */; };
+		BF135C30274F620100B0BE30 /* SearchNewsResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF135C2F274F620100B0BE30 /* SearchNewsResultCell.xib */; };
+		BF135C32274F657F00B0BE30 /* SearchNewsResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF135C31274F657F00B0BE30 /* SearchNewsResultCell.swift */; };
+		BF135C34274F6E7400B0BE30 /* UIImageView+DownloadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF135C33274F6E7400B0BE30 /* UIImageView+DownloadImage.swift */; };
 		BF53C34D2748983D003E4C02 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF53C34C2748983D003E4C02 /* AppDelegate.swift */; };
 		BF53C34F2748983D003E4C02 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF53C34E2748983D003E4C02 /* SceneDelegate.swift */; };
 		BF53C3512748983D003E4C02 /* SearchStockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF53C3502748983D003E4C02 /* SearchStockViewController.swift */; };
@@ -29,6 +34,11 @@
 		BF135C25274B325800B0BE30 /* StockDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDetailViewController.swift; sourceTree = "<group>"; };
 		BF135C27274B59F400B0BE30 /* StockDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDetail.swift; sourceTree = "<group>"; };
 		BF135C29274C560500B0BE30 /* TradeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeViewController.swift; sourceTree = "<group>"; };
+		BF135C2B274C66E200B0BE30 /* SearchNewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNewsViewController.swift; sourceTree = "<group>"; };
+		BF135C2D274F5FB200B0BE30 /* SearchNewsResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNewsResult.swift; sourceTree = "<group>"; };
+		BF135C2F274F620100B0BE30 /* SearchNewsResultCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchNewsResultCell.xib; sourceTree = "<group>"; };
+		BF135C31274F657F00B0BE30 /* SearchNewsResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNewsResultCell.swift; sourceTree = "<group>"; };
+		BF135C33274F6E7400B0BE30 /* UIImageView+DownloadImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+DownloadImage.swift"; sourceTree = "<group>"; };
 		BF53C3492748983D003E4C02 /* PaperTrader2.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PaperTrader2.0.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF53C34C2748983D003E4C02 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BF53C34E2748983D003E4C02 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -90,6 +100,11 @@
 				BF135C25274B325800B0BE30 /* StockDetailViewController.swift */,
 				BF135C27274B59F400B0BE30 /* StockDetail.swift */,
 				BF135C29274C560500B0BE30 /* TradeViewController.swift */,
+				BF135C2B274C66E200B0BE30 /* SearchNewsViewController.swift */,
+				BF135C2D274F5FB200B0BE30 /* SearchNewsResult.swift */,
+				BF135C2F274F620100B0BE30 /* SearchNewsResultCell.xib */,
+				BF135C31274F657F00B0BE30 /* SearchNewsResultCell.swift */,
+				BF135C33274F6E7400B0BE30 /* UIImageView+DownloadImage.swift */,
 			);
 			path = PaperTrader2.0;
 			sourceTree = "<group>";
@@ -155,6 +170,7 @@
 				BF53C36E2748D174003E4C02 /* SearchResultCell.xib in Resources */,
 				BF135C24274A392F00B0BE30 /* LoadingCell.xib in Resources */,
 				BF53C35927489840003E4C02 /* Assets.xcassets in Resources */,
+				BF135C30274F620100B0BE30 /* SearchNewsResultCell.xib in Resources */,
 				BF53C36A2748CD43003E4C02 /* NothingFoundCell.xib in Resources */,
 				BF53C3542748983D003E4C02 /* Main.storyboard in Resources */,
 			);
@@ -170,11 +186,15 @@
 				BF135C2A274C560500B0BE30 /* TradeViewController.swift in Sources */,
 				BF53C3512748983D003E4C02 /* SearchStockViewController.swift in Sources */,
 				BF53C34D2748983D003E4C02 /* AppDelegate.swift in Sources */,
+				BF135C32274F657F00B0BE30 /* SearchNewsResultCell.swift in Sources */,
+				BF135C34274F6E7400B0BE30 /* UIImageView+DownloadImage.swift in Sources */,
+				BF135C2C274C66E200B0BE30 /* SearchNewsViewController.swift in Sources */,
 				BF135C26274B325800B0BE30 /* StockDetailViewController.swift in Sources */,
 				BF135C28274B59F400B0BE30 /* StockDetail.swift in Sources */,
 				BF53C3642748BCCE003E4C02 /* SearchResult.swift in Sources */,
 				BF53C3572748983D003E4C02 /* PaperTrader2_0.xcdatamodeld in Sources */,
 				BF53C36D2748D174003E4C02 /* SearchResultCell.swift in Sources */,
+				BF135C2E274F5FB200B0BE30 /* SearchNewsResult.swift in Sources */,
 				BF53C34F2748983D003E4C02 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

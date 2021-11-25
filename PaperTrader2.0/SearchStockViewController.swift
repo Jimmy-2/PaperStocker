@@ -7,8 +7,6 @@
 
 import UIKit
 
-import UIKit
-
 class SearchViewController: UIViewController {
     @IBOutlet var searchBar: UISearchBar! = UISearchBar(frame: .zero)
     @IBOutlet var tableView: UITableView!
@@ -71,6 +69,7 @@ class SearchViewController: UIViewController {
         do {
             let decoder = JSONDecoder()
             let result = try decoder.decode([SearchResult].self, from: data)
+            print(result)
             return result
         } catch {
             print("JSON Error: \(error)")

@@ -25,6 +25,8 @@ class StockDetailViewController: UIViewController {
     @IBOutlet var warningLabel: UILabel!
     @IBOutlet var buyButton: UIButton!
     @IBOutlet var sellButton: UIButton!
+    
+    @IBOutlet var refreshButton: UIButton!
 
     
     var searchResult: SearchResult!
@@ -39,6 +41,8 @@ class StockDetailViewController: UIViewController {
     var previous_close: String?  = "loading"
     var change: String?  = "loading"
     var percent_change: String?  = "loading"
+    
+    var trade: String?
     
     
     
@@ -104,11 +108,27 @@ class StockDetailViewController: UIViewController {
     }
     // MARK: - Action Methods
     @IBAction func buyStock() {
+        trade = "Buy"
+        performSegue(withIdentifier: "ShowTrade", sender: nil)
         
     }
     
     @IBAction func sellStock() {
+        trade = "Sell"
+        performSegue(withIdentifier: "ShowTrade", sender: nil)
         
+    }
+    
+
+    
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowTrade" {
+            let tradeViewController = segue.destination as! TradeViewController
+            tradeViewController.symbol = searchResult.symbol
+            tradeViewController.currentPrice = close
+            tradeViewController.tradeButtonText = trade
+        }
     }
     
     // MARK: - Helper Methods
