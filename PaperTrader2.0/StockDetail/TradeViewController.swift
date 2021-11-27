@@ -10,6 +10,8 @@ import UIKit
 
 class TradeViewController: UIViewController {
     
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
     @IBOutlet var symbolLabel: UILabel!
     @IBOutlet var currentPriceLabel: UILabel!
     @IBOutlet var availableBalanceLabel: UILabel!
@@ -35,15 +37,61 @@ class TradeViewController: UIViewController {
     @IBAction func closeTrade() {
         dismiss(animated: true, completion: nil)
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    @IBAction func doTrade() {
+        createItem(stock: symbol!, stockName: "gamestop", price: currentPrice!, quantity: "13212", value: "211231331231")
+        dismiss(animated: true, completion: nil)
     }
-    */
+    
+    
+    // MARK: Core Data
+
+    func getAllItems() {
+        do {
+             let item = try context.fetch(Balance.fetchRequest())
+        }catch {
+            // error
+        }
+        
+    }
+    
+    func createItem(stock: String, stockName: String, price: String, quantity: String, value: String) {
+        let newItem = Balance(context: context)
+        newItem.stock = stock
+        newItem.stockName = stockName
+        newItem.price = price
+        newItem.quantity = quantity
+        newItem.value = value
+        
+        do {
+            try context.save()
+            
+        }catch {
+            
+        }
+    }
+    
+    func deleteItem(item: Balance) {
+        context.delete(item)
+        
+        do {
+            try context.save()
+        }catch {
+            
+        }
+    }
+    
+    func updateItem(item: Balance, newQuantity: String) {
+        item.quantity = newQuantity
+        do {
+            try context.save()
+        }catch {
+            
+        }
+    }
+    
+    func updatePrice(item: Balance, newPrice: String, newValue: String) {
+        
+    }
 
 }

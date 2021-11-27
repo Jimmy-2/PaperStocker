@@ -7,7 +7,11 @@
         <attribute name="stockName" optional="YES" attributeType="String"/>
         <attribute name="value" optional="YES" attributeType="String"/>
     </entity>
+    <entity name="BalanceAmount" representedClassName="BalanceAmount" syncable="YES">
+        <attribute name="amount" optional="YES" attributeType="String"/>
+    </entity>
     <elements>
         <element name="Balance" positionX="-45" positionY="0" width="128" height="104"/>
+        <element name="BalanceAmount" positionX="-18" positionY="63" width="128" height="44"/>
     </elements>
 </model>

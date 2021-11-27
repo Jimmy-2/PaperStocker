@@ -7,7 +7,7 @@
 
 import UIKit
 
-class StockDetailViewController: UIViewController {
+class StockDetailViewController: UITableViewController {
 
     @IBOutlet var symbolLabel: UILabel!
     @IBOutlet var stockNameLabel: UILabel!
