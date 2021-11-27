@@ -34,7 +34,7 @@ class SearchViewController: UIViewController {
         tableView.register(cellNib, forCellReuseIdentifier: TableView.CellIdentifiers.nothingFoundCell)
         cellNib = UINib(nibName: TableView.CellIdentifiers.loadingCell, bundle: nil)
         tableView.register(cellNib, forCellReuseIdentifier: TableView.CellIdentifiers.loadingCell)
-        searchBar.becomeFirstResponder()
+    
     }
     
     // MARK: - Navigation
@@ -42,8 +42,8 @@ class SearchViewController: UIViewController {
         if segue.identifier == "ShowStockDetail" {
             let detailViewController = segue.destination as! StockDetailViewController
             let indexPath = sender as! IndexPath
-            let searchResult = searchResults[indexPath.row]
-            detailViewController.searchResult = searchResult
+            let searchResultss = searchResults[indexPath.row]
+            detailViewController.searchResult = searchResultss
         }
     }
     

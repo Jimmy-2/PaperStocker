@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 class TradeViewController: UIViewController {
     
     @IBOutlet var symbolLabel: UILabel!
@@ -18,6 +19,7 @@ class TradeViewController: UIViewController {
     var symbol: String?
     var currentPrice: String?
     var tradeButtonText: String?
+
 
     override func viewDidLoad() {
         super.viewDidLoad()

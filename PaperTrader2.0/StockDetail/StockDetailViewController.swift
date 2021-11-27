@@ -27,6 +27,8 @@ class StockDetailViewController: UIViewController {
     @IBOutlet var sellButton: UIButton!
     
     @IBOutlet var refreshButton: UIButton!
+    
+   
 
     
     var searchResult: SearchResult!
@@ -128,6 +130,7 @@ class StockDetailViewController: UIViewController {
             tradeViewController.symbol = searchResult.symbol
             tradeViewController.currentPrice = close
             tradeViewController.tradeButtonText = trade
+            
         }
     }
     

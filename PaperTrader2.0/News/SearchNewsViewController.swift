@@ -72,7 +72,7 @@ class SearchNewsViewController: UIViewController {
   }
 
   func showNetworkError() {
-    let alert = UIAlertController(title: "Whoops...", message: "There was an error accessing the iTunes Store. Please try again.", preferredStyle: .alert)
+    let alert = UIAlertController(title: "Whoops...", message: "There was an error accessing the news search. Please try again.", preferredStyle: .alert)
 
     let action = UIAlertAction(title: "OK", style: .default, handler: nil)
     alert.addAction(action)
@@ -171,6 +171,10 @@ extension SearchNewsViewController: UITableViewDelegate, UITableViewDataSource {
 
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)
+    let selectedNews = searchNewsResults[indexPath.row]
+    if let url = URL(string: selectedNews.newsURLText) {
+        UIApplication.shared.open(url)
+    }
     
   }
 
