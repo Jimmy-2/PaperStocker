@@ -14,6 +14,8 @@ class StockPortfolioViewController: UITableViewController {
     
     var balances = [Balance]()
     
+    var searchResults = [SearchResult]()
+    
     // MARK: Table View Delegates
     override func tableView(
         _ tableView: UITableView,
@@ -28,25 +30,11 @@ class StockPortfolioViewController: UITableViewController {
       ) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(
           withIdentifier: "PortfolioCell",
-          for: indexPath)
+          for: indexPath) as! PortfolioCell
         
         let balance = balances[indexPath.row]
-
-        let symbolLabel = cell.viewWithTag(1001) as! UILabel
-        symbolLabel.text = balance.stock
-
-        let stockNameLabel = cell.viewWithTag(1002) as! UILabel
-        stockNameLabel.text = balance.stockName
         
-        let priceLabel = cell.viewWithTag(1003) as! UILabel
-        priceLabel.text = balance.price
-        
-        let quantityLabel = cell.viewWithTag(1004) as! UILabel
-        quantityLabel.text = balance.quantity
-        
-        let valueLabel = cell.viewWithTag(1005) as! UILabel
-        valueLabel.text = balance.value
-
+        cell.configure(for: balance)
         return cell
     }
     
@@ -70,6 +58,22 @@ class StockPortfolioViewController: UITableViewController {
           }
         
     }
+    
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print("HELLLO")
+      if segue.identifier == "ShowDetailPortfolio" {
+        print("HELLLO")
+        let controller = segue.destination as! StockDetailViewController
+
+        if let indexPath = tableView.indexPath(for: sender as! UITableViewCell) {
+            let balance = balances[indexPath.row]
+            controller.balancePortfolio = balance
+        }
+      }
+    }
+    
+    // MARK: - Core Data
     
     func getAllItems() {
         do {

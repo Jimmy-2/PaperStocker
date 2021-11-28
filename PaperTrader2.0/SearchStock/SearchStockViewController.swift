@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SearchViewController: UIViewController {
+class SearchStockViewController: UIViewController {
     @IBOutlet var searchBar: UISearchBar! = UISearchBar(frame: .zero)
     @IBOutlet var tableView: UITableView!
 
@@ -88,7 +88,7 @@ class SearchViewController: UIViewController {
 }
 
 // MARK: - Search Bar Delegate
-extension SearchViewController: UISearchBarDelegate {
+extension SearchStockViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         performSearch()
       
@@ -143,7 +143,7 @@ extension SearchViewController: UISearchBarDelegate {
 }
 
 // MARK: - Table View Delegate
-extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
+extension SearchStockViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isLoading {
             return 1

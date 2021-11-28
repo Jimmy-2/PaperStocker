@@ -9,10 +9,39 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Options-->
+        <scene sceneID="KhW-Rf-bO7">
+            <objects>
+                <tableViewController id="g3s-cZ-EwT" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="ru7-uH-diL">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="QAK-eh-89e">
+                                <rect key="frame" x="0.0" y="24.5" width="375" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="QAK-eh-89e" id="lFC-S7-wSh">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="g3s-cZ-EwT" id="3uO-7D-h3Y"/>
+                            <outlet property="delegate" destination="g3s-cZ-EwT" id="1nE-dL-SeZ"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="Options" id="SHZ-ne-IOj"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jze-dU-CoH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="934" y="920"/>
+        </scene>
         <!--Search Stock-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController title="Search Stock" interfaceStyle="light" id="BYZ-38-t0r" customClass="SearchViewController" customModule="PaperTrader2_0" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Search Stock" interfaceStyle="light" id="BYZ-38-t0r" customClass="SearchStockViewController" customModule="PaperTrader2_0" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -494,11 +523,12 @@
                         <segue destination="TDW-mW-157" kind="relationship" relationship="viewControllers" id="foE-a3-4Ox"/>
                         <segue destination="MAB-bT-BPZ" kind="relationship" relationship="viewControllers" id="HpD-np-vrl"/>
                         <segue destination="kdZ-64-nM0" kind="relationship" relationship="viewControllers" id="NAI-7n-5C5"/>
+                        <segue destination="g3s-cZ-EwT" kind="relationship" relationship="viewControllers" id="0k9-Ea-TbX"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hnX-5g-HPb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-126" y="74"/>
+            <point key="canvasLocation" x="-174" y="72"/>
         </scene>
         <!--Portfolio-->
         <scene sceneID="WUi-cv-P2u">
@@ -508,9 +538,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="50i-8w-vqc">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        </view>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="liN-Ix-H6N">
+                            <rect key="frame" x="0.0" y="324.00000034679067" width="375" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vel-Gt-Nbg">
+                                    <rect key="frame" x="89" y="12" width="42" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PortfolioCell" rowHeight="75" id="RQW-WW-EYE">
-                                <rect key="frame" x="0.0" y="24.5" width="375" height="75"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="0.0" reuseIdentifier="PortfolioCell" rowHeight="75" id="RQW-WW-EYE" customClass="PortfolioCell" customModule="PaperTrader2_0" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="224.5" width="375" height="75"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="RQW-WW-EYE" id="jLV-DB-vKZ">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="75"/>
@@ -586,6 +635,14 @@
                                         <constraint firstItem="606-PO-ykM" firstAttribute="leading" secondItem="jLV-DB-vKZ" secondAttribute="leadingMargin" id="mja-IT-DsA"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="priceLabel" destination="kvp-6e-zGe" id="0dC-3v-3gK"/>
+                                    <outlet property="quantityLabel" destination="fhB-RC-Rft" id="sGI-fW-VfU"/>
+                                    <outlet property="stockNameLabel" destination="szV-xm-fzt" id="6P1-Gg-3UF"/>
+                                    <outlet property="symbolLabel" destination="606-PO-ykM" id="WeH-Zg-mVf"/>
+                                    <outlet property="valueLabel" destination="nif-28-dBo" id="ujD-8q-rUf"/>
+                                    <segue destination="eIr-gB-Uet" kind="show" identifier="ShowDetailPortfolio" id="fGB-ta-Ycq"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -597,7 +654,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sbz-Q9-MGA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1402.4000000000001" y="-762.36881559220399"/>
+            <point key="canvasLocation" x="2089" y="-762"/>
         </scene>
         <!--Portfolio-->
         <scene sceneID="xhP-XC-w5c">
@@ -614,7 +671,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Rb-Mk-KmJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="487" y="-762"/>
+            <point key="canvasLocation" x="609" y="-762"/>
         </scene>
         <!--Search Stock-->
         <scene sceneID="USh-NB-sII">
@@ -679,9 +736,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BYh-cr-Hy4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="584.79999999999995" y="836.13193403298362"/>
+            <point key="canvasLocation" x="-127" y="920"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="OSj-th-sbx"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="xmark.rectangle" catalog="system" width="128" height="93"/>
         <namedColor name="SearchBar">

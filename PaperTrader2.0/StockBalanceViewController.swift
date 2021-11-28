@@ -1,57 +1,27 @@
 //
-//  TradeViewController.swift
+//  StockBalanceViewController.swift
 //  PaperTrader2.0
 //
-//  Created by Jimmy  on 11/22/21.
+//  Created by Jimmy  on 11/26/21.
 //
 
 import UIKit
 
-
-class TradeViewController: UIViewController {
+class StockPortfolioViewController: UITableViewController {
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-    @IBOutlet var symbolLabel: UILabel!
-    @IBOutlet var currentPriceLabel: UILabel!
-    @IBOutlet var availableBalanceLabel: UILabel!
+    private var models = [Balance]()
     
-    @IBOutlet var tradeButton: UIButton!
-    
-    var symbol: String?
-    var currentPrice: String?
-    var tradeButtonText: String?
-    
-    var balancePortfolioTrade: Balance?
-
-
     override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        symbolLabel.text = symbol
-        currentPriceLabel.text = currentPrice
-        tradeButton.setTitle(tradeButtonText, for: .normal) 
-
-        // Do any additional setup after loading the view.
+        super.viewDidLoad();
+        title = "Paper Trader Portfolio"
+        createItem(stock: "saa", stockName: "sdas", price: "adassad", quantity: "asdsad", value: "dasaas")
     }
     
-    // MARK: Actions
-    @IBAction func closeTrade() {
-        dismiss(animated: true, completion: nil)
-    }
-    
-    @IBAction func doTrade() {
-        //createItem(stock: symbol!, stockName: "gamestop", price: currentPrice!, quantity: "13212", value: "211231331231")
-        deleteItem(item: balancePortfolioTrade!)
-        dismiss(animated: true, completion: nil)
-    }
-    
-    
-    // MARK: Core Data
-
     func getAllItems() {
         do {
-             let item = try context.fetch(Balance.fetchRequest())
+             models = try context.fetch(Balance.fetchRequest())
         }catch {
             // error
         }
@@ -96,5 +66,4 @@ class TradeViewController: UIViewController {
     func updatePrice(item: Balance, newPrice: String, newValue: String) {
         
     }
-
 }

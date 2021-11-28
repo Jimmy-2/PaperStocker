@@ -32,6 +32,8 @@ class StockDetailViewController: UITableViewController {
 
     
     var searchResult: SearchResult!
+    var balancePortfolio: Balance?
+    
     var dataTask: URLSessionDataTask?
     var isLoading = false
     
@@ -46,15 +48,29 @@ class StockDetailViewController: UITableViewController {
     
     var trade: String?
     
+    var stockSymbol: String!
+    var stockName: String!
+    
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        stockNameLabel.text = searchResult.name
-        symbolLabel.text = searchResult.symbol
+        if let balance = balancePortfolio {
+            stockNameLabel.text = balance.stockName
+            symbolLabel.text = balance.stock
+            stockName = balance.stockName
+            stockSymbol = balance.stock
+        }else {
+            stockNameLabel.text = searchResult.name
+            symbolLabel.text = searchResult.symbol
+            stockName = searchResult.name
+            stockSymbol = searchResult.symbol
+            
+        }
+        
       
         
-        if searchResult != nil {
+        if searchResult != nil || balancePortfolio != nil{
             dataTask?.cancel()
             isLoading = true
             warningLabel.text = ""
@@ -88,7 +104,7 @@ class StockDetailViewController: UITableViewController {
                         return
                     }
                 } else {
-                    print("Failure! \(response!)")
+                    print("Failure!")
                     
                 }
                 DispatchQueue.main.async {
@@ -111,7 +127,9 @@ class StockDetailViewController: UITableViewController {
     // MARK: - Action Methods
     @IBAction func buyStock() {
         trade = "Buy"
+        let balance: Balance
         performSegue(withIdentifier: "ShowTrade", sender: nil)
+        
         
     }
     
@@ -127,16 +145,17 @@ class StockDetailViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowTrade" {
             let tradeViewController = segue.destination as! TradeViewController
-            tradeViewController.symbol = searchResult.symbol
+            tradeViewController.symbol = stockSymbol
             tradeViewController.currentPrice = close
             tradeViewController.tradeButtonText = trade
+            tradeViewController.balancePortfolioTrade = balancePortfolio
             
         }
     }
     
     // MARK: - Helper Methods
     func stocksURL() -> URL {
-        let urlString = String(format: "https://api.twelvedata.com/quote?symbol=%@"+"&interval=1day&apikey=313fd5808dc2469abf9380853265bca3", searchResult.symbol!)
+        let urlString = String(format: "https://api.twelvedata.com/quote?symbol=%@"+"&interval=1day&apikey=313fd5808dc2469abf9380853265bca3", stockSymbol!)
         let url = URL(string: urlString)
         return url!
     }
