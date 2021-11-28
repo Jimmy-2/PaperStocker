@@ -110,13 +110,30 @@
 			path = StockDetail;
 			sourceTree = "<group>";
 		};
-		BF53C3402748983D003E4C02 = {
+		BF135C48275328B500B0BE30 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				BF53C3552748983D003E4C02 /* PaperTrader2_0.xcdatamodeld */,
 				BF135C3F2751E8E800B0BE30 /* BalanceAmount+CoreDataClass.swift */,
 				BF135C402751E8E800B0BE30 /* BalanceAmount+CoreDataProperties.swift */,
 				BF135C392750985500B0BE30 /* Balance+CoreDataClass.swift */,
 				BF135C3A2750985500B0BE30 /* Balance+CoreDataProperties.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		BF135C49275328D300B0BE30 /* Portfolio */ = {
+			isa = PBXGroup;
+			children = (
+				BF135C3D2751DE1300B0BE30 /* StockPortfolioViewController.swift */,
+				BF135C452752E79600B0BE30 /* PortfolioCell.swift */,
+			);
+			path = Portfolio;
+			sourceTree = "<group>";
+		};
+		BF53C3402748983D003E4C02 = {
+			isa = PBXGroup;
+			children = (
 				BF53C34B2748983D003E4C02 /* PaperTrader2.0 */,
 				BF53C34A2748983D003E4C02 /* Products */,
 			);
@@ -133,6 +150,8 @@
 		BF53C34B2748983D003E4C02 /* PaperTrader2.0 */ = {
 			isa = PBXGroup;
 			children = (
+				BF135C49275328D300B0BE30 /* Portfolio */,
+				BF135C48275328B500B0BE30 /* CoreData */,
 				BF135C382750932800B0BE30 /* StockDetail */,
 				BF135C37275092FA00B0BE30 /* SearchStock */,
 				BF135C352750924900B0BE30 /* News */,
@@ -144,9 +163,6 @@
 				BF53C35827489840003E4C02 /* Assets.xcassets */,
 				BF53C35A27489840003E4C02 /* LaunchScreen.storyboard */,
 				BF53C35D27489840003E4C02 /* Info.plist */,
-				BF53C3552748983D003E4C02 /* PaperTrader2_0.xcdatamodeld */,
-				BF135C3D2751DE1300B0BE30 /* StockPortfolioViewController.swift */,
-				BF135C452752E79600B0BE30 /* PortfolioCell.swift */,
 			);
 			path = PaperTrader2.0;
 			sourceTree = "<group>";

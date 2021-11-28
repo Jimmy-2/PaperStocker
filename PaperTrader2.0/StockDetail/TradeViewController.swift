@@ -23,6 +23,8 @@ class TradeViewController: UIViewController {
     var tradeButtonText: String?
     
     var balancePortfolioTrade: Balance?
+    
+    private var models = [Balance]()
 
 
     override func viewDidLoad() {
@@ -41,9 +43,11 @@ class TradeViewController: UIViewController {
     }
     
     @IBAction func doTrade() {
-        //createItem(stock: symbol!, stockName: "gamestop", price: currentPrice!, quantity: "13212", value: "211231331231")
-        deleteItem(item: balancePortfolioTrade!)
+        createItem(stock: symbol!, stockName: "gamestop", price: currentPrice!, quantity: "13212", value: "211231331231")
+        //deleteItem(item: balancePortfolioTrade!)
         dismiss(animated: true, completion: nil)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "newDataNotif"), object: nil)
+
     }
     
     
@@ -51,7 +55,10 @@ class TradeViewController: UIViewController {
 
     func getAllItems() {
         do {
-             let item = try context.fetch(Balance.fetchRequest())
+             models = try context.fetch(Balance.fetchRequest())
+            DispatchQueue.main.async {
+                
+            }
         }catch {
             // error
         }

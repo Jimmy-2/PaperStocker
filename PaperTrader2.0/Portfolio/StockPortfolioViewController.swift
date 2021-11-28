@@ -16,11 +16,14 @@ class StockPortfolioViewController: UITableViewController {
     
     var searchResults = [SearchResult]()
     
+    let refreshControll = UIRefreshControl()
+    
     // MARK: Table View Delegates
     override func tableView(
         _ tableView: UITableView,
         numberOfRowsInSection section: Int
     ) -> Int {
+        
         return balances.count
     }
     
@@ -57,6 +60,44 @@ class StockPortfolioViewController: UITableViewController {
             fatalCoreDataError(error)
           }
         
+        refreshControll.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControll.addTarget(self, action: #selector(didPullToRefresh(sender:)), for: UIControl.Event.valueChanged)
+        tableView.addSubview(refreshControll)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.refresh), name: NSNotification.Name(rawValue: "newDataNotif"), object: nil)
+
+        
+    }
+    
+    @objc func didPullToRefresh(sender: AnyObject) {
+        DispatchQueue.main.async {
+            
+            self.refresh()
+            self.refreshControll.endRefreshing()
+        }
+    }
+    
+    @objc func refresh() {
+        DispatchQueue.main.async {
+            let fetchRequest = NSFetchRequest<Balance>()
+            
+            let entity = Balance.entity()
+              fetchRequest.entity = entity
+              // 3
+              let sortDescriptor = NSSortDescriptor(
+                key: "stock",
+                ascending: true)
+              fetchRequest.sortDescriptors = [sortDescriptor]
+              do {
+                // 4
+                self.balances = try self.context.fetch(fetchRequest)
+              } catch {
+                self.fatalCoreDataError(error)
+              }
+            
+            self.tableView.reloadData()
+        }
+        
     }
     
     // MARK: - Navigation
@@ -72,6 +113,8 @@ class StockPortfolioViewController: UITableViewController {
         }
       }
     }
+    
+    
     
     // MARK: - Core Data
     
