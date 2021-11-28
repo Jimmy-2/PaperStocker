@@ -1,0 +1,3 @@
+# iOSProjectPaperTrader
+
+Personal project for a iOS paper trading app. Gifs to be added...
