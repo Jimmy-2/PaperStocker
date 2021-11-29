@@ -15,6 +15,8 @@ class SearchStockViewController: UIViewController {
     var hasSearched = false
     var isLoading = false
     var dataTask: URLSessionDataTask?
+    
+    private let isPortfolio = false
 
     struct TableView {
         struct CellIdentifiers {
@@ -44,6 +46,7 @@ class SearchStockViewController: UIViewController {
             let indexPath = sender as! IndexPath
             let searchResultss = searchResults[indexPath.row]
             detailViewController.searchResult = searchResultss
+            detailViewController.isPortfolio = isPortfolio
         }
     }
     
@@ -55,15 +58,8 @@ class SearchStockViewController: UIViewController {
         return url!
     }
     
-    func performStoreRequest(with url: URL) -> Data? {
-        do {
-            return try Data(contentsOf:url)
-        } catch {
-            print("Download Error: \(error.localizedDescription)")
-            showNetworkError()
-            return nil
-        }
-    }
+   
+    
     
     func parse(data: Data) -> [SearchResult] {
         do {

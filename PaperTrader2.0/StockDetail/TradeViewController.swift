@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 
 class TradeViewController: UIViewController {
@@ -25,6 +26,8 @@ class TradeViewController: UIViewController {
     var balancePortfolioTrade: Balance?
     
     private var models = [Balance]()
+    
+    var isPortfolio: Bool!
 
 
     override func viewDidLoad() {
@@ -43,6 +46,12 @@ class TradeViewController: UIViewController {
     }
     
     @IBAction func doTrade() {
+        if tradeButtonText == "Buy" {
+            
+            
+        }else if tradeButtonText == "Sell" {
+            
+        }
         createItem(stock: symbol!, stockName: "gamestop", price: currentPrice!, quantity: "13212", value: "211231331231")
         //deleteItem(item: balancePortfolioTrade!)
         dismiss(animated: true, completion: nil)
@@ -55,7 +64,8 @@ class TradeViewController: UIViewController {
 
     func getAllItems() {
         do {
-             models = try context.fetch(Balance.fetchRequest())
+            models = try context.fetch(Balance.fetchRequest())
+        
             DispatchQueue.main.async {
                 
             }
