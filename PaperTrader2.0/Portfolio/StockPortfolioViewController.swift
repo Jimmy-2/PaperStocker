@@ -14,9 +14,15 @@ class StockPortfolioViewController: UITableViewController {
     
     var balances = [Balance]()
     
+    var balanceAmount = [BalanceAmount]()
+    
     var searchResults = [SearchResult]()
     
     let refreshControll = UIRefreshControl()
+    
+    @IBOutlet var balanceLabel: UILabel!
+    
+    private let isPortfolio = true
     
     // MARK: Table View Delegates
     override func tableView(
@@ -44,17 +50,19 @@ class StockPortfolioViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad();
+        let defaults = UserDefaults.standard
+        balanceLabel.text = defaults.string(forKey: "balanceAmount")
+        print(defaults.string(forKey: "balanceAmount"))
         let fetchRequest = NSFetchRequest<Balance>()
         
         let entity = Balance.entity()
           fetchRequest.entity = entity
-          // 3
+          
           let sortDescriptor = NSSortDescriptor(
             key: "stock",
             ascending: true)
           fetchRequest.sortDescriptors = [sortDescriptor]
           do {
-            // 4
             balances = try context.fetch(fetchRequest)
           } catch {
             fatalCoreDataError(error)
@@ -69,8 +77,20 @@ class StockPortfolioViewController: UITableViewController {
         
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if userDefaults.defaults.isNew() {
+            let view = storyboard?.instantiateViewController(identifier: "firstTime") as! FirstTimeViewController
+            view.modalPresentationStyle = .fullScreen
+            present(view, animated: true)
+        }
+    }
+    
+    
     @objc func didPullToRefresh(sender: AnyObject) {
         DispatchQueue.main.async {
+            let defaults = UserDefaults.standard
+            self.balanceLabel.text = defaults.string(forKey: "balanceAmount")
             
             self.refresh()
             self.refreshControll.endRefreshing()
@@ -79,17 +99,18 @@ class StockPortfolioViewController: UITableViewController {
     
     @objc func refresh() {
         DispatchQueue.main.async {
+            let defaults = UserDefaults.standard
+            self.balanceLabel.text = defaults.string(forKey: "balanceAmount")
+            
             let fetchRequest = NSFetchRequest<Balance>()
             
             let entity = Balance.entity()
               fetchRequest.entity = entity
-              // 3
               let sortDescriptor = NSSortDescriptor(
                 key: "stock",
                 ascending: true)
               fetchRequest.sortDescriptors = [sortDescriptor]
               do {
-                // 4
                 self.balances = try self.context.fetch(fetchRequest)
               } catch {
                 self.fatalCoreDataError(error)
@@ -109,8 +130,13 @@ class StockPortfolioViewController: UITableViewController {
 
         if let indexPath = tableView.indexPath(for: sender as! UITableViewCell) {
             let balance = balances[indexPath.row]
+            for index in 0...balances.count-1 {
+                print(balances[index])
+            }
             controller.balancePortfolio = balance
+            controller.isPortfolio = isPortfolio
         }
+        
       }
     }
     
@@ -172,5 +198,11 @@ class StockPortfolioViewController: UITableViewController {
         
     }
     let dataSaveFailedNotification = Notification.Name(rawValue: "DataSaveFailedNotification")
+    
+    
+    
+    
+    
 
 }
+

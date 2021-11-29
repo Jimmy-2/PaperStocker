@@ -51,10 +51,13 @@ class StockDetailViewController: UITableViewController {
     var stockSymbol: String!
     var stockName: String!
     
+    var isPortfolio: Bool!
+    
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(isPortfolio)
         if let balance = balancePortfolio {
             stockNameLabel.text = balance.stockName
             symbolLabel.text = balance.stock
@@ -160,16 +163,7 @@ class StockDetailViewController: UITableViewController {
         return url!
     }
     
-    func performStoreRequest(with url: URL) -> Data? {
-        do {
-            return try Data(contentsOf:url)
-        } catch {
-            print("Download Error: \(error.localizedDescription)")
-            showNetworkError()
-            return nil
-        }
-    }
-    
+ 
     func parse(data: Data) {
         do {
             let decoder = JSONDecoder()
