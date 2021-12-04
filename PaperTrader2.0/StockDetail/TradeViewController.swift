@@ -9,7 +9,7 @@ import UIKit
 import CoreData
 
 
-class TradeViewController: UIViewController {
+class TradeViewController: UIViewController, UITextFieldDelegate  {
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
@@ -31,11 +31,18 @@ class TradeViewController: UIViewController {
     private var models = [Balance]()
     
     var isPortfolio: Bool!
+    
+    var portfolioSymbols: [String] = []
+    var portfolioStock: [String] = []
+    var portfolioValue: [String] = []
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        getAllPortfolioItems()
+        print(self.portfolioSymbols)
         
+        quantityTextField.delegate = self
         let defaults = UserDefaults.standard
         availableBalance = defaults.string(forKey: "balanceAmount")
         availableBalanceLabel.text = defaults.string(forKey: "balanceAmount")
@@ -55,58 +62,110 @@ class TradeViewController: UIViewController {
     }
     
     @IBAction func doTrade() {
-        if tradeButtonText == "Buy" {
-            if isPortfolio == true {
-                let quantityToBuy: Double = Double(quantityTextField.text!)!
-                let currentQuantity: Double = Double((balancePortfolioTrade?.quantity)!)!
-                let newQuantity = quantityToBuy+currentQuantity
-                let newValue = newQuantity*Double(currentPrice!)!
-                updateQuantity(item: balancePortfolioTrade!, newQuantity: String(newQuantity))
-                updateValue(item: balancePortfolioTrade!, newValue: String(newValue))
-                //deleteItem(item: balancePortfolioTrade!)
-                
-            }else {
-                var stockValue:Double = Double(currentPrice!)! * Double(quantityTextField.text!)!
-                createItem(stock: symbol!, stockName: stockName!, price: currentPrice!, quantity: quantityTextField.text!, value: String(stockValue))
-                
-            }
+        if(quantityTextField.text == "") {
             
-            
-        }else if tradeButtonText == "Sell" {
-            if isPortfolio == true {
-                let quantityToSell: Double = Double(quantityTextField.text!)!
-                let currentQuantity: Double = Double((balancePortfolioTrade?.quantity)!)!
-                var newQuantity: Double
-                if quantityToSell >= currentQuantity {
-                    newQuantity = 0
+        }else {
+            if tradeButtonText == "Buy" {
+                if isPortfolio == true {
+                    let quantityToBuy: Double = Double(quantityTextField.text!)!
+                    let currentQuantity: Double = Double((balancePortfolioTrade?.quantity)!)!
+                    let newQuantity = quantityToBuy+currentQuantity
+                    let newValue = newQuantity*Double(currentPrice!)!
+                    updateQuantity(item: balancePortfolioTrade!, newQuantity: String(newQuantity))
+                    updateValue(item: balancePortfolioTrade!, newValue: String(newValue))
+                    //deleteItem(item: balancePortfolioTrade!)
+                    
                 }else {
-                    newQuantity = currentQuantity-quantityToSell
+                    if let index = portfolioSymbols.index(of: symbol!) {
+                        print(models[index].quantity)
+                        let quantityToBuy: Double = Double(quantityTextField.text!)!
+                        let currentQuantity: Double = Double((models[index].quantity)!)!
+                        let newQuantity = quantityToBuy+currentQuantity
+                        let newValue = newQuantity*Double(currentPrice!)!
+                        updateQuantity(item: models[index], newQuantity: String(newQuantity))
+                        updateValue(item: models[index], newValue: String(newValue))
+                        
+                    }else {
+                        var stockValue:Double = Double(currentPrice!)! * Double(quantityTextField.text!)!
+                        createItem(stock: symbol!, stockName: stockName!, price: currentPrice!, quantity: quantityTextField.text!, value: String(stockValue))
+                    }
+                    
+                    
                 }
-                let newValue = newQuantity*Double(currentPrice!)!
-                updateQuantity(item: balancePortfolioTrade!, newQuantity: String(newQuantity))
-                updateValue(item: balancePortfolioTrade!, newValue: String(newValue))
-                //deleteItem(item: balancePortfolioTrade!)
                 
-            }else {
+                
+            }else if tradeButtonText == "Sell" {
+                if isPortfolio == true {
+                    let quantityToSell: Double = Double(quantityTextField.text!)!
+                    let currentQuantity: Double = Double((balancePortfolioTrade?.quantity)!)!
+                    
+                    if quantityToSell >= currentQuantity {
+                        deleteItem(item: balancePortfolioTrade!)
+                        
+                    }else {
+                        let newQuantity:Double = currentQuantity-quantityToSell
+                        let newValue = newQuantity*Double(currentPrice!)!
+                        updateQuantity(item: balancePortfolioTrade!, newQuantity: String(newQuantity))
+                        updateValue(item: balancePortfolioTrade!, newValue: String(newValue))
+                    }
+                    
+                    
+                }else {
+                    if let index = portfolioSymbols.index(of: symbol!) {
+                        print(models[index].quantity)
+                        let quantityToSell: Double = Double(quantityTextField.text!)!
+                        let currentQuantity: Double = Double((models[index].quantity)!)!
+                        
+                        if quantityToSell >= currentQuantity {
+                            deleteItem(item: models[index])
+                        }else {
+                            let newQuantity:Double = currentQuantity-quantityToSell
+                            let newValue = newQuantity*Double(currentPrice!)!
+                            updateQuantity(item: models[index], newQuantity: String(newQuantity))
+                            updateValue(item: models[index], newValue: String(newValue))
+                        }
+                        
+                        
+                    }else {
+                       
+                    }
+                }
                 
             }
             
         }
+        
+        
         
         //deleteItem(item: balancePortfolioTrade!)
         dismiss(animated: true, completion: nil)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "newDataNotif"), object: nil)
 
     }
-    
+    //MARK: - Text Field Delegates
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        let allowedChars = "1234567890"
+        let allowedCharSet = CharacterSet(charactersIn: allowedChars)
+        let typedCharSet = CharacterSet(charactersIn: string)
+        
+        return allowedCharSet.isSuperset(of: typedCharSet)
+        return true
+    }
     
     // MARK: Core Data
 
-    func getAllItems() {
+    func getAllPortfolioItems() {
         do {
             models = try context.fetch(Balance.fetchRequest())
-        
+            for index in 0...self.models.count-1 {
+                self.portfolioSymbols.append(self.models[index].stock!)
+            }
+            
+            
             DispatchQueue.main.async {
+                
+                
                 
             }
         }catch {

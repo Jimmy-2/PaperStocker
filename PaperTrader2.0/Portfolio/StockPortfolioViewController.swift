@@ -50,6 +50,8 @@ class StockPortfolioViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad();
+        
+        
         let defaults = UserDefaults.standard
         balanceLabel.text = defaults.string(forKey: "balanceAmount")
         print(defaults.string(forKey: "balanceAmount"))
@@ -64,6 +66,7 @@ class StockPortfolioViewController: UITableViewController {
           fetchRequest.sortDescriptors = [sortDescriptor]
           do {
             balances = try context.fetch(fetchRequest)
+            
           } catch {
             fatalCoreDataError(error)
           }
@@ -74,7 +77,11 @@ class StockPortfolioViewController: UITableViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.refresh), name: NSNotification.Name(rawValue: "newDataNotif"), object: nil)
 
-        
+        print("HELLLLLLO")
+        print(balances.count)
+        for index in 0...balances.count-1 {
+            print(balances[index].price)
+        }
     }
     
     override func viewDidLayoutSubviews() {
