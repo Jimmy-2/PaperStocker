@@ -16,12 +16,15 @@ class TradeViewController: UIViewController {
     @IBOutlet var symbolLabel: UILabel!
     @IBOutlet var currentPriceLabel: UILabel!
     @IBOutlet var availableBalanceLabel: UILabel!
+    @IBOutlet var quantityTextField: UITextField!
     
     @IBOutlet var tradeButton: UIButton!
     
     var symbol: String?
+    var stockName: String?
     var currentPrice: String?
     var tradeButtonText: String?
+    var availableBalance: String?
     
     var balancePortfolioTrade: Balance?
     
@@ -33,9 +36,15 @@ class TradeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let defaults = UserDefaults.standard
+        availableBalance = defaults.string(forKey: "balanceAmount")
+        availableBalanceLabel.text = defaults.string(forKey: "balanceAmount")
+        
         symbolLabel.text = symbol
         currentPriceLabel.text = currentPrice
-        tradeButton.setTitle(tradeButtonText, for: .normal) 
+        tradeButton.setTitle(tradeButtonText, for: .normal)
+        
+        
 
         // Do any additional setup after loading the view.
     }
@@ -47,12 +56,43 @@ class TradeViewController: UIViewController {
     
     @IBAction func doTrade() {
         if tradeButtonText == "Buy" {
+            if isPortfolio == true {
+                let quantityToBuy: Double = Double(quantityTextField.text!)!
+                let currentQuantity: Double = Double((balancePortfolioTrade?.quantity)!)!
+                let newQuantity = quantityToBuy+currentQuantity
+                let newValue = newQuantity*Double(currentPrice!)!
+                updateQuantity(item: balancePortfolioTrade!, newQuantity: String(newQuantity))
+                updateValue(item: balancePortfolioTrade!, newValue: String(newValue))
+                //deleteItem(item: balancePortfolioTrade!)
+                
+            }else {
+                var stockValue:Double = Double(currentPrice!)! * Double(quantityTextField.text!)!
+                createItem(stock: symbol!, stockName: stockName!, price: currentPrice!, quantity: quantityTextField.text!, value: String(stockValue))
+                
+            }
             
             
         }else if tradeButtonText == "Sell" {
+            if isPortfolio == true {
+                let quantityToSell: Double = Double(quantityTextField.text!)!
+                let currentQuantity: Double = Double((balancePortfolioTrade?.quantity)!)!
+                var newQuantity: Double
+                if quantityToSell >= currentQuantity {
+                    newQuantity = 0
+                }else {
+                    newQuantity = currentQuantity-quantityToSell
+                }
+                let newValue = newQuantity*Double(currentPrice!)!
+                updateQuantity(item: balancePortfolioTrade!, newQuantity: String(newQuantity))
+                updateValue(item: balancePortfolioTrade!, newValue: String(newValue))
+                //deleteItem(item: balancePortfolioTrade!)
+                
+            }else {
+                
+            }
             
         }
-        createItem(stock: symbol!, stockName: "gamestop", price: currentPrice!, quantity: "13212", value: "211231331231")
+        
         //deleteItem(item: balancePortfolioTrade!)
         dismiss(animated: true, completion: nil)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "newDataNotif"), object: nil)
@@ -101,8 +141,17 @@ class TradeViewController: UIViewController {
         }
     }
     
-    func updateItem(item: Balance, newQuantity: String) {
+    func updateQuantity(item: Balance, newQuantity: String) {
         item.quantity = newQuantity
+        do {
+            try context.save()
+        }catch {
+            
+        }
+    }
+    
+    func updateValue(item: Balance, newValue: String) {
+        item.value = newValue
         do {
             try context.save()
         }catch {

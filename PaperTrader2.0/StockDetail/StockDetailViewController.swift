@@ -149,9 +149,11 @@ class StockDetailViewController: UITableViewController {
         if segue.identifier == "ShowTrade" {
             let tradeViewController = segue.destination as! TradeViewController
             tradeViewController.symbol = stockSymbol
+            tradeViewController.stockName = stockName
             tradeViewController.currentPrice = close
             tradeViewController.tradeButtonText = trade
             tradeViewController.balancePortfolioTrade = balancePortfolio
+            tradeViewController.isPortfolio = isPortfolio
             
         }
     }
