@@ -14,8 +14,6 @@ class StockPortfolioViewController: UITableViewController {
     
     var balances = [Balance]()
     
-    var balanceAmount = [BalanceAmount]()
-    
     var searchResults = [SearchResult]()
     
     let refreshControll = UIRefreshControl()

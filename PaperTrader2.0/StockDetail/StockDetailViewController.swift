@@ -22,11 +22,11 @@ class StockDetailViewController: UITableViewController {
     @IBOutlet var highLabel: UILabel!
     @IBOutlet var lowLabel: UILabel!
     
-    @IBOutlet var warningLabel: UILabel!
+  
     @IBOutlet var buyButton: UIButton!
     @IBOutlet var sellButton: UIButton!
     
-    @IBOutlet var refreshButton: UIButton!
+    let refreshControll = UIRefreshControl()
     
    
 
@@ -70,63 +70,20 @@ class StockDetailViewController: UITableViewController {
             stockSymbol = searchResult.symbol
             
         }
+        getStockData()
         
-      
+    
+        refreshControll.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControll.addTarget(self, action: #selector(didPullToRefresh(sender:)), for: UIControl.Event.valueChanged)
+        tableView.addSubview(refreshControll)
         
-        if searchResult != nil || balancePortfolio != nil{
-            dataTask?.cancel()
-            isLoading = true
-            warningLabel.text = ""
-            
-            self.updateUI()
-            let apiURL = stocksURL()
-            let session = URLSession.shared
-            dataTask = session.dataTask(with: apiURL) {data, response, error in
-          
-                if let error = error as NSError?, error.code == -999 {
-                    return
-                } else if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
-                    if let data = data {
-                        self.parse(data: data)
-              
-                        DispatchQueue.main.async {
-                            self.isLoading = false
-                            self.updateUI()
-                            if(self.open != nil) {
-                                self.warningLabel.text = ""
-                                self.buyButton.isHidden = false
-                                self.sellButton.isHidden = false
-                            }else {
-                                self.warningLabel.text = "The API has exceeded the amount. Please try again in 1 minute"
-                                self.buyButton.isHidden = true
-                                self.sellButton.isHidden = true
-                            }
-                            
-                        
-                        }
-                        return
-                    }
-                } else {
-                    print("Failure!")
-                    
-                }
-                DispatchQueue.main.async {
-                
-                    self.isLoading = false
-                   
-                    self.showNetworkError()
-                }
-            }
-            dataTask?.resume()
-            
-         
-            
-            
-            
-        }
-
-        // Do any additional setup after loading the view.
     }
+    
+    
+    
+    
+   
+    
     // MARK: - Action Methods
     @IBAction func buyStock() {
         trade = "Buy"
@@ -159,6 +116,72 @@ class StockDetailViewController: UITableViewController {
     }
     
     // MARK: - Helper Methods
+    
+    //refresh stock data
+    @objc func didPullToRefresh(sender: AnyObject) {
+        DispatchQueue.main.async {
+            self.getStockData()
+            self.refreshControll.endRefreshing()
+        }
+    }
+    
+    func getStockData() {
+        if searchResult != nil || balancePortfolio != nil{
+            dataTask?.cancel()
+            isLoading = true
+   
+            
+            self.updateUI()
+            let apiURL = stocksURL()
+            let session = URLSession.shared
+            dataTask = session.dataTask(with: apiURL) {data, response, error in
+          
+                if let error = error as NSError?, error.code == -999 {
+                    return
+                } else if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
+                    if let data = data {
+                        self.parse(data: data)
+              
+                        DispatchQueue.main.async {
+                            self.isLoading = false
+                            self.updateUI()
+                            if(self.open != nil) {
+                             
+                                self.buyButton.isHidden = false
+                                self.sellButton.isHidden = false
+                            }else {
+                                self.showToastMessage2(message: "The API has exceeded the amount. Please try again in 1 minute")
+                                self.buyButton.isHidden = true
+                                self.sellButton.isHidden = true
+                            }
+                            
+                        
+                        }
+                        return
+                    }
+                } else {
+                    print("Failure!")
+                    
+                }
+                DispatchQueue.main.async {
+                
+                    self.isLoading = false
+                   
+                    self.showNetworkError()
+                }
+            }
+            dataTask?.resume()
+            
+         
+            
+            
+            
+        }
+    }
+    
+    
+    
+    
     func stocksURL() -> URL {
         let urlString = String(format: "https://api.twelvedata.com/quote?symbol=%@"+"&interval=1day&apikey=313fd5808dc2469abf9380853265bca3", stockSymbol!)
         let url = URL(string: urlString)
@@ -232,4 +255,37 @@ class StockDetailViewController: UITableViewController {
     }
     */
 
+}
+
+extension UIViewController {
+    func showToastMessage2(message: String) {
+        guard let window = UIApplication.shared.keyWindow else {
+            return
+        }
+        let toastLabel = UILabel()
+        toastLabel.text = message
+        toastLabel.textAlignment = .center
+        toastLabel.numberOfLines = 0
+        toastLabel.lineBreakMode = .byWordWrapping
+        toastLabel.sizeToFit()
+        toastLabel.adjustsFontSizeToFitWidth = true
+        toastLabel.minimumScaleFactor = 0.5
+        toastLabel.font = UIFont.systemFont(ofSize: 18)
+        toastLabel.textColor = UIColor.white
+        toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        
+    
+        
+        
+        toastLabel.frame = CGRect(x: 20, y: 100, width: window.frame.width, height: 75 )
+        toastLabel.center.x = window.center.x
+        toastLabel.layer.cornerRadius = 10
+        toastLabel.layer.masksToBounds = true
+        window.addSubview(toastLabel)
+        
+        UIView.animate(withDuration: 3.0, animations: {toastLabel.alpha = 0}) {
+            (_) in
+            toastLabel.removeFromSuperview()
+        }
+    }
 }

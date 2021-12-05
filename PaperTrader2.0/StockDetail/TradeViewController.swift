@@ -33,27 +33,40 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
     var isPortfolio: Bool!
     
     var portfolioSymbols: [String] = []
-    var portfolioStock: [String] = []
-    var portfolioValue: [String] = []
+    
+    @IBOutlet var availableToBuyLabel: UILabel!
+    @IBOutlet var shareAmountLabel: UILabel!
 
+    var ableToPurchase: Double?
+    var balanceDouble: Double?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        let defaults = UserDefaults.standard
+    
         getAllPortfolioItems()
         print(self.portfolioSymbols)
         
         quantityTextField.delegate = self
-        let defaults = UserDefaults.standard
+
         availableBalance = defaults.string(forKey: "balanceAmount")
         availableBalanceLabel.text = defaults.string(forKey: "balanceAmount")
         
         symbolLabel.text = symbol
         currentPriceLabel.text = currentPrice
+        
+        balanceDouble = Double(availableBalance!)
+        ableToPurchase = balanceDouble!/Double(currentPrice!)!
+        
+        availableToBuyLabel.text = String(format: "%f", ableToPurchase!)
         tradeButton.setTitle(tradeButtonText, for: .normal)
         
-        
-
-        // Do any additional setup after loading the view.
+        if let index = portfolioSymbols.index(of: symbol!) {
+            shareAmountLabel.text = models[index].quantity
+        }else {
+            shareAmountLabel.text = "0"
+           
+        }
     }
     
     // MARK: Actions
@@ -68,27 +81,57 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
             if tradeButtonText == "Buy" {
                 if isPortfolio == true {
                     let quantityToBuy: Double = Double(quantityTextField.text!)!
-                    let currentQuantity: Double = Double((balancePortfolioTrade?.quantity)!)!
-                    let newQuantity = quantityToBuy+currentQuantity
-                    let newValue = newQuantity*Double(currentPrice!)!
-                    updateQuantity(item: balancePortfolioTrade!, newQuantity: String(newQuantity))
-                    updateValue(item: balancePortfolioTrade!, newValue: String(newValue))
-                    //deleteItem(item: balancePortfolioTrade!)
-                    
-                }else {
-                    if let index = portfolioSymbols.index(of: symbol!) {
-                        print(models[index].quantity)
-                        let quantityToBuy: Double = Double(quantityTextField.text!)!
-                        let currentQuantity: Double = Double((models[index].quantity)!)!
+                    if(quantityToBuy > ableToPurchase!) {
+                        showToastMessage(message: "You cannot afford this many shares!")
+                    }else {
+                        let currentQuantity: Double = Double((balancePortfolioTrade?.quantity)!)!
                         let newQuantity = quantityToBuy+currentQuantity
                         let newValue = newQuantity*Double(currentPrice!)!
-                        updateQuantity(item: models[index], newQuantity: String(newQuantity))
-                        updateValue(item: models[index], newValue: String(newValue))
+                        updateQuantity(item: balancePortfolioTrade!, newQuantity: String(newQuantity))
+                        updateValue(item: balancePortfolioTrade!, newValue: String(newValue))
                         
-                    }else {
-                        var stockValue:Double = Double(currentPrice!)! * Double(quantityTextField.text!)!
-                        createItem(stock: symbol!, stockName: stockName!, price: currentPrice!, quantity: quantityTextField.text!, value: String(stockValue))
+                        
+                        var spentAmount: Double? = quantityToBuy*Double(currentPrice!)!
+                        balanceDouble = balanceDouble! - spentAmount!
+                        var newBalance:String? = String(format: "%f", balanceDouble!)
+                        let defaults = UserDefaults.standard
+                        defaults.set(newBalance, forKey: "balanceAmount")
+                        //deleteItem(item: balancePortfolioTrade!)
                     }
+                    
+                    
+                }else {
+                    let quantityToBuy: Double = Double(quantityTextField.text!)!
+                    if(quantityToBuy > ableToPurchase!) {
+                        showToastMessage(message: "You cannot afford this many shares!")
+                    }else {
+                        //check if stock exists in database and if it does, get the index of it from database
+                        if let index = portfolioSymbols.index(of: symbol!) {
+                            print(models[index].quantity)
+                            let currentQuantity: Double = Double((models[index].quantity)!)!
+                            let newQuantity = quantityToBuy+currentQuantity
+                            let newValue = newQuantity*Double(currentPrice!)!
+                            updateQuantity(item: models[index], newQuantity: String(newQuantity))
+                            updateValue(item: models[index], newValue: String(newValue))
+                            
+                            var spentAmount: Double? = quantityToBuy*Double(currentPrice!)!
+                            balanceDouble = balanceDouble! - spentAmount!
+                            var newBalance:String? = String(format: "%f", balanceDouble!)
+                            let defaults = UserDefaults.standard
+                            defaults.set(newBalance, forKey: "balanceAmount")
+                            
+                        }else {
+                            var stockValue:Double = Double(currentPrice!)! * Double(quantityTextField.text!)!
+                            createItem(stock: symbol!, stockName: stockName!, price: currentPrice!, quantity: quantityTextField.text!, value: String(stockValue))
+                            
+                            var spentAmount: Double? = quantityToBuy*Double(currentPrice!)!
+                            balanceDouble = balanceDouble! - spentAmount!
+                            var newBalance:String? = String(format: "%f", balanceDouble!)
+                            let defaults = UserDefaults.standard
+                            defaults.set(newBalance, forKey: "balanceAmount")
+                        }
+                    }
+                    
                     
                     
                 }
@@ -127,6 +170,7 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
                         
                         
                     }else {
+                        showToastMessage(message: "You cannot sell a stock you do not own!")
                        
                     }
                 }
@@ -150,7 +194,6 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
         let typedCharSet = CharacterSet(charactersIn: string)
         
         return allowedCharSet.isSuperset(of: typedCharSet)
-        return true
     }
     
     // MARK: Core Data
@@ -222,4 +265,34 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
         
     }
 
+}
+
+extension UIViewController {
+    func showToastMessage(message: String) {
+        guard let window = UIApplication.shared.keyWindow else {
+            return
+        }
+        let toastLabel = UILabel()
+        toastLabel.text = message
+        toastLabel.textAlignment = .center
+        toastLabel.font = UIFont.systemFont(ofSize: 18)
+        toastLabel.textColor = UIColor.white
+        toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        toastLabel.numberOfLines = 0
+        
+        let textSize = toastLabel.intrinsicContentSize
+        let labelHeight = (textSize.width / window.frame.width) * 30
+        let adjustedHeight = max(labelHeight, textSize.height + 20)
+        
+        toastLabel.frame = CGRect(x: 20, y: 100, width: window.frame.width, height: adjustedHeight)
+        toastLabel.center.x = window.center.x
+        toastLabel.layer.cornerRadius = 10
+        toastLabel.layer.masksToBounds = true
+        window.addSubview(toastLabel)
+        
+        UIView.animate(withDuration: 3.0, animations: {toastLabel.alpha = 0}) {
+            (_) in
+            toastLabel.removeFromSuperview()
+        }
+    }
 }
