@@ -421,8 +421,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KvQ-Oz-PqS" userLabel="Pop-up View">
-                                <rect key="frame" x="47.5" y="93" width="280" height="280"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KvQ-Oz-PqS" userLabel="Pop-up View">
+                                <rect key="frame" x="47.5" y="100" width="280" height="280"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Price:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c82-h4-ZEH">
                                         <rect key="frame" x="8" y="48" width="106" height="21"/>
@@ -563,6 +563,7 @@
                         <viewLayoutGuide key="safeArea" id="V7A-EU-9cG"/>
                         <color key="backgroundColor" name="StockName"/>
                         <constraints>
+                            <constraint firstItem="KvQ-Oz-PqS" firstAttribute="top" secondItem="V7A-EU-9cG" secondAttribute="top" constant="100" id="juk-Od-wye"/>
                             <constraint firstItem="KvQ-Oz-PqS" firstAttribute="centerX" secondItem="JZL-1A-8uj" secondAttribute="centerX" id="pqA-sM-Bjn"/>
                         </constraints>
                     </view>
@@ -570,6 +571,7 @@
                         <outlet property="availableBalanceLabel" destination="zHo-p8-bWz" id="s9c-AZ-Mn7"/>
                         <outlet property="availableToBuyLabel" destination="pcj-8w-VPc" id="jza-Vb-j7f"/>
                         <outlet property="currentPriceLabel" destination="Nx0-tQ-8pb" id="0Ek-n8-Rpx"/>
+                        <outlet property="popupView" destination="KvQ-Oz-PqS" id="Lwu-xB-vVy"/>
                         <outlet property="quantityTextField" destination="ivk-KK-jJn" id="xNT-uE-NdH"/>
                         <outlet property="shareAmountLabel" destination="LH6-1h-mU3" id="8Mo-fW-KIS"/>
                         <outlet property="symbolLabel" destination="kan-Yd-mKe" id="xEz-aT-EZ3"/>

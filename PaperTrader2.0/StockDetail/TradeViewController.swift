@@ -13,6 +13,8 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
+    @IBOutlet var popupView: UIView!
+    
     @IBOutlet var symbolLabel: UILabel!
     @IBOutlet var currentPriceLabel: UILabel!
     @IBOutlet var availableBalanceLabel: UILabel!
@@ -20,11 +22,14 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
     
     @IBOutlet var tradeButton: UIButton!
     
+    
+    
     var symbol: String?
     var stockName: String?
     var currentPrice: String?
     var tradeButtonText: String?
     var availableBalance: String?
+    
     
     var balancePortfolioTrade: Balance?
     
@@ -42,6 +47,13 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        popupView.layer.cornerRadius = 10
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(closeTrade))
+        gestureRecognizer.cancelsTouchesInView = false
+        gestureRecognizer.delegate = self
+        view.addGestureRecognizer(gestureRecognizer)
+        
+        
         let defaults = UserDefaults.standard
     
         getAllPortfolioItems()
@@ -179,13 +191,16 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
             
         }
         
-        
-        
+
         //deleteItem(item: balancePortfolioTrade!)
         dismiss(animated: true, completion: nil)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "newDataNotif"), object: nil)
 
     }
+    
+    
+    
+    
     //MARK: - Text Field Delegates
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
@@ -194,6 +209,11 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
         let typedCharSet = CharacterSet(charactersIn: string)
         
         return allowedCharSet.isSuperset(of: typedCharSet)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
     }
     
     // MARK: Core Data
@@ -265,6 +285,13 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
         
     }
 
+}
+
+
+extension TradeViewController: UIGestureRecognizerDelegate {
+  func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+    return (touch.view === self.view)
+  }
 }
 
 extension UIViewController {
