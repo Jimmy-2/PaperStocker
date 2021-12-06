@@ -18,7 +18,15 @@ class StockPortfolioViewController: UITableViewController {
     
     let refreshControll = UIRefreshControl()
     
+    var totalValueDouble: Double = 0.0
+    
+    var batchRequestString: String = ""
+    
     @IBOutlet var balanceLabel: UILabel!
+    @IBOutlet var totalValueLabel: UILabel!
+    
+    var newPrices: [String:String] = [:]
+    
     
     private let isPortfolio = true
     
@@ -56,19 +64,48 @@ class StockPortfolioViewController: UITableViewController {
         let fetchRequest = NSFetchRequest<Balance>()
         
         let entity = Balance.entity()
-          fetchRequest.entity = entity
+        fetchRequest.entity = entity
           
-          let sortDescriptor = NSSortDescriptor(
+        let sortDescriptor = NSSortDescriptor(
             key: "stock",
             ascending: true)
-          fetchRequest.sortDescriptors = [sortDescriptor]
-          do {
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        do {
             balances = try context.fetch(fetchRequest)
             
-          } catch {
+        } catch {
             fatalCoreDataError(error)
-          }
+        }
+        for (index, stock) in balances.enumerated(){
+            batchRequestString = batchRequestString+balances[index].stock!
+            
+            
+        }
+        print("HELLLLLLLLLLO")
+        print(batchRequestString)
         
+        
+        
+        
+        
+        
+        
+        
+        for (index, stock) in balances.enumerated(){
+            var stockValue: Double = Double(balances[index].value!)!
+            totalValueDouble = totalValueDouble + stockValue
+            
+            print(balances[index].value)
+            print("Hello")
+        }
+        
+        
+        
+        
+        var balanceDoub = Double(defaults.string(forKey: "balanceAmount")!)
+        totalValueDouble = totalValueDouble + balanceDoub!
+        totalValueLabel.text = String(format: "%f", totalValueDouble)
+       
         refreshControll.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControll.addTarget(self, action: #selector(didPullToRefresh(sender:)), for: UIControl.Event.valueChanged)
         tableView.addSubview(refreshControll)
@@ -77,9 +114,7 @@ class StockPortfolioViewController: UITableViewController {
 
         print("HELLLLLLO")
         print(balances.count)
-        for index in 0...balances.count-1 {
-            print(balances[index].price)
-        }
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -98,12 +133,14 @@ class StockPortfolioViewController: UITableViewController {
             self.balanceLabel.text = defaults.string(forKey: "balanceAmount")
             
             self.refresh()
+            self.newPrices["aapl"] = "123HELLLO"
+            print(self.newPrices["aapl"])
             self.refreshControll.endRefreshing()
         }
     }
     
     @objc func refresh() {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [self] in
             let defaults = UserDefaults.standard
             self.balanceLabel.text = defaults.string(forKey: "balanceAmount")
             
@@ -121,6 +158,21 @@ class StockPortfolioViewController: UITableViewController {
                 self.fatalCoreDataError(error)
               }
             
+            
+            
+            
+            totalValueDouble = 0.0
+            for (index, stock) in self.balances.enumerated(){
+                var stockValue: Double = Double(self.balances[index].value!)!
+                totalValueDouble = totalValueDouble + stockValue
+                
+                print(self.balances[index].value)
+                print("Hello")
+            }
+            var balanceDoub = Double(defaults.string(forKey: "balanceAmount")!)
+            totalValueDouble = totalValueDouble + balanceDoub!
+            totalValueLabel.text = String(format: "%f", totalValueDouble)
+            
             self.tableView.reloadData()
         }
         
@@ -135,9 +187,7 @@ class StockPortfolioViewController: UITableViewController {
 
         if let indexPath = tableView.indexPath(for: sender as! UITableViewCell) {
             let balance = balances[indexPath.row]
-            for index in 0...balances.count-1 {
-                print(balances[index])
-            }
+            
             controller.balancePortfolio = balance
             controller.isPortfolio = isPortfolio
         }
@@ -158,25 +208,8 @@ class StockPortfolioViewController: UITableViewController {
         
     }
     
-    func createItem(stock: String, stockName: String, price: String, quantity: String, value: String) {
-        let newItem = Balance(context: context)
-        newItem.stock = stock
-        newItem.stockName = stockName
-        newItem.price = price
-        newItem.quantity = quantity
-        newItem.value = value
-        
-        do {
-            try context.save()
-            
-        }catch {
-            
-        }
-    }
-    
-    func deleteItem(item: Balance) {
-        context.delete(item)
-        
+    func updateValue(item: Balance, newValue: String) {
+        item.value = newValue
         do {
             try context.save()
         }catch {
@@ -184,17 +217,13 @@ class StockPortfolioViewController: UITableViewController {
         }
     }
     
-    func updateItem(item: Balance, newQuantity: String) {
-        item.quantity = newQuantity
+    func updatePrice(item: Balance, newValue: String) {
+        item.price = newValue
         do {
             try context.save()
         }catch {
             
         }
-    }
-    
-    func updatePrice(item: Balance, newPrice: String, newValue: String) {
-        
     }
     
     func fatalCoreDataError(_ error: Error) {

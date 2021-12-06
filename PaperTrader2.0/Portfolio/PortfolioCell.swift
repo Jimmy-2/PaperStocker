@@ -33,6 +33,7 @@ class PortfolioCell: UITableViewCell {
     func configure(for balance: Balance) {
         symbolLabel.text = balance.stock
 
+        stockNameLabel.sizeToFit()
         stockNameLabel.text = balance.stockName
     
         priceLabel.text = balance.price
