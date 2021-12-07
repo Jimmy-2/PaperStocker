@@ -36,11 +36,14 @@ class PortfolioCell: UITableViewCell {
         stockNameLabel.sizeToFit()
         stockNameLabel.text = balance.stockName
     
-        priceLabel.text = balance.price
+        var priceDoub: Double = Double(balance.price!)!
+        priceLabel.text = String(format: "%.2f", priceDoub)
     
         quantityLabel.text = balance.quantity
         
-        valueLabel.text = balance.value
+        var valueDoub: Double = Double(balance.value!)!
+        valueLabel.text = String(format: "%.2f", valueDoub)
+        
     }
 
 }

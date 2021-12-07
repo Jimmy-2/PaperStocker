@@ -219,7 +219,7 @@ class StockDetailViewController: UITableViewController {
     }
     
     func showNetworkError() {
-      let alert = UIAlertController(title: "Whoops...", message: "There was an error accessing the search results. Please try again.", preferredStyle: .alert)
+      let alert = UIAlertController(title: "Whoops...", message: "There was an error accessing the stock details results. Please try again.", preferredStyle: .alert)
 
       let action = UIAlertAction(title: "OK", style: .default, handler: nil)
       alert.addAction(action)

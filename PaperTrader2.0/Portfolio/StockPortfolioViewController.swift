@@ -30,6 +30,13 @@ class StockPortfolioViewController: UITableViewController {
     
     private let isPortfolio = true
     
+    
+    var stockPortfolio = [StockPortfolio]()
+    var dataTask: URLSessionDataTask?
+    var isLoading = false
+    
+    
+    
     // MARK: Table View Delegates
     override func tableView(
         _ tableView: UITableView,
@@ -77,12 +84,12 @@ class StockPortfolioViewController: UITableViewController {
             fatalCoreDataError(error)
         }
         for (index, stock) in balances.enumerated(){
-            batchRequestString = batchRequestString+balances[index].stock!
+            batchRequestString = batchRequestString+balances[index].stock!+","
             
             
         }
-        print("HELLLLLLLLLLO")
-        print(batchRequestString)
+        getNewPrices()
+        
         
         
         
@@ -102,7 +109,7 @@ class StockPortfolioViewController: UITableViewController {
         
         
         
-        var balanceDoub = Double(defaults.string(forKey: "balanceAmount")!)
+        var balanceDoub: Double? = Double(defaults.string(forKey: "balanceAmount") ?? "0.0")
         totalValueDouble = totalValueDouble + balanceDoub!
         totalValueLabel.text = String(format: "%f", totalValueDouble)
        
@@ -126,6 +133,7 @@ class StockPortfolioViewController: UITableViewController {
         }
     }
     
+    //MARK: - Refresh Methods
     
     @objc func didPullToRefresh(sender: AnyObject) {
         DispatchQueue.main.async {
@@ -176,6 +184,67 @@ class StockPortfolioViewController: UITableViewController {
             self.tableView.reloadData()
         }
         
+    }
+    
+    
+    // MARK: - Helper Methods
+    func getNewPrices() {
+        dataTask?.cancel()
+        isLoading = true
+        
+        stockPortfolio = []
+
+        let url = stocksURL()
+        let session = URLSession.shared
+        dataTask = session.dataTask(with: url) {data, response, error in
+      
+            if let error = error as NSError?, error.code == -999 {
+                return
+            } else if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
+                if let data = data {
+                    self.stockPortfolio = self.parse(data: data)
+                    print("HELLLLLLLLLLO")
+                    print(self.stockPortfolio[0].price)
+                    DispatchQueue.main.async {
+                        self.isLoading = false
+                    }
+                    return
+                }
+            } else {
+                print("Failure! \(response!)")
+            }
+            DispatchQueue.main.async {
+                self.isLoading = false
+                self.showNetworkError()
+            }
+        }
+        dataTask?.resume()
+    }
+    
+    func stocksURL() -> URL {
+        let urlString = String(format: "https://financialmodelingprep.com/api/v3/quote/"+batchRequestString+"?apikey=d6d32343ce4ed4d79945c94ca7c9c383")
+        let url = URL(string: urlString)
+        return url!
+    }
+    
+    func parse(data: Data) -> [StockPortfolio] {
+        do {
+            print("HEYHEYHELLO")
+            let decoder = JSONDecoder()
+            let result = try decoder.decode([StockPortfolio].self, from: data)
+            return result
+        } catch {
+            print("JSON Error: \(error)")
+            return []
+        }
+    }
+    
+    func showNetworkError() {
+      let alert = UIAlertController(title: "Whoops...", message: "There was an error refreshing the stock information. Please try again.", preferredStyle: .alert)
+
+      let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+      alert.addAction(action)
+      present(alert, animated: true, completion: nil)
     }
     
     // MARK: - Navigation
