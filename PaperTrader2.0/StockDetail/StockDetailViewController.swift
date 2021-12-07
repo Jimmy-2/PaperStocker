@@ -22,11 +22,11 @@ class StockDetailViewController: UITableViewController {
     @IBOutlet var highLabel: UILabel!
     @IBOutlet var lowLabel: UILabel!
     
-    @IBOutlet var warningLabel: UILabel!
+  
     @IBOutlet var buyButton: UIButton!
     @IBOutlet var sellButton: UIButton!
     
-    @IBOutlet var refreshButton: UIButton!
+    let refreshControll = UIRefreshControl()
     
    
 
@@ -70,13 +70,66 @@ class StockDetailViewController: UITableViewController {
             stockSymbol = searchResult.symbol
             
         }
+        getStockData()
         
-      
+    
+        refreshControll.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControll.addTarget(self, action: #selector(didPullToRefresh(sender:)), for: UIControl.Event.valueChanged)
+        tableView.addSubview(refreshControll)
         
+    }
+    
+    
+    
+    
+   
+    
+    // MARK: - Action Methods
+    @IBAction func buyStock() {
+        trade = "Buy"
+        let balance: Balance
+        performSegue(withIdentifier: "ShowTrade", sender: nil)
+        
+        
+    }
+    
+    @IBAction func sellStock() {
+        trade = "Sell"
+        performSegue(withIdentifier: "ShowTrade", sender: nil)
+        
+    }
+    
+
+    
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowTrade" {
+            let tradeViewController = segue.destination as! TradeViewController
+            tradeViewController.symbol = stockSymbol
+            tradeViewController.stockName = stockName
+            tradeViewController.currentPrice = close
+            tradeViewController.tradeButtonText = trade
+            tradeViewController.balancePortfolioTrade = balancePortfolio
+            tradeViewController.isPortfolio = isPortfolio
+            
+        }
+    }
+    
+    // MARK: - Helper Methods
+    
+    //refresh stock data
+    @objc func didPullToRefresh(sender: AnyObject) {
+        DispatchQueue.main.async {
+            self.getStockData()
+            self.refreshControll.endRefreshing()
+        }
+    }
+    
+    func getStockData() {
         if searchResult != nil || balancePortfolio != nil{
             dataTask?.cancel()
             isLoading = true
-            warningLabel.text = ""
+   
             
             self.updateUI()
             let apiURL = stocksURL()
@@ -93,11 +146,11 @@ class StockDetailViewController: UITableViewController {
                             self.isLoading = false
                             self.updateUI()
                             if(self.open != nil) {
-                                self.warningLabel.text = ""
+                             
                                 self.buyButton.isHidden = false
                                 self.sellButton.isHidden = false
                             }else {
-                                self.warningLabel.text = "The API has exceeded the amount. Please try again in 1 minute"
+                                self.showToastMessage2(message: "The API has exceeded the amount. Please try again in 1 minute")
                                 self.buyButton.isHidden = true
                                 self.sellButton.isHidden = true
                             }
@@ -124,39 +177,11 @@ class StockDetailViewController: UITableViewController {
             
             
         }
-
-        // Do any additional setup after loading the view.
-    }
-    // MARK: - Action Methods
-    @IBAction func buyStock() {
-        trade = "Buy"
-        let balance: Balance
-        performSegue(withIdentifier: "ShowTrade", sender: nil)
-        
-        
     }
     
-    @IBAction func sellStock() {
-        trade = "Sell"
-        performSegue(withIdentifier: "ShowTrade", sender: nil)
-        
-    }
     
-
     
-    // MARK: - Navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "ShowTrade" {
-            let tradeViewController = segue.destination as! TradeViewController
-            tradeViewController.symbol = stockSymbol
-            tradeViewController.currentPrice = close
-            tradeViewController.tradeButtonText = trade
-            tradeViewController.balancePortfolioTrade = balancePortfolio
-            
-        }
-    }
     
-    // MARK: - Helper Methods
     func stocksURL() -> URL {
         let urlString = String(format: "https://api.twelvedata.com/quote?symbol=%@"+"&interval=1day&apikey=313fd5808dc2469abf9380853265bca3", stockSymbol!)
         let url = URL(string: urlString)
@@ -194,7 +219,7 @@ class StockDetailViewController: UITableViewController {
     }
     
     func showNetworkError() {
-      let alert = UIAlertController(title: "Whoops...", message: "There was an error accessing the search results. Please try again.", preferredStyle: .alert)
+      let alert = UIAlertController(title: "Whoops...", message: "There was an error accessing the stock details results. Please try again.", preferredStyle: .alert)
 
       let action = UIAlertAction(title: "OK", style: .default, handler: nil)
       alert.addAction(action)
@@ -230,4 +255,37 @@ class StockDetailViewController: UITableViewController {
     }
     */
 
+}
+
+extension UIViewController {
+    func showToastMessage2(message: String) {
+        guard let window = UIApplication.shared.keyWindow else {
+            return
+        }
+        let toastLabel = UILabel()
+        toastLabel.text = message
+        toastLabel.textAlignment = .center
+        toastLabel.numberOfLines = 0
+        toastLabel.lineBreakMode = .byWordWrapping
+        toastLabel.sizeToFit()
+        toastLabel.adjustsFontSizeToFitWidth = true
+        toastLabel.minimumScaleFactor = 0.5
+        toastLabel.font = UIFont.systemFont(ofSize: 18)
+        toastLabel.textColor = UIColor.white
+        toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        
+    
+        
+        
+        toastLabel.frame = CGRect(x: 20, y: 100, width: window.frame.width, height: 75 )
+        toastLabel.center.x = window.center.x
+        toastLabel.layer.cornerRadius = 10
+        toastLabel.layer.masksToBounds = true
+        window.addSubview(toastLabel)
+        
+        UIView.animate(withDuration: 3.0, animations: {toastLabel.alpha = 0}) {
+            (_) in
+            toastLabel.removeFromSuperview()
+        }
+    }
 }
