@@ -52,8 +52,7 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
         gestureRecognizer.cancelsTouchesInView = false
         gestureRecognizer.delegate = self
         view.addGestureRecognizer(gestureRecognizer)
-        
-        
+      
         let defaults = UserDefaults.standard
     
         getAllPortfolioItems()
@@ -62,7 +61,8 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
         quantityTextField.delegate = self
 
         availableBalance = defaults.string(forKey: "balanceAmount")
-        availableBalanceLabel.text = defaults.string(forKey: "balanceAmount")
+        let availableBalanceDoub: Double = Double(availableBalance!)!
+        availableBalanceLabel.text = String(format: "%.2f", availableBalanceDoub)
         
         symbolLabel.text = symbol
         currentPriceLabel.text = currentPrice
@@ -70,7 +70,7 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
         balanceDouble = Double(availableBalance!)
         ableToPurchase = balanceDouble!/Double(currentPrice!)!
         
-        availableToBuyLabel.text = String(format: "%f", ableToPurchase!)
+        availableToBuyLabel.text = String(format: "%.0f", ableToPurchase!)
         tradeButton.setTitle(tradeButtonText, for: .normal)
         
         if let index = portfolioSymbols.index(of: symbol!) {

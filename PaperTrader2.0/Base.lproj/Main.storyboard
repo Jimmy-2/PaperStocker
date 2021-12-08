@@ -422,7 +422,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KvQ-Oz-PqS" userLabel="Pop-up View">
-                                <rect key="frame" x="47.5" y="100" width="280" height="280"/>
+                                <rect key="frame" x="47.5" y="183.5" width="280" height="280"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Price:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c82-h4-ZEH">
                                         <rect key="frame" x="8" y="48" width="106" height="21"/>
@@ -477,7 +477,7 @@
                                             <constraint firstAttribute="width" constant="200" id="Xei-p8-5pd"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sPw-aP-4yJ">
                                         <rect key="frame" x="100" y="237" width="80" height="35"/>
@@ -563,7 +563,8 @@
                         <viewLayoutGuide key="safeArea" id="V7A-EU-9cG"/>
                         <color key="backgroundColor" name="StockName"/>
                         <constraints>
-                            <constraint firstItem="KvQ-Oz-PqS" firstAttribute="top" secondItem="V7A-EU-9cG" secondAttribute="top" constant="100" id="juk-Od-wye"/>
+                            <constraint firstItem="KvQ-Oz-PqS" firstAttribute="centerX" secondItem="JZL-1A-8uj" secondAttribute="centerX" id="GQV-0f-Vq7"/>
+                            <constraint firstItem="KvQ-Oz-PqS" firstAttribute="centerY" secondItem="JZL-1A-8uj" secondAttribute="centerY" id="Q36-Pf-5UN"/>
                             <constraint firstItem="KvQ-Oz-PqS" firstAttribute="centerX" secondItem="JZL-1A-8uj" secondAttribute="centerX" id="pqA-sM-Bjn"/>
                         </constraints>
                     </view>
