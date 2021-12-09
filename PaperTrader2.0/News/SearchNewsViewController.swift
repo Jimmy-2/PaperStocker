@@ -27,13 +27,15 @@ class SearchNewsViewController: UIViewController {
     
     
     override func viewDidLoad() {
-        tableView.contentInset = UIEdgeInsets(top: 56, left: 0, bottom: 0, right: 0)
+        navigationItem.titleView = searchBar
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         var cellNib = UINib(nibName: TableView.CellIdentifiers.searchResultCell, bundle: nil)
         tableView.register(cellNib, forCellReuseIdentifier: TableView.CellIdentifiers.searchResultCell)
         cellNib = UINib(nibName: TableView.CellIdentifiers.nothingFoundCell, bundle: nil)
         tableView.register(cellNib, forCellReuseIdentifier: TableView.CellIdentifiers.nothingFoundCell)
         cellNib = UINib(nibName: TableView.CellIdentifiers.loadingCell, bundle: nil)
         tableView.register(cellNib, forCellReuseIdentifier: TableView.CellIdentifiers.loadingCell)
+    
     }
     
     // MARK: - Navigation
@@ -103,7 +105,7 @@ extension SearchNewsViewController: UISearchBarDelegate {
       searchNewsResults = []
 
       let url = newsURL(searchText: searchBar.text!)
-        print(url)
+        
     
       let session = URLSession.shared
       dataTask = session.dataTask(with: url) {data, response, error in

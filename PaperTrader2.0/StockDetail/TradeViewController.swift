@@ -95,8 +95,11 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
                     let quantityToBuy: Double = Double(quantityTextField.text!)!
                     if(quantityToBuy > ableToPurchase!) {
                         showToastMessage(message: "You cannot afford this many shares!")
+                    }else if (quantityToBuy == 0) {
+                        showToastMessage(message: "Please enter a number greater than 0!")
+                        
                     }else {
-                        let currentQuantity: Double = Double((balancePortfolioTrade?.quantity)!)!
+                        let currentQuantity: Double = Double((balancePortfolioTrade?.quantity ?? "0"))!
                         let newQuantity = quantityToBuy+currentQuantity
                         let newValue = newQuantity*Double(currentPrice!)!
                         updateQuantity(item: balancePortfolioTrade!, newQuantity: String(newQuantity))
@@ -108,6 +111,7 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
                         var newBalance:String? = String(format: "%f", balanceDouble!)
                         let defaults = UserDefaults.standard
                         defaults.set(newBalance, forKey: "balanceAmount")
+                        showToastMessage2(message: "You have successfully purchased " + quantityTextField.text! + " shares!")
                         //deleteItem(item: balancePortfolioTrade!)
                     }
                     
@@ -131,6 +135,7 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
                             var newBalance:String? = String(format: "%f", balanceDouble!)
                             let defaults = UserDefaults.standard
                             defaults.set(newBalance, forKey: "balanceAmount")
+                            showToastMessage2(message: "You have successfully purchased " + quantityTextField.text! + " shares!")
                             
                         }else {
                             var stockValue:Double = Double(currentPrice!)! * Double(quantityTextField.text!)!
@@ -141,6 +146,8 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
                             var newBalance:String? = String(format: "%f", balanceDouble!)
                             let defaults = UserDefaults.standard
                             defaults.set(newBalance, forKey: "balanceAmount")
+                            showToastMessage2(message: "You have successfully purchased " + quantityTextField.text! + " shares!")
+                            
                         }
                     }
                     
@@ -162,6 +169,7 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
                         var newBalance:String? = String(format: "%f", balanceDouble!)
                         let defaults = UserDefaults.standard
                         defaults.set(newBalance, forKey: "balanceAmount")
+                        showToastMessage2(message: "You have successfully sold all your shares of " + symbol!)
                         
                     }else {
                         let newQuantity:Double = currentQuantity-quantityToSell
@@ -173,6 +181,7 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
                         var newBalance:String? = String(format: "%f", balanceDouble!)
                         let defaults = UserDefaults.standard
                         defaults.set(newBalance, forKey: "balanceAmount")
+                        showToastMessage(message: "You have successfully sold " + quantityTextField.text! + " shares!")
                     }
                     
                     
@@ -189,6 +198,7 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
                             var newBalance:String? = String(format: "%f", balanceDouble!)
                             let defaults = UserDefaults.standard
                             defaults.set(newBalance, forKey: "balanceAmount")
+                            showToastMessage2(message: "You have successfully sold all your shares of " + symbol!)
                         }else {
                             let newQuantity:Double = currentQuantity-quantityToSell
                             let newValue = newQuantity*Double(currentPrice!)!
@@ -199,6 +209,7 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
                             var newBalance:String? = String(format: "%f", balanceDouble!)
                             let defaults = UserDefaults.standard
                             defaults.set(newBalance, forKey: "balanceAmount")
+                            showToastMessage(message: "You have successfully sold " + quantityTextField.text! + " shares!")
                         }
                         
                         

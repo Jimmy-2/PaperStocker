@@ -68,8 +68,10 @@ class StockPortfolioViewController: UITableViewController {
         
         
         let defaults = UserDefaults.standard
-        balanceLabel.text = defaults.string(forKey: "balanceAmount")
-        print(defaults.string(forKey: "balanceAmount"))
+        let availableBalance: String? = defaults.string(forKey: "balanceAmount")
+        let availableBalanceDoub: Double = Double(availableBalance ?? "100000")!
+        self.balanceLabel.text = String(format: "%.2f", availableBalanceDoub)
+        
         let fetchRequest = NSFetchRequest<Balance>()
         
         let entity = Balance.entity()
@@ -96,7 +98,7 @@ class StockPortfolioViewController: UITableViewController {
  
         var balanceDoub: Double? = Double(defaults.string(forKey: "balanceAmount") ?? "0.0")
         totalValueDouble = totalValueDouble + balanceDoub!
-        totalValueLabel.text = String(format: "%f", totalValueDouble)
+        totalValueLabel.text = String(format: "%.2f", totalValueDouble)
        
         refreshControll.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControll.addTarget(self, action: #selector(didPullToRefresh(sender:)), for: UIControl.Event.valueChanged)
@@ -133,7 +135,9 @@ class StockPortfolioViewController: UITableViewController {
         
         DispatchQueue.main.async { [self] in
             let defaults = UserDefaults.standard
-            self.balanceLabel.text = defaults.string(forKey: "balanceAmount")
+            let availableBalance: String? = defaults.string(forKey: "balanceAmount")
+            let availableBalanceDoub: Double = Double(availableBalance!)!
+            self.balanceLabel.text = String(format: "%.2f", availableBalanceDoub)
             
             let fetchRequest = NSFetchRequest<Balance>()
             
@@ -162,7 +166,7 @@ class StockPortfolioViewController: UITableViewController {
             }
             var balanceDoub = Double(defaults.string(forKey: "balanceAmount")!)
             totalValueDouble = totalValueDouble + balanceDoub!
-            totalValueLabel.text = String(format: "%f", totalValueDouble)
+            totalValueLabel.text = String(format: "%.2f", totalValueDouble)
             
             self.tableView.reloadData()
         }
@@ -203,20 +207,26 @@ class StockPortfolioViewController: UITableViewController {
                     }
                     for (index, stock) in self.balances.enumerated(){
                         var stockToUpdate: String = self.balances[index].stock!
+                        print("HELLO1")
                         if(self.newPrices[stockToUpdate] == nil) {
                            
                         }else {
+                            print("HELLO2")
                             self.updatePrice(item: self.balances[index], newValue: self.newPrices[stockToUpdate]!)
                             
+                            
+                            print("HELLO3")
                             var newPriceStr: String = self.balances[index].price!
                             var newPriceDoub: Double = Double(newPriceStr)!
                             var quantityStr: String = self.balances[index].quantity!
                             var quantityDoub: Double = Double(quantityStr)!
                             
+                            print("HELLO4")
                             var newTotalVal: Double? = quantityDoub*newPriceDoub
                             self.updateValue(item: self.balances[index], newValue: String(newTotalVal!))
                         }
                         
+                        print("HELLO5")
                         print(stockToUpdate)
                         print(self.newPrices[stockToUpdate])
                     }
@@ -242,7 +252,7 @@ class StockPortfolioViewController: UITableViewController {
     }
     
     func stocksURL() -> URL {
-        let urlString = String(format: "https://financialmodelingprep.com/api/v3/quote/"+batchRequestString+"?apikey=d6d32343ce4ed4d79945c94ca7c9c383")
+        let urlString = String(format: "https://financialmodelingprep.com/api/v3/quote/"+batchRequestString+"?apikey=d1980c7326fed76a84ab12644fa786f9")
         let url = URL(string: urlString)
         return url!
     }
