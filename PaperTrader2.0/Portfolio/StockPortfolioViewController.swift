@@ -26,6 +26,7 @@ class StockPortfolioViewController: UITableViewController {
     
     @IBOutlet var balanceLabel: UILabel!
     @IBOutlet var totalValueLabel: UILabel!
+    @IBOutlet var noStockLabel: UILabel!
     
     var newPrices: [String:String] = [:]
     
@@ -87,6 +88,13 @@ class StockPortfolioViewController: UITableViewController {
         } catch {
             fatalCoreDataError(error)
         }
+        if balances.count == 0 {
+            noStockLabel.isHidden = false
+            
+        }else {
+            noStockLabel.isHidden = true
+        }
+        print(balances.count)
         
         for (index, stock) in balances.enumerated(){
             var stockValue: Double = Double(balances[index].value!)!
@@ -124,7 +132,6 @@ class StockPortfolioViewController: UITableViewController {
     
     @objc func didPullToRefresh(sender: AnyObject) {
        DispatchQueue.main.async {
-        self.getNewPrices()
         self.refresh()
         self.refreshControll.endRefreshing()
         
@@ -133,7 +140,9 @@ class StockPortfolioViewController: UITableViewController {
     
     @objc func refresh() {
         
+        
         DispatchQueue.main.async { [self] in
+            
             let defaults = UserDefaults.standard
             let availableBalance: String? = defaults.string(forKey: "balanceAmount")
             let availableBalanceDoub: Double = Double(availableBalance!)!
@@ -164,6 +173,13 @@ class StockPortfolioViewController: UITableViewController {
                 print(self.balances[index].value)
                 print("Hello")
             }
+            if balances.count == 0 {
+                noStockLabel.isHidden = false
+                
+            }else {
+                noStockLabel.isHidden = true
+            }
+            getNewPrices()
             var balanceDoub = Double(defaults.string(forKey: "balanceAmount")!)
             totalValueDouble = totalValueDouble + balanceDoub!
             totalValueLabel.text = String(format: "%.2f", totalValueDouble)
