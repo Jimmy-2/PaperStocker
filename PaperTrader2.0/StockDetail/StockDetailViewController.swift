@@ -78,6 +78,7 @@ class StockDetailViewController: UITableViewController {
         refreshControll.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControll.addTarget(self, action: #selector(didPullToRefresh(sender:)), for: UIControl.Event.valueChanged)
         tableView.addSubview(refreshControll)
+        refreshControll.tintColor = .white
         
     }
     

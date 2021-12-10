@@ -111,6 +111,7 @@ class StockPortfolioViewController: UITableViewController {
         refreshControll.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControll.addTarget(self, action: #selector(didPullToRefresh(sender:)), for: UIControl.Event.valueChanged)
         tableView.addSubview(refreshControll)
+        refreshControll.tintColor = .white
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.refresh), name: NSNotification.Name(rawValue: "newDataNotif"), object: nil)
 
@@ -268,7 +269,7 @@ class StockPortfolioViewController: UITableViewController {
     }
     
     func stocksURL() -> URL {
-        let urlString = String(format: "https://financialmodelingprep.com/api/v3/quote/"+batchRequestString+"?apikey=d1980c7326fed76a84ab12644fa786f9")
+        let urlString = String(format: "https://financialmodelingprep.com/api/v3/quote/"+batchRequestString+"?apikey=a648ba199bfe8c139430db2f19fb782f")
         let url = URL(string: urlString)
         return url!
     }
