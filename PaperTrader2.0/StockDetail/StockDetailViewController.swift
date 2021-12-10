@@ -383,6 +383,7 @@ extension UIViewController {
         toastLabel.layer.masksToBounds = true
         window.addSubview(toastLabel)
         
+        
         UIView.animate(withDuration: 4.0, animations: {toastLabel.alpha = 0}) {
             (_) in
             toastLabel.removeFromSuperview()
