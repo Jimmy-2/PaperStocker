@@ -3,7 +3,6 @@
     <device id="retina4_7" orientation="portrait" appearance="dark"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
-        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -17,18 +16,19 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stock Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6b7-fa-gpm">
-                        <rect key="frame" x="16" y="46" width="343" height="16"/>
+                        <rect key="frame" x="16" y="48" width="343" height="14"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <color key="textColor" name="StockName"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Nc-2y-Y1E">
-                        <rect key="frame" x="16" y="16" width="343" height="22"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                        <nil key="textColor"/>
+                        <rect key="frame" x="16" y="16" width="343" height="24"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="6b7-fa-gpm" secondAttribute="trailing" constant="16" id="DK9-GI-tkx"/>
                     <constraint firstItem="6b7-fa-gpm" firstAttribute="leading" secondItem="jlV-bY-v74" secondAttribute="leading" constant="16" id="E1E-HS-iJK"/>
@@ -46,9 +46,4 @@
             <point key="canvasLocation" x="245.59999999999999" y="-305.84707646176912"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <namedColor name="StockName">
-            <color red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-    </resources>
 </document>

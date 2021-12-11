@@ -36,7 +36,7 @@ class SearchStockViewController: UIViewController {
         tableView.register(cellNib, forCellReuseIdentifier: TableView.CellIdentifiers.nothingFoundCell)
         cellNib = UINib(nibName: TableView.CellIdentifiers.loadingCell, bundle: nil)
         tableView.register(cellNib, forCellReuseIdentifier: TableView.CellIdentifiers.loadingCell)
-    
+        //searchBar.setColor(UIColor(red: 170, green: 220, blue: 200, alpha: 20))
     }
     
     // MARK: - Navigation
@@ -54,6 +54,7 @@ class SearchStockViewController: UIViewController {
     func stocksURL(searchText: String) -> URL {
         let encodedText = searchText.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
         let urlString = String(format: "https://financialmodelingprep.com/api/v3/search?query=%@"+"&limit=100&exchange=NASDAQ,NYSE&apikey=d6d32343ce4ed4d79945c94ca7c9c383", encodedText)
+            //
         let url = URL(string: urlString)
         return url!
     }
@@ -179,5 +180,13 @@ extension SearchStockViewController: UITableViewDelegate, UITableViewDataSource 
         } else {
             return indexPath
         }
+    }
+}
+
+extension UISearchBar {
+    func setColor(_ color: UIColor) {
+            let textField = self.value(forKey: "searchField") as? UITextField
+            let placeholder = textField!.value(forKey: "placeholderLabel") as? UILabel
+            placeholder?.textColor = color
     }
 }

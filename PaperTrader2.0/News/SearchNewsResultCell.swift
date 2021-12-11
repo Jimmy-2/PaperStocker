@@ -14,6 +14,8 @@ class SearchNewsResultCell: UITableViewCell {
     @IBOutlet var dateLabel: UILabel!
     @IBOutlet var sentimentLabel: UILabel!
     
+    
+    @IBOutlet var sentimentImage: UIImageView!
     @IBOutlet var newsImageView: UIImageView!
     
     var downloadTask: URLSessionDownloadTask?
@@ -40,11 +42,26 @@ class SearchNewsResultCell: UITableViewCell {
     
     // MARK: - Helper Methods
     func configure(for result: SearchNewsResult) {
+        newsTextLabel.sizeToFit()
+        newsTextLabel.numberOfLines = 0
         titleLabel.text = result.titleText
         newsTextLabel.text = result.newsBodyText
         sourceLabel.text = result.sourceText
         dateLabel.text = result.dateText
-        sentimentLabel.text = result.sentimentText
+        
+        var sentimentVal: String = result.sentimentText
+        if (sentimentVal == "Positive") {
+            sentimentImage.image = UIImage(systemName: "hand.thumbsup.fill")
+            sentimentImage.tintColor = UIColor.green
+        }else if (sentimentVal == "Negative") {
+            
+            sentimentImage.image = UIImage(systemName: "hand.thumbsdown.fill")
+            sentimentImage.tintColor = UIColor.red
+            
+        }else {
+            
+        }
+        //sentimentLabel.text = result.sentimentText
 
         
         newsImageView.image = UIImage(systemName: "square")

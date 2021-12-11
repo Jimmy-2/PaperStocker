@@ -14,16 +14,19 @@ class StockPortfolioViewController: UITableViewController {
     
     var balances = [Balance]()
     
+  
+    
     var searchResults = [SearchResult]()
     
     let refreshControll = UIRefreshControl()
     
     var totalValueDouble: Double = 0.0
-    
+
     var batchRequestString: String = ""
     
     @IBOutlet var balanceLabel: UILabel!
     @IBOutlet var totalValueLabel: UILabel!
+    @IBOutlet var noStockLabel: UILabel!
     
     var newPrices: [String:String] = [:]
     
@@ -66,8 +69,10 @@ class StockPortfolioViewController: UITableViewController {
         
         
         let defaults = UserDefaults.standard
-        balanceLabel.text = defaults.string(forKey: "balanceAmount")
-        print(defaults.string(forKey: "balanceAmount"))
+        let availableBalance: String? = defaults.string(forKey: "balanceAmount")
+        let availableBalanceDoub: Double = Double(availableBalance ?? "100000")!
+        self.balanceLabel.text = String(format: "%.2f", availableBalanceDoub)
+        
         let fetchRequest = NSFetchRequest<Balance>()
         
         let entity = Balance.entity()
@@ -83,20 +88,13 @@ class StockPortfolioViewController: UITableViewController {
         } catch {
             fatalCoreDataError(error)
         }
-        for (index, stock) in balances.enumerated(){
-            batchRequestString = batchRequestString+balances[index].stock!+","
+        if balances.count == 0 {
+            noStockLabel.isHidden = false
             
-            
+        }else {
+            noStockLabel.isHidden = true
         }
-        getNewPrices()
-        
-        
-        
-        
-        
-        
-        
-        
+        print(balances.count)
         
         for (index, stock) in balances.enumerated(){
             var stockValue: Double = Double(balances[index].value!)!
@@ -105,17 +103,15 @@ class StockPortfolioViewController: UITableViewController {
             print(balances[index].value)
             print("Hello")
         }
-        
-        
-        
-        
+ 
         var balanceDoub: Double? = Double(defaults.string(forKey: "balanceAmount") ?? "0.0")
         totalValueDouble = totalValueDouble + balanceDoub!
-        totalValueLabel.text = String(format: "%f", totalValueDouble)
+        totalValueLabel.text = String(format: "%.2f", totalValueDouble)
        
         refreshControll.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControll.addTarget(self, action: #selector(didPullToRefresh(sender:)), for: UIControl.Event.valueChanged)
         tableView.addSubview(refreshControll)
+        refreshControll.tintColor = .white
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.refresh), name: NSNotification.Name(rawValue: "newDataNotif"), object: nil)
 
@@ -136,21 +132,22 @@ class StockPortfolioViewController: UITableViewController {
     //MARK: - Refresh Methods
     
     @objc func didPullToRefresh(sender: AnyObject) {
-        DispatchQueue.main.async {
-            let defaults = UserDefaults.standard
-            self.balanceLabel.text = defaults.string(forKey: "balanceAmount")
-            
-            self.refresh()
-            self.newPrices["aapl"] = "123HELLLO"
-            print(self.newPrices["aapl"])
-            self.refreshControll.endRefreshing()
-        }
+       DispatchQueue.main.async {
+        self.refresh()
+        self.refreshControll.endRefreshing()
+        
+       }
     }
     
     @objc func refresh() {
+        
+        
         DispatchQueue.main.async { [self] in
+            
             let defaults = UserDefaults.standard
-            self.balanceLabel.text = defaults.string(forKey: "balanceAmount")
+            let availableBalance: String? = defaults.string(forKey: "balanceAmount")
+            let availableBalanceDoub: Double = Double(availableBalance!)!
+            self.balanceLabel.text = String(format: "%.2f", availableBalanceDoub)
             
             let fetchRequest = NSFetchRequest<Balance>()
             
@@ -177,9 +174,16 @@ class StockPortfolioViewController: UITableViewController {
                 print(self.balances[index].value)
                 print("Hello")
             }
+            if balances.count == 0 {
+                noStockLabel.isHidden = false
+                
+            }else {
+                noStockLabel.isHidden = true
+            }
+            getNewPrices()
             var balanceDoub = Double(defaults.string(forKey: "balanceAmount")!)
             totalValueDouble = totalValueDouble + balanceDoub!
-            totalValueLabel.text = String(format: "%f", totalValueDouble)
+            totalValueLabel.text = String(format: "%.2f", totalValueDouble)
             
             self.tableView.reloadData()
         }
@@ -189,6 +193,12 @@ class StockPortfolioViewController: UITableViewController {
     
     // MARK: - Helper Methods
     func getNewPrices() {
+        batchRequestString = ""
+        for (index, stock) in balances.enumerated(){
+            batchRequestString = batchRequestString+balances[index].stock!+","
+            
+            
+        }
         dataTask?.cancel()
         isLoading = true
         
@@ -203,8 +213,44 @@ class StockPortfolioViewController: UITableViewController {
             } else if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
                 if let data = data {
                     self.stockPortfolio = self.parse(data: data)
-                    print("HELLLLLLLLLLO")
-                    print(self.stockPortfolio[0].price)
+                   
+                    
+                    for (index, stock) in self.stockPortfolio.enumerated(){
+                        self.newPrices[self.stockPortfolio[index].symbol!] = String(self.stockPortfolio[index].price!)
+                        
+                        
+                        //self.updatePrice(item: self.balances[index], newValue: newPriceString)
+                        
+                    }
+                    for (index, stock) in self.balances.enumerated(){
+                        var stockToUpdate: String = self.balances[index].stock!
+                        print("HELLO1")
+                        if(self.newPrices[stockToUpdate] == nil) {
+                           
+                        }else {
+                            print("HELLO2")
+                            self.updatePrice(item: self.balances[index], newValue: self.newPrices[stockToUpdate]!)
+                            
+                            
+                            print("HELLO3")
+                            var newPriceStr: String = self.balances[index].price!
+                            var newPriceDoub: Double = Double(newPriceStr)!
+                            var quantityStr: String = self.balances[index].quantity!
+                            var quantityDoub: Double = Double(quantityStr)!
+                            
+                            print("HELLO4")
+                            var newTotalVal: Double? = quantityDoub*newPriceDoub
+                            self.updateValue(item: self.balances[index], newValue: String(newTotalVal!))
+                        }
+                        
+                        print("HELLO5")
+                        print(stockToUpdate)
+                        print(self.newPrices[stockToUpdate])
+                    }
+                    
+                    
+                    
+                    
                     DispatchQueue.main.async {
                         self.isLoading = false
                     }
@@ -219,10 +265,11 @@ class StockPortfolioViewController: UITableViewController {
             }
         }
         dataTask?.resume()
+        self.tableView.reloadData()
     }
     
     func stocksURL() -> URL {
-        let urlString = String(format: "https://financialmodelingprep.com/api/v3/quote/"+batchRequestString+"?apikey=d6d32343ce4ed4d79945c94ca7c9c383")
+        let urlString = String(format: "https://financialmodelingprep.com/api/v3/quote/"+batchRequestString+"?apikey=a648ba199bfe8c139430db2f19fb782f")
         let url = URL(string: urlString)
         return url!
     }
@@ -240,11 +287,14 @@ class StockPortfolioViewController: UITableViewController {
     }
     
     func showNetworkError() {
-      let alert = UIAlertController(title: "Whoops...", message: "There was an error refreshing the stock information. Please try again.", preferredStyle: .alert)
-
-      let action = UIAlertAction(title: "OK", style: .default, handler: nil)
-      alert.addAction(action)
-      present(alert, animated: true, completion: nil)
+        let alert = UIAlertController(title: "Whoops...", message: "There was an error refreshing the stock information. Please try again.", preferredStyle: .alert)
+        if(balances.count == 0) {
+            
+        }else {
+            let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(action)
+            present(alert, animated: true, completion: nil)
+        }
     }
     
     // MARK: - Navigation
@@ -268,14 +318,7 @@ class StockPortfolioViewController: UITableViewController {
     
     // MARK: - Core Data
     
-    func getAllItems() {
-        do {
-             let item = try context.fetch(Balance.fetchRequest())
-        }catch {
-            // error
-        }
-        
-    }
+
     
     func updateValue(item: Balance, newValue: String) {
         item.value = newValue

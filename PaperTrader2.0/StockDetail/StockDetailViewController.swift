@@ -8,6 +8,8 @@
 import UIKit
 
 class StockDetailViewController: UITableViewController {
+    
+    var delegate: stockDelegate?
 
     @IBOutlet var symbolLabel: UILabel!
     @IBOutlet var stockNameLabel: UILabel!
@@ -37,6 +39,7 @@ class StockDetailViewController: UITableViewController {
     var dataTask: URLSessionDataTask?
     var isLoading = false
     
+    var stockDetail = [StockDetail]()
     var open: String? = "loading"
     var high: String? = "loading"
     var low: String? = "loading"
@@ -52,6 +55,7 @@ class StockDetailViewController: UITableViewController {
     var stockName: String!
     
     var isPortfolio: Bool!
+    
     
     
     
@@ -76,6 +80,7 @@ class StockDetailViewController: UITableViewController {
         refreshControll.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControll.addTarget(self, action: #selector(didPullToRefresh(sender:)), for: UIControl.Event.valueChanged)
         tableView.addSubview(refreshControll)
+        refreshControll.tintColor = .white
         
     }
     
@@ -87,7 +92,7 @@ class StockDetailViewController: UITableViewController {
     // MARK: - Action Methods
     @IBAction func buyStock() {
         trade = "Buy"
-        let balance: Balance
+        
         performSegue(withIdentifier: "ShowTrade", sender: nil)
         
         
@@ -140,6 +145,75 @@ class StockDetailViewController: UITableViewController {
                     return
                 } else if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
                     if let data = data {
+                        
+                        self.stockDetail = self.parse(data: data)
+                        if(self.stockDetail.isEmpty) {
+                            print("HELLLLLLLLLLO123123")
+                            DispatchQueue.main.async {
+                                self.isLoading = false
+                                self.updateUI()
+                                self.showToastMessage2(message: "The API has exceeded the daily usage. Please try again in 1 day.")
+                                self.buyButton.isHidden = true
+                                self.sellButton.isHidden = true
+                               
+                            }
+                            
+                        }else if (self.stockDetail[0].open == nil) {
+                            DispatchQueue.main.async {
+                                self.isLoading = false
+                                self.updateUI()
+                                self.showToastMessage2(message: "The API has exceeded the daily usage. Please try again in 1 day.")
+                                self.buyButton.isHidden = true
+                                self.sellButton.isHidden = true
+                               
+                            }
+                        }else {
+                            
+                            self.open = String(self.stockDetail[0].open!)
+                            self.close = String(self.stockDetail[0].price!)
+                            self.change = String(self.stockDetail[0].change!)
+                            self.percent_change = String(self.stockDetail[0].changesPercentage!)+"%"
+                            self.low = String(self.stockDetail[0].dayLow!)
+                            self.high = String(self.stockDetail[0].dayHigh!)
+                            self.volume = String(self.stockDetail[0].volume!)
+                            self.previous_close = String(self.stockDetail[0].previousClose!)
+                            
+                            
+                            if (self.stockDetail[0].change! >= 0) {
+                                self.changeLabel.textColor = UIColor(red: 35/255, green: 200/255, blue: 35/255, alpha: 1.0)
+                                self.changePercentLabel.textColor = UIColor(red: 35/255, green: 200/255, blue: 35/255, alpha: 1.0)
+                                self.currentPriceLabel.textColor = UIColor(red: 35/255, green: 200/255, blue: 35/255, alpha: 1.0)
+                                self.openLabel.textColor = UIColor(red: 35/255, green: 200/255, blue: 35/255, alpha: 1.0)
+                                self.previousCloseLabel.textColor = UIColor(red: 35/255, green: 200/255, blue: 35/255, alpha: 1.0)
+                                self.volumeLabel.textColor = UIColor(red: 35/255, green: 200/255, blue: 35/255, alpha: 1.0)
+                                self.highLabel.textColor = UIColor(red: 35/255, green: 200/255, blue: 35/255, alpha: 1.0)
+                                self.lowLabel.textColor = UIColor(red: 35/255, green: 200/255, blue: 35/255, alpha: 1.0)
+                                
+                            }else {
+                                self.changeLabel.textColor = UIColor(red: 255/255, green: 20/255, blue: 25/255, alpha: 1.0)
+                                self.changePercentLabel.textColor = UIColor(red: 255/255, green: 20/255, blue: 25/255, alpha: 1.0)
+                                self.currentPriceLabel.textColor = UIColor(red: 255/255, green: 20/255, blue: 25/255, alpha: 1.0)
+                                self.openLabel.textColor = UIColor(red: 255/255, green: 20/255, blue: 25/255, alpha: 1.0)
+                                self.previousCloseLabel.textColor = UIColor(red: 255/255, green: 20/255, blue: 25/255, alpha: 1.0)
+                                self.volumeLabel.textColor = UIColor(red: 255/255, green: 20/255, blue: 25/255, alpha: 1.0)
+                                self.highLabel.textColor = UIColor(red: 255/255, green: 20/255, blue: 25/255, alpha: 1.0)
+                                self.lowLabel.textColor = UIColor(red: 255/255, green: 20/255, blue: 25/255, alpha: 1.0)
+                            }
+                            DispatchQueue.main.async {
+                                self.isLoading = false
+                                self.updateUI()
+                                
+                                self.buyButton.isHidden = false
+                                self.sellButton.isHidden = false
+                               
+                            }
+                        }
+                        
+                        
+                        
+        
+                        /*
+                        
                         self.parse(data: data)
               
                         DispatchQueue.main.async {
@@ -150,13 +224,15 @@ class StockDetailViewController: UITableViewController {
                                 self.buyButton.isHidden = false
                                 self.sellButton.isHidden = false
                             }else {
-                                self.showToastMessage2(message: "The API has exceeded the amount. Please try again in 1 minute")
+                                self.showToastMessage2(message: "The API has exceeded the daily usage. Please try again in 1 day.")
                                 self.buyButton.isHidden = true
                                 self.sellButton.isHidden = true
                             }
                             
                         
                         }
+ 
+                        */
                         return
                     }
                 } else {
@@ -180,13 +256,16 @@ class StockDetailViewController: UITableViewController {
     }
     
     
-    
+    /*
     
     func stocksURL() -> URL {
         let urlString = String(format: "https://api.twelvedata.com/quote?symbol=%@"+"&interval=1day&apikey=313fd5808dc2469abf9380853265bca3", stockSymbol!)
         let url = URL(string: urlString)
         return url!
+        //"https://api.twelvedata.com/quote?symbol=%@"+"&interval=1day&apikey=313fd5808dc2469abf9380853265bca3"
     }
+    
+    
     
  
     func parse(data: Data) {
@@ -217,6 +296,28 @@ class StockDetailViewController: UITableViewController {
             
         }
     }
+ 
+    */
+    
+    func stocksURL() -> URL {
+        let urlString = String(format: "https://financialmodelingprep.com/api/v3/quote/%@"+"?apikey=d1980c7326fed76a84ab12644fa786f9",stockSymbol!)
+        let url = URL(string: urlString)
+        return url!
+        
+        //let urlString = String(format: "https://financialmodelingprep.com/api/v3/quote/%@"+"?apikey=d1980c7326fed76a84ab12644fa786f9",stockSymbol!)
+    }
+    
+    func parse(data: Data) -> [StockDetail] {
+        do {
+            print("HEYHEYHELLO")
+            let decoder = JSONDecoder()
+            let result = try decoder.decode([StockDetail].self, from: data)
+            return result
+        } catch {
+            print("JSON Error: \(error)")
+            return []
+        }
+    }
     
     func showNetworkError() {
       let alert = UIAlertController(title: "Whoops...", message: "There was an error accessing the stock details results. Please try again.", preferredStyle: .alert)
@@ -237,6 +338,8 @@ class StockDetailViewController: UITableViewController {
         previousCloseLabel.text = previous_close
         highLabel.text = high
         lowLabel.text = low
+        
+        
       
       
 
@@ -283,7 +386,8 @@ extension UIViewController {
         toastLabel.layer.masksToBounds = true
         window.addSubview(toastLabel)
         
-        UIView.animate(withDuration: 3.0, animations: {toastLabel.alpha = 0}) {
+        
+        UIView.animate(withDuration: 4.0, animations: {toastLabel.alpha = 0}) {
             (_) in
             toastLabel.removeFromSuperview()
         }

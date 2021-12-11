@@ -29,7 +29,7 @@ class FirstTimeViewController: UITableViewController, UITextFieldDelegate {
         let typedCharSet = CharacterSet(charactersIn: string)
         
         return allowedCharSet.isSuperset(of: typedCharSet)
-        return true
+        
     }
     
     // MARK: - Actions
