@@ -83,6 +83,7 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
            
         }
     }
+   
     
     // MARK: Actions
     @IBAction func closeTrade() {

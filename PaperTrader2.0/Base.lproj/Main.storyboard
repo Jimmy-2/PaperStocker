@@ -13,7 +13,7 @@
         <!--Options-->
         <scene sceneID="KhW-Rf-bO7">
             <objects>
-                <tableViewController id="g3s-cZ-EwT" customClass="SettingsViewController" customModule="PaperTrader2_0" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="g3s-cZ-EwT" customClass="ChangeBalanceViewController" customModule="PaperTrader2_0" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="ru7-uH-diL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -171,6 +171,7 @@
                     <tabBarItem key="tabBarItem" title="Options" image="gearshape" catalog="system" selectedImage="gearshape.fill" id="SHZ-ne-IOj">
                         <color key="badgeColor" red="0.66115379620000003" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBarItem>
+                    <navigationItem key="navigationItem" id="bdp-YG-WsH"/>
                     <connections>
                         <outlet property="doneButton" destination="mwq-SA-LPp" id="iCU-ln-emU"/>
                         <outlet property="editBalanceTextField" destination="XFA-OA-5er" id="uEL-QC-7AQ"/>
@@ -178,7 +179,129 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jze-dU-CoH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1872.8" y="919.79010494752629"/>
+            <point key="canvasLocation" x="3556" y="919.79010494752629"/>
+        </scene>
+        <!--Settings:-->
+        <scene sceneID="QTD-Fl-faA">
+            <objects>
+                <tableViewController id="GsE-NT-vMN" customClass="SettingsViewController" customModule="PaperTrader2_0" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="f7Q-Wg-scg">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <sections>
+                            <tableViewSection id="4Si-Ld-fdT">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="Mv3-Ja-Jre">
+                                        <rect key="frame" x="0.0" y="24.5" width="375" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Mv3-Ja-Jre" id="jKO-aR-23L">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="vFQ-0l-aKl">
+                                        <rect key="frame" x="0.0" y="68" width="375" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vFQ-0l-aKl" id="Bef-1X-94D">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="etb-5b-POQ">
+                                        <rect key="frame" x="0.0" y="111.5" width="375" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="etb-5b-POQ" id="xlT-xp-DdC">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ywh-u6-Vuo">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                                    <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <state key="normal" title="Change Balance">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="goToChangeBalance" destination="GsE-NT-vMN" eventType="touchUpInside" id="IdQ-fZ-Rhi"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="ywh-u6-Vuo" firstAttribute="centerY" secondItem="xlT-xp-DdC" secondAttribute="centerY" id="5YN-XN-dto"/>
+                                                <constraint firstAttribute="trailing" secondItem="ywh-u6-Vuo" secondAttribute="trailing" id="8IO-jp-cMs"/>
+                                                <constraint firstItem="ywh-u6-Vuo" firstAttribute="leading" secondItem="xlT-xp-DdC" secondAttribute="leading" id="GyB-J3-19F"/>
+                                                <constraint firstAttribute="bottom" secondItem="ywh-u6-Vuo" secondAttribute="bottom" id="d08-6e-esa"/>
+                                                <constraint firstItem="ywh-u6-Vuo" firstAttribute="top" secondItem="xlT-xp-DdC" secondAttribute="top" id="gZZ-E8-o6v"/>
+                                                <constraint firstItem="ywh-u6-Vuo" firstAttribute="centerX" secondItem="xlT-xp-DdC" secondAttribute="centerX" id="wZa-Tb-w8L"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="hbg-cb-kXD">
+                                        <rect key="frame" x="0.0" y="155" width="375" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hbg-cb-kXD" id="0rp-bw-pdt">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="pJG-HO-mdR">
+                                        <rect key="frame" x="0.0" y="198.5" width="375" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pJG-HO-mdR" id="p3r-wR-ReZ">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aGU-k5-cgg">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                                    <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <state key="normal" title="View Daily Balance History">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="aGU-k5-cgg" firstAttribute="leading" secondItem="p3r-wR-ReZ" secondAttribute="leading" id="5tB-ih-cFD"/>
+                                                <constraint firstAttribute="trailing" secondItem="aGU-k5-cgg" secondAttribute="trailing" id="HKG-Ji-7ag"/>
+                                                <constraint firstItem="aGU-k5-cgg" firstAttribute="top" secondItem="p3r-wR-ReZ" secondAttribute="top" id="Nte-Mh-GEu"/>
+                                                <constraint firstItem="aGU-k5-cgg" firstAttribute="centerY" secondItem="p3r-wR-ReZ" secondAttribute="centerY" id="ZLq-Mj-5t5"/>
+                                                <constraint firstAttribute="bottom" secondItem="aGU-k5-cgg" secondAttribute="bottom" id="noA-gc-3HG"/>
+                                                <constraint firstItem="aGU-k5-cgg" firstAttribute="centerX" secondItem="p3r-wR-ReZ" secondAttribute="centerX" id="nph-wb-uqO"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="XTU-F4-2NI">
+                                        <rect key="frame" x="0.0" y="242" width="375" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="XTU-F4-2NI" id="7qx-Mq-0Z9">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="GsE-NT-vMN" id="bfi-g5-Irn"/>
+                            <outlet property="delegate" destination="GsE-NT-vMN" id="coH-7O-k4G"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Settings:" id="rSY-Od-dJ7"/>
+                    <connections>
+                        <outlet property="changeBalanceButton" destination="ywh-u6-Vuo" id="Ln9-75-gK4"/>
+                        <segue destination="g3s-cZ-EwT" kind="show" identifier="ChangeBalance" id="C8V-fv-M9j"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bVc-1S-nJw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2668" y="919.79010494752629"/>
         </scene>
         <!--Search Stock-->
         <scene sceneID="tne-QT-ifu">
@@ -758,7 +881,7 @@
                         <segue destination="TDW-mW-157" kind="relationship" relationship="viewControllers" id="foE-a3-4Ox"/>
                         <segue destination="MAB-bT-BPZ" kind="relationship" relationship="viewControllers" id="HpD-np-vrl"/>
                         <segue destination="m1n-D4-nOX" kind="relationship" relationship="viewControllers" id="NAI-7n-5C5"/>
-                        <segue destination="g3s-cZ-EwT" kind="relationship" relationship="viewControllers" id="0k9-Ea-TbX"/>
+                        <segue destination="xXM-xQ-xk3" kind="relationship" relationship="viewControllers" id="7ND-Mi-tgW"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hnX-5g-HPb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1261,6 +1384,31 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qjS-KB-0v5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-127.2" y="919.79010494752629"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="xM0-R7-Jhl">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xXM-xQ-xk3" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Settings" image="gearshape.fill" catalog="system" selectedImage="gearshape.fill" id="SAb-wv-aYT">
+                        <color key="badgeColor" name="SearchBar"/>
+                    </tabBarItem>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="F6t-iI-28Y">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.10980392160000001" green="0.097144577839999996" blue="0.083271903729999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" name="SearchBar"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="GsE-NT-vMN" kind="relationship" relationship="rootViewController" id="cxS-Og-PvW"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="heF-Qa-X1S" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1728.8" y="919.79010494752629"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

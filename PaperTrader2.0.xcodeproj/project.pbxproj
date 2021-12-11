@@ -34,7 +34,8 @@
 		BF53C36A2748CD43003E4C02 /* NothingFoundCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF53C3692748CD43003E4C02 /* NothingFoundCell.xib */; };
 		BF53C36D2748D174003E4C02 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF53C36B2748D174003E4C02 /* SearchResultCell.swift */; };
 		BF53C36E2748D174003E4C02 /* SearchResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF53C36C2748D174003E4C02 /* SearchResultCell.xib */; };
-		BFC811712761EED50028A499 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC811702761EED40028A499 /* SettingsViewController.swift */; };
+		BFC811712761EED50028A499 /* ChangeBalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC811702761EED40028A499 /* ChangeBalanceViewController.swift */; };
+		BFC81174276428990028A499 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC81173276428990028A499 /* SettingsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,7 +68,8 @@
 		BF53C3692748CD43003E4C02 /* NothingFoundCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NothingFoundCell.xib; sourceTree = "<group>"; };
 		BF53C36B2748D174003E4C02 /* SearchResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 		BF53C36C2748D174003E4C02 /* SearchResultCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchResultCell.xib; sourceTree = "<group>"; };
-		BFC811702761EED40028A499 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		BFC811702761EED40028A499 /* ChangeBalanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeBalanceViewController.swift; sourceTree = "<group>"; };
+		BFC81173276428990028A499 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +155,7 @@
 		BF53C34B2748983D003E4C02 /* PaperTrader2.0 */ = {
 			isa = PBXGroup;
 			children = (
+				BFC811722764285E0028A499 /* Settings */,
 				BF135C49275328D300B0BE30 /* Portfolio */,
 				BF135C48275328B500B0BE30 /* CoreData */,
 				BF135C382750932800B0BE30 /* StockDetail */,
@@ -168,9 +171,17 @@
 				BF53C35D27489840003E4C02 /* Info.plist */,
 				BF135C502753512C00B0BE30 /* FirstTimeViewController.swift */,
 				BF135C5227535C0A00B0BE30 /* userDefaults.swift */,
-				BFC811702761EED40028A499 /* SettingsViewController.swift */,
 			);
 			path = PaperTrader2.0;
+			sourceTree = "<group>";
+		};
+		BFC811722764285E0028A499 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				BFC811702761EED40028A499 /* ChangeBalanceViewController.swift */,
+				BFC81173276428990028A499 /* SettingsViewController.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -249,7 +260,7 @@
 			files = (
 				BF135C2A274C560500B0BE30 /* TradeViewController.swift in Sources */,
 				BF53C3512748983D003E4C02 /* SearchStockViewController.swift in Sources */,
-				BFC811712761EED50028A499 /* SettingsViewController.swift in Sources */,
+				BFC811712761EED50028A499 /* ChangeBalanceViewController.swift in Sources */,
 				BF53C34D2748983D003E4C02 /* AppDelegate.swift in Sources */,
 				BF135C32274F657F00B0BE30 /* SearchNewsResultCell.swift in Sources */,
 				BF135C34274F6E7400B0BE30 /* UIImageView+DownloadImage.swift in Sources */,
@@ -260,6 +271,7 @@
 				BF135C3E2751DE1300B0BE30 /* StockPortfolioViewController.swift in Sources */,
 				BF53C3642748BCCE003E4C02 /* SearchResult.swift in Sources */,
 				BF53C3572748983D003E4C02 /* PaperTrader2_0.xcdatamodeld in Sources */,
+				BFC81174276428990028A499 /* SettingsViewController.swift in Sources */,
 				BF135C5327535C0A00B0BE30 /* userDefaults.swift in Sources */,
 				BF135C55275ECCCE00B0BE30 /* StockPortfolio.swift in Sources */,
 				BF135C462752E79600B0BE30 /* PortfolioCell.swift in Sources */,

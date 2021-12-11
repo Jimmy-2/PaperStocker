@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SettingsViewController: UITableViewController, UITextFieldDelegate  {
+class ChangeBalanceViewController: UITableViewController, UITextFieldDelegate  {
     @IBOutlet var doneButton: UIButton!
     @IBOutlet var editBalanceTextField: UITextField!
     
