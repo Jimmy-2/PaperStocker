@@ -9,7 +9,7 @@ import UIKit
 
 class StockDetailViewController: UITableViewController {
     
-    var delegate: stockDelegate?
+    
 
     @IBOutlet var symbolLabel: UILabel!
     @IBOutlet var stockNameLabel: UILabel!
@@ -92,7 +92,7 @@ class StockDetailViewController: UITableViewController {
     // MARK: - Action Methods
     @IBAction func buyStock() {
         trade = "Buy"
-        
+        let balance: Balance
         performSegue(withIdentifier: "ShowTrade", sender: nil)
         
         
