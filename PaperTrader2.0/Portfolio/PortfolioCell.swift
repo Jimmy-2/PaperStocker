@@ -39,7 +39,8 @@ class PortfolioCell: UITableViewCell {
         var priceDoub: Double = Double(balance.price!)!
         priceLabel.text = String(format: "%.2f", priceDoub)
     
-        quantityLabel.text = balance.quantity
+        var quantityDoub: Double = Double(balance.quantity!)!
+        quantityLabel.text = String(format: "%.0f", quantityDoub)
         
         var valueDoub: Double = Double(balance.value!)!
         valueLabel.text = String(format: "%.2f", valueDoub)

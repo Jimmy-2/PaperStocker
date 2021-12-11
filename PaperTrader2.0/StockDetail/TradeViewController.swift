@@ -48,11 +48,14 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
     override func viewDidLoad() {
         super.viewDidLoad()
         popupView.layer.cornerRadius = 10
-        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(closeTrade))
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         gestureRecognizer.cancelsTouchesInView = false
         gestureRecognizer.delegate = self
         view.addGestureRecognizer(gestureRecognizer)
       
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
         let defaults = UserDefaults.standard
     
         getAllPortfolioItems()
@@ -85,7 +88,24 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
     @IBAction func closeTrade() {
         dismiss(animated: true, completion: nil)
     }
-    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    @objc private func keyboardWillShow(notification: NSNotification) {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardHeight = keyboardFrame.cgRectValue.height
+          
+            let spaceAtBottom = self.view.frame.height
+            self.view.frame.origin.y = keyboardHeight - keyboardHeight - keyboardHeight/2
+        }
+    }
+    @objc private func keyboardWillHide() {
+        self.view.frame.origin.y = 0
+    }
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
     @IBAction func doTrade() {
         if(quantityTextField.text == "") {
             
