@@ -169,6 +169,7 @@ class StockDetailViewController: UITableViewController {
                             }
                         }else {
                             
+                            
                             self.open = String(self.stockDetail[0].open!)
                             self.close = String(self.stockDetail[0].price!)
                             self.change = String(self.stockDetail[0].change!)
@@ -328,6 +329,10 @@ class StockDetailViewController: UITableViewController {
     }
     
     func updateUI() {
+        if isLoading {
+            buyButton.isHidden = true
+            sellButton.isHidden = true
+        }
         
         
         currentPriceLabel.text = close
