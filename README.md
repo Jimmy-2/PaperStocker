@@ -20,8 +20,7 @@ Personal iOS project. Gifs to be added...
 
 ##### Home screen and stock detail screen swipe down to refresh when phone has no internet:
 
-<img src='https://raw.githubusercontent.com/Jimmy-2/PaperStocker/main/gifs/IfNoInternet.gif
-' title='Refresh gif' width='' alt='Refresh gif' />
+<img src='https://raw.githubusercontent.com/Jimmy-2/PaperStocker/main/gifs/IfNoInternet.gif' title='Refresh gif' width='' alt='Refresh gif' />
 
 
 ## Todos
