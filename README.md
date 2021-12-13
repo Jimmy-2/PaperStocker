@@ -14,6 +14,10 @@ Personal iOS project. Gifs to be added...
 ## Product Spec
 
 ## Gifs
+##### Home screen and stock detail screen swipe down to refresh:
+
+<img src='https://raw.githubusercontent.com/Jimmy-2/PaperStocker/main/gifs/Refresh1.gif' title='Refresh gif' width='' alt='Refresh gif' />
+
 
 ## Todos
 
