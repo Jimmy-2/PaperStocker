@@ -4,6 +4,7 @@
 1. [Overview](#Overview)
 2. [Product Spec](#Product-Spec)
 3. [Gifs](#Gifs)
+4. [Todos](#Todos)
 
 Personal iOS project. Gifs to be added...
 
@@ -13,6 +14,8 @@ Personal iOS project. Gifs to be added...
 ## Product Spec
 
 ## Gifs
+
+## Todos
 
 
 
