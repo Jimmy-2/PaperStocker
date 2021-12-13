@@ -257,7 +257,7 @@ class StockPortfolioViewController: UITableViewController {
                     return
                 }
             } else {
-                print("Failure! \(response!)")
+               
             }
             DispatchQueue.main.async {
                 self.isLoading = false

@@ -698,7 +698,6 @@
         <!--Trade View Controller-->
         <scene sceneID="WYs-Qg-xW0">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="tlc-D3-dZO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController id="huU-Xo-9Z7" customClass="TradeViewController" customModule="PaperTrader2_0" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JZL-1A-8uj">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
@@ -862,6 +861,7 @@
                         <outlet property="tradeButton" destination="sPw-aP-4yJ" id="mS5-LE-rtR"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tlc-D3-dZO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3612" y="72.413793103448285"/>
         </scene>
