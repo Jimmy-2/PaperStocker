@@ -18,12 +18,13 @@ Personal iOS project. Gifs to be added...
 
 <img src='https://raw.githubusercontent.com/Jimmy-2/PaperStocker/main/gifs/Refresh1.gif' title='Refresh gif' width='' alt='Refresh gif' />
 
-##### Home screen and stock detail screen swipe down to refresh when phone has no internet:
+##### Home screen and stock detail screen swipe down to refresh when phone has no internet(Minor adjustments need to be made on dismissing the refreshing symbol):
 
 <img src='https://raw.githubusercontent.com/Jimmy-2/PaperStocker/main/gifs/IfNoInternet.gif' title='Refresh gif' width='' alt='Refresh gif' />
 
 
 ## Todos
-
-
+* - [ ] Add a view that displays daily portfolio balance.
+* - [ ] Graph for daily portfolio balance
+* - [ ] Graphs for individual stocks.
 
