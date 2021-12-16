@@ -27,4 +27,6 @@ Personal iOS project. Gifs to be added...
 * - [ ] Add a view that displays daily portfolio balance.
 * - [ ] Graph for daily portfolio balance
 * - [ ] Graphs for individual stocks.
+* - [ ] Automatic price updates for home screen portfolio
+* - [ ] Price alerts and push notification.
 
