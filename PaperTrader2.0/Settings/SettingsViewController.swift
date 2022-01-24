@@ -9,6 +9,7 @@ import UIKit
 
 class SettingsViewController: UITableViewController {
     @IBOutlet var changeBalanceButton: UIButton!
+    @IBOutlet var dailyBalanceButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -16,12 +17,17 @@ class SettingsViewController: UITableViewController {
     @IBAction func goToChangeBalance() {
         performSegue(withIdentifier: "ChangeBalance", sender: nil)
     }
+    @IBAction func goToDailyBalance() {
+        performSegue(withIdentifier: "DailyBalance", sender: nil)
+    }
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ChangeBalance" {
             let tradeViewController = segue.destination as! ChangeBalanceViewController
             
+        } else if segue.identifier == "DailyBalance" {
+            let tradeViewController = segue.destination as! DailyBalanceViewController
         }
     }
 }

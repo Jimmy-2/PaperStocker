@@ -132,11 +132,13 @@ class StockPortfolioViewController: UITableViewController {
     //MARK: - Refresh Methods
     
     @objc func didPullToRefresh(sender: AnyObject) {
-       DispatchQueue.main.async {
-        self.refresh()
         self.refreshControll.endRefreshing()
+        DispatchQueue.main.async {
+            self.refresh()
         
-       }
+        
+        }
+        
     }
     
     @objc func refresh() {
@@ -276,7 +278,6 @@ class StockPortfolioViewController: UITableViewController {
     
     func parse(data: Data) -> [StockPortfolio] {
         do {
-            print("HEYHEYHELLO")
             let decoder = JSONDecoder()
             let result = try decoder.decode([StockPortfolio].self, from: data)
             return result

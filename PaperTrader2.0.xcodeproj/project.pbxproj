@@ -23,6 +23,8 @@
 		BF135C512753512C00B0BE30 /* FirstTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF135C502753512C00B0BE30 /* FirstTimeViewController.swift */; };
 		BF135C5327535C0A00B0BE30 /* userDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF135C5227535C0A00B0BE30 /* userDefaults.swift */; };
 		BF135C55275ECCCE00B0BE30 /* StockPortfolio.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF135C54275ECCCD00B0BE30 /* StockPortfolio.swift */; };
+		BF2668E7279E689800495F57 /* DailyBalance+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2668E5279E689800495F57 /* DailyBalance+CoreDataClass.swift */; };
+		BF2668E8279E689800495F57 /* DailyBalance+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2668E6279E689800495F57 /* DailyBalance+CoreDataProperties.swift */; };
 		BF53C34D2748983D003E4C02 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF53C34C2748983D003E4C02 /* AppDelegate.swift */; };
 		BF53C34F2748983D003E4C02 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF53C34E2748983D003E4C02 /* SceneDelegate.swift */; };
 		BF53C3512748983D003E4C02 /* SearchStockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF53C3502748983D003E4C02 /* SearchStockViewController.swift */; };
@@ -36,6 +38,8 @@
 		BF53C36E2748D174003E4C02 /* SearchResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF53C36C2748D174003E4C02 /* SearchResultCell.xib */; };
 		BFC811712761EED50028A499 /* ChangeBalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC811702761EED40028A499 /* ChangeBalanceViewController.swift */; };
 		BFC81174276428990028A499 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC81173276428990028A499 /* SettingsViewController.swift */; };
+		BFC8117A279E2D410028A499 /* DailyBalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC81179279E2D410028A499 /* DailyBalanceViewController.swift */; };
+		BFC8117C279E2F9A0028A499 /* DailyBalanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC8117B279E2F9A0028A499 /* DailyBalanceCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +59,8 @@
 		BF135C502753512C00B0BE30 /* FirstTimeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstTimeViewController.swift; sourceTree = "<group>"; };
 		BF135C5227535C0A00B0BE30 /* userDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userDefaults.swift; sourceTree = "<group>"; };
 		BF135C54275ECCCD00B0BE30 /* StockPortfolio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockPortfolio.swift; sourceTree = "<group>"; };
+		BF2668E5279E689800495F57 /* DailyBalance+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DailyBalance+CoreDataClass.swift"; sourceTree = "<group>"; };
+		BF2668E6279E689800495F57 /* DailyBalance+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DailyBalance+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		BF53C3492748983D003E4C02 /* PaperTrader2.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PaperTrader2.0.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF53C34C2748983D003E4C02 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BF53C34E2748983D003E4C02 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -70,6 +76,8 @@
 		BF53C36C2748D174003E4C02 /* SearchResultCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchResultCell.xib; sourceTree = "<group>"; };
 		BFC811702761EED40028A499 /* ChangeBalanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeBalanceViewController.swift; sourceTree = "<group>"; };
 		BFC81173276428990028A499 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		BFC81179279E2D410028A499 /* DailyBalanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyBalanceViewController.swift; sourceTree = "<group>"; };
+		BFC8117B279E2F9A0028A499 /* DailyBalanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyBalanceCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +127,8 @@
 		BF135C48275328B500B0BE30 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				BF2668E5279E689800495F57 /* DailyBalance+CoreDataClass.swift */,
+				BF2668E6279E689800495F57 /* DailyBalance+CoreDataProperties.swift */,
 				BF53C3552748983D003E4C02 /* PaperTrader2_0.xcdatamodeld */,
 				BF135C392750985500B0BE30 /* Balance+CoreDataClass.swift */,
 				BF135C3A2750985500B0BE30 /* Balance+CoreDataProperties.swift */,
@@ -180,6 +190,8 @@
 			children = (
 				BFC811702761EED40028A499 /* ChangeBalanceViewController.swift */,
 				BFC81173276428990028A499 /* SettingsViewController.swift */,
+				BFC81179279E2D410028A499 /* DailyBalanceViewController.swift */,
+				BFC8117B279E2F9A0028A499 /* DailyBalanceCell.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -259,7 +271,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF135C2A274C560500B0BE30 /* TradeViewController.swift in Sources */,
+				BFC8117A279E2D410028A499 /* DailyBalanceViewController.swift in Sources */,
 				BF53C3512748983D003E4C02 /* SearchStockViewController.swift in Sources */,
+				BFC8117C279E2F9A0028A499 /* DailyBalanceCell.swift in Sources */,
+				BF2668E7279E689800495F57 /* DailyBalance+CoreDataClass.swift in Sources */,
 				BFC811712761EED50028A499 /* ChangeBalanceViewController.swift in Sources */,
 				BF53C34D2748983D003E4C02 /* AppDelegate.swift in Sources */,
 				BF135C32274F657F00B0BE30 /* SearchNewsResultCell.swift in Sources */,
@@ -267,6 +282,7 @@
 				BF135C2C274C66E200B0BE30 /* SearchNewsViewController.swift in Sources */,
 				BF135C512753512C00B0BE30 /* FirstTimeViewController.swift in Sources */,
 				BF135C26274B325800B0BE30 /* StockDetailViewController.swift in Sources */,
+				BF2668E8279E689800495F57 /* DailyBalance+CoreDataProperties.swift in Sources */,
 				BF135C28274B59F400B0BE30 /* StockDetail.swift in Sources */,
 				BF135C3E2751DE1300B0BE30 /* StockPortfolioViewController.swift in Sources */,
 				BF53C3642748BCCE003E4C02 /* SearchResult.swift in Sources */,
@@ -427,6 +443,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = PVZU767YL4;
 				INFOPLIST_FILE = PaperTrader2.0/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -445,6 +462,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = PVZU767YL4;
 				INFOPLIST_FILE = PaperTrader2.0/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
