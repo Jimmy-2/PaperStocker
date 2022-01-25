@@ -3,7 +3,7 @@
 //  PaperTrader2.0
 //
 //  Created by Jimmy  on 11/25/21.
-//
+//  Bad naming, should actually be called portfolio.
 //
 
 import Foundation

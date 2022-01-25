@@ -119,7 +119,7 @@ extension SearchStockViewController: UISearchBarDelegate {
                         return
                     }
                 } else {
-                    print("Failure! \(response!)")
+                    
                 }
                 DispatchQueue.main.async {
                     self.hasSearched = false

@@ -94,14 +94,10 @@ class StockPortfolioViewController: UITableViewController {
         }else {
             noStockLabel.isHidden = true
         }
-        print(balances.count)
         
         for (index, stock) in balances.enumerated(){
             var stockValue: Double = Double(balances[index].value!)!
             totalValueDouble = totalValueDouble + stockValue
-            
-            print(balances[index].value)
-            print("Hello")
         }
  
         var balanceDoub: Double? = Double(defaults.string(forKey: "balanceAmount") ?? "0.0")
@@ -114,9 +110,6 @@ class StockPortfolioViewController: UITableViewController {
         refreshControll.tintColor = .white
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.refresh), name: NSNotification.Name(rawValue: "newDataNotif"), object: nil)
-
-        print("HELLLLLLO")
-        print(balances.count)
         
     }
     
@@ -132,11 +125,13 @@ class StockPortfolioViewController: UITableViewController {
     //MARK: - Refresh Methods
     
     @objc func didPullToRefresh(sender: AnyObject) {
-       DispatchQueue.main.async {
-        self.refresh()
         self.refreshControll.endRefreshing()
+        DispatchQueue.main.async {
+            self.refresh()
         
-       }
+        
+        }
+        
     }
     
     @objc func refresh() {
@@ -276,7 +271,6 @@ class StockPortfolioViewController: UITableViewController {
     
     func parse(data: Data) -> [StockPortfolio] {
         do {
-            print("HEYHEYHELLO")
             let decoder = JSONDecoder()
             let result = try decoder.decode([StockPortfolio].self, from: data)
             return result
