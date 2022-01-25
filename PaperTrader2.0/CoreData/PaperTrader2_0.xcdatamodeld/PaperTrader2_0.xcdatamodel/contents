@@ -9,7 +9,7 @@
     </entity>
     <entity name="DailyBalance" representedClassName="DailyBalance" syncable="YES">
         <attribute name="balanceAmount" optional="YES" attributeType="String"/>
-        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="date" optional="YES" attributeType="String"/>
     </entity>
     <elements>
         <element name="Balance" positionX="-45" positionY="0" width="128" height="104"/>

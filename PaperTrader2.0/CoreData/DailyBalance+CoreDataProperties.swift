@@ -17,7 +17,7 @@ extension DailyBalance {
     }
 
     @NSManaged public var balanceAmount: String?
-    @NSManaged public var date: Date?
+    @NSManaged public var date: String?
 
 }
 
