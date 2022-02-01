@@ -5,10 +5,13 @@
 //  Created by Jimmy  on 11/26/21.
 //
 
+import Charts
 import UIKit
 import CoreData
 
-class StockPortfolioViewController: UITableViewController {
+class StockPortfolioViewController: UITableViewController,ChartViewDelegate {
+    
+    var lineChart = LineChartView()
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
@@ -67,16 +70,26 @@ class StockPortfolioViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad();
         
+        //line chart
+        lineChart.delegate = self
+        lineChart.frame = CGRect(x:0,y:0, width: self.view.frame.size.width, height:300)
+       
+        view.addSubview(lineChart)
+        var entries = [ChartDataEntry]()
+        for x in 0..<10 {
+            entries.append(ChartDataEntry(x:Double(x),y:Double(x)))
+        }
+        let set = LineChartDataSet(entries:entries)
+        set.colors = ChartColorTemplates.material()
+        let data = LineChartData(dataSet:set)
+        lineChart.data = data
         
+
         let defaults = UserDefaults.standard
         let availableBalance: String? = defaults.string(forKey: "balanceAmount")
         let availableBalanceDoub: Double = Double(availableBalance ?? "100000")!
         self.balanceLabel.text = String(format: "%.2f", availableBalanceDoub)
-        
-        
-        
-            
-            
+
         //fatching portfolio items
         let fetchRequest = NSFetchRequest<Balance>()
         
@@ -232,6 +245,8 @@ class StockPortfolioViewController: UITableViewController {
             
             
             self.tableView.reloadData()
+            
+
         }
         
     }
