@@ -14,7 +14,7 @@ class StockPortfolioViewController: UITableViewController {
     
     var balances = [Balance]()
     
-  
+    var dailyBalances = [DailyBalance]()
     
     var searchResults = [SearchResult]()
     
@@ -73,6 +73,11 @@ class StockPortfolioViewController: UITableViewController {
         let availableBalanceDoub: Double = Double(availableBalance ?? "100000")!
         self.balanceLabel.text = String(format: "%.2f", availableBalanceDoub)
         
+        
+        
+            
+            
+        //fatching portfolio items
         let fetchRequest = NSFetchRequest<Balance>()
         
         let entity = Balance.entity()
@@ -110,6 +115,11 @@ class StockPortfolioViewController: UITableViewController {
         refreshControll.tintColor = .white
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.refresh), name: NSNotification.Name(rawValue: "newDataNotif"), object: nil)
+        self.refresh()
+        
+        
+        
+        
         
     }
     
@@ -141,8 +151,18 @@ class StockPortfolioViewController: UITableViewController {
             
             let defaults = UserDefaults.standard
             let availableBalance: String? = defaults.string(forKey: "balanceAmount")
-            let availableBalanceDoub: Double = Double(availableBalance!)!
-            self.balanceLabel.text = String(format: "%.2f", availableBalanceDoub)
+            if availableBalance != nil {
+                let availableBalanceDoub: Double = Double(availableBalance!)!
+                self.balanceLabel.text = String(format: "%.2f", availableBalanceDoub)
+            }
+            
+            
+            
+            
+            
+            
+            
+            
             
             let fetchRequest = NSFetchRequest<Balance>()
             
@@ -167,7 +187,7 @@ class StockPortfolioViewController: UITableViewController {
                 totalValueDouble = totalValueDouble + stockValue
                 
                 print(self.balances[index].value)
-                print("Hello")
+      
             }
             if balances.count == 0 {
                 noStockLabel.isHidden = false
@@ -176,9 +196,40 @@ class StockPortfolioViewController: UITableViewController {
                 noStockLabel.isHidden = true
             }
             getNewPrices()
-            var balanceDoub = Double(defaults.string(forKey: "balanceAmount")!)
+            var balanceDoub = Double(defaults.string(forKey: "balanceAmount") ?? "100000")
             totalValueDouble = totalValueDouble + balanceDoub!
             totalValueLabel.text = String(format: "%.2f", totalValueDouble)
+            
+            
+            // datetime graph entry
+            let currentDateTime = Date()
+            let formatter = DateFormatter()
+            formatter.timeStyle = .none
+            formatter.dateStyle = .medium
+            formatter.timeZone = TimeZone.current
+            let dateTimeString = formatter.string(from: currentDateTime)
+       
+            
+            let fetchRequestDailyBalance = NSFetchRequest<DailyBalance>()
+            let entityDailyBalance = DailyBalance.entity()
+            fetchRequestDailyBalance.entity = entityDailyBalance
+            let sortDescriptorDailyBalance = NSSortDescriptor(
+                key: "date",
+                ascending: false)
+            fetchRequestDailyBalance.sortDescriptors = [sortDescriptorDailyBalance]
+            do {
+                dailyBalances = try context.fetch(fetchRequestDailyBalance)
+                
+            } catch {
+                //fatalCoreDataError(error
+            }
+            if dailyBalances.count > 0 && dateTimeString == dailyBalances[0].dateString {
+                updateDailyBalanceItem(item: self.dailyBalances[0], newBalance: String(format: "%.2f", totalValueDouble))
+            }else {
+                addDailyBalanceItem(date: currentDateTime, balanceAmount: String(format: "%.2f", totalValueDouble), dateString: dateTimeString)
+            }
+            
+            
             
             self.tableView.reloadData()
         }
@@ -191,9 +242,14 @@ class StockPortfolioViewController: UITableViewController {
         batchRequestString = ""
         for (index, stock) in balances.enumerated(){
             batchRequestString = batchRequestString+balances[index].stock!+","
-            
-            
         }
+        
+        //remove last comma from string for batch endpoint testing since I do not have premium 
+        if batchRequestString.count > 0 {
+            batchRequestString.remove(at: batchRequestString.index(before: batchRequestString.endIndex))
+        }
+        
+      
         dataTask?.cancel()
         isLoading = true
         
@@ -219,26 +275,23 @@ class StockPortfolioViewController: UITableViewController {
                     }
                     for (index, stock) in self.balances.enumerated(){
                         var stockToUpdate: String = self.balances[index].stock!
-                        print("HELLO1")
+                     
                         if(self.newPrices[stockToUpdate] == nil) {
                            
                         }else {
-                            print("HELLO2")
+                        
                             self.updatePrice(item: self.balances[index], newValue: self.newPrices[stockToUpdate]!)
-                            
-                            
-                            print("HELLO3")
+                   
                             var newPriceStr: String = self.balances[index].price!
                             var newPriceDoub: Double = Double(newPriceStr)!
                             var quantityStr: String = self.balances[index].quantity!
                             var quantityDoub: Double = Double(quantityStr)!
-                            
-                            print("HELLO4")
+                    
                             var newTotalVal: Double? = quantityDoub*newPriceDoub
                             self.updateValue(item: self.balances[index], newValue: String(newTotalVal!))
                         }
                         
-                        print("HELLO5")
+              
                         print(stockToUpdate)
                         print(self.newPrices[stockToUpdate])
                     }
@@ -275,7 +328,7 @@ class StockPortfolioViewController: UITableViewController {
             let result = try decoder.decode([StockPortfolio].self, from: data)
             return result
         } catch {
-            print("JSON Error: \(error)")
+            //print("JSON Error: \(error)")
             return []
         }
     }
@@ -293,13 +346,12 @@ class StockPortfolioViewController: UITableViewController {
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        print("HELLLO")
       if segue.identifier == "ShowDetailPortfolio" {
-        print("HELLLO")
         let controller = segue.destination as! StockDetailViewController
 
         if let indexPath = tableView.indexPath(for: sender as! UITableViewCell) {
             let balance = balances[indexPath.row]
+            print(indexPath.row)
             
             controller.balancePortfolio = balance
             controller.isPortfolio = isPortfolio
@@ -332,8 +384,31 @@ class StockPortfolioViewController: UITableViewController {
         }
     }
     
+    func addDailyBalanceItem(date: Date, balanceAmount: String, dateString: String) {
+        let newItem = DailyBalance(context: context)
+        newItem.balanceAmount = balanceAmount
+        newItem.date = date
+        newItem.dateString = dateString
+        do {
+            try context.save()
+        }catch {
+            
+        }
+    }
+    
+    func updateDailyBalanceItem(item: DailyBalance, newBalance: String) {
+        item.balanceAmount = newBalance
+        do {
+            try context.save()
+        }catch {
+            
+        }
+    }
+    
+    
+    
     func fatalCoreDataError(_ error: Error) {
-      print("*** Fatal error: \(error)")
+      //print("*** Fatal error: \(error)")
       NotificationCenter.default.post(name: dataSaveFailedNotification, object: nil)
         
     }
