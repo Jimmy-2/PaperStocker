@@ -29,7 +29,8 @@ class DailyBalanceCell: UITableViewCell {
     func configure(for dailyBalance: DailyBalance) {
         balanceAmountLabel.text = dailyBalance.balanceAmount
         
-        dateLabel.text = dailyBalance.date
+        
+        dateLabel.text = dailyBalance.dateString
         
     }
     

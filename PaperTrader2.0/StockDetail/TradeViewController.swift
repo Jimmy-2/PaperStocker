@@ -295,7 +295,10 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
         let newItem = Balance(context: context)
         newItem.stock = stock
         newItem.stockName = stockName
-        newItem.price = price
+        
+        //testing price refresh
+        //newItem.price = price
+        newItem.price = "32"
         newItem.quantity = quantity
         newItem.value = value
         

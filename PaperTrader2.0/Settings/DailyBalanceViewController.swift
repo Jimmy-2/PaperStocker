@@ -48,7 +48,7 @@ class DailyBalanceViewController: UITableViewController {
         fetchRequest.entity = entity
         let sortDescriptor = NSSortDescriptor(
             key: "date",
-            ascending: true)
+            ascending: false)
         fetchRequest.sortDescriptors = [sortDescriptor]
         do {
             dailyBalances = try context.fetch(fetchRequest)
@@ -56,23 +56,33 @@ class DailyBalanceViewController: UITableViewController {
         } catch {
             //fatalCoreDataError(error)
         }
+        print(dailyBalances.count)
     }
     
     @IBAction func testAddBalance() {
-        addDailyBalanceItem(date: "HELLO1", balanceAmount: "balanceAmount: HEHE")
+        let currentDateTime = Date()
+        let formatter = DateFormatter()
+        formatter.timeStyle = .none
+        formatter.dateStyle = .medium
+        formatter.timeZone = TimeZone.current
+        let dateTimeString = formatter.string(from: currentDateTime)
+        addDailyBalanceItem(date: currentDateTime, balanceAmount: "140000", dateString: "Feb 2, 2022")
+       
         
     }
-    func addDailyBalanceItem(date: String, balanceAmount: String) {
+    
+    // MARK: Core Data
+    func addDailyBalanceItem(date: Date, balanceAmount: String, dateString: String) {
         let newItem = DailyBalance(context: context)
         newItem.balanceAmount = balanceAmount
         newItem.date = date
-       
-        
+        newItem.dateString = dateString
         do {
             try context.save()
-            
         }catch {
             
         }
     }
+    
+   
 }
