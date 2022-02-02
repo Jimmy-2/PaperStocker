@@ -66,7 +66,7 @@ class DailyBalanceViewController: UITableViewController {
         formatter.dateStyle = .medium
         formatter.timeZone = TimeZone.current
         let dateTimeString = formatter.string(from: currentDateTime)
-        addDailyBalanceItem(date: currentDateTime, balanceAmount: "140000", dateString: "hello")
+        addDailyBalanceItem(date: currentDateTime, balanceAmount: "140000", dateString: "Feb 2, 2022")
        
         
     }

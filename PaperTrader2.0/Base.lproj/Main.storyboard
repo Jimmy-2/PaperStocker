@@ -1127,11 +1127,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="50i-8w-vqc">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="360"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LUf-b6-uOw">
-                                    <rect key="frame" x="4" y="338" width="140" height="18"/>
+                                    <rect key="frame" x="4" y="278" width="140" height="18"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="140" id="2DR-Wl-ntp"/>
                                     </constraints>
@@ -1140,7 +1140,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="999999999" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N5f-P6-Oe8">
-                                    <rect key="frame" x="221" y="338" width="150" height="18"/>
+                                    <rect key="frame" x="221" y="278" width="150" height="18"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="150" id="ZQ1-s2-Skc"/>
                                     </constraints>
@@ -1149,13 +1149,13 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Available to spend:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XE6-Me-2vA">
-                                    <rect key="frame" x="4" y="313" width="154" height="21"/>
+                                    <rect key="frame" x="4" y="253" width="154" height="21"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Value:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vlo-Yx-ZxH">
-                                    <rect key="frame" x="276.5" y="313" width="94.5" height="21"/>
+                                    <rect key="frame" x="276.5" y="253" width="94.5" height="21"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
@@ -1174,7 +1174,7 @@
                             </constraints>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="liN-Ix-H6N">
-                            <rect key="frame" x="0.0" y="509.00000034679067" width="375" height="50"/>
+                            <rect key="frame" x="0.0" y="449.00000034679067" width="375" height="50"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add a stock through the search stock tab" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vel-Gt-Nbg">
@@ -1194,7 +1194,7 @@
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="0.0" reuseIdentifier="PortfolioCell" rowHeight="100" id="RQW-WW-EYE" customClass="PortfolioCell" customModule="PaperTrader2_0" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="384.5" width="375" height="100"/>
+                                <rect key="frame" x="0.0" y="324.5" width="375" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="RQW-WW-EYE" id="jLV-DB-vKZ">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>

@@ -117,8 +117,12 @@ class StockPortfolioViewController: UITableViewController,ChartViewDelegate {
         refreshControll.tintColor = .white
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.refresh), name: NSNotification.Name(rawValue: "newDataNotif"), object: nil)
+       
+    
         self.refresh()
+            
         
+       
         
         
         
@@ -225,26 +229,56 @@ class StockPortfolioViewController: UITableViewController,ChartViewDelegate {
             } catch {
                 //fatalCoreDataError(error
             }
-            dailyBalanceCount = dailyBalances.count
-            if dailyBalances.count > 0 && dateTimeString == dailyBalances[dailyBalances.count-1].dateString {
+            
+            if dailyBalances.count == 0 {
+                addDailyBalanceItem(date: currentDateTime, balanceAmount: availableBalance ?? "0", dateString: "Start Bal")
+            }else if dailyBalances.count > 0 && dateTimeString == dailyBalances[dailyBalances.count-1].dateString {
                 updateDailyBalanceItem(item: self.dailyBalances[dailyBalances.count-1], newBalance: String(format: "%.2f", totalValueDouble))
             }else {
                 addDailyBalanceItem(date: currentDateTime, balanceAmount: String(format: "%.2f", totalValueDouble), dateString: dateTimeString)
             }
             //line chart
+       
             lineChart.delegate = self
-            lineChart.frame = CGRect(x:0,y:0, width: self.view.frame.size.width, height:300)
-           
+            lineChart.frame = CGRect(x:0,y:0, width: self.view.frame.size.width, height:240)
+            
             view.addSubview(lineChart)
             var entries = [ChartDataEntry]()
             for x in 0..<dailyBalances.count {
                 entries.append(ChartDataEntry(x:Double(x),y:Double(dailyBalances[x].balanceAmount!)!))
             }
             let set = LineChartDataSet(entries:entries)
-            set.colors = ChartColorTemplates.material()
             let data = LineChartData(dataSet:set)
-            lineChart.xAxis.valueFormatter = self
+            set.drawCirclesEnabled = false
+            lineChart.leftAxis.axisMinimum = 0
+            lineChart.rightAxis.axisMinimum = 0
+            lineChart.xAxis.axisMinimum = 0
+            lineChart.xAxis.labelTextColor = UIColor.white
+            lineChart.leftAxis.labelTextColor = UIColor.white
+            lineChart.rightAxis.labelTextColor = UIColor.white
+            data.setValueTextColor(UIColor.white)
+            set.drawFilledEnabled = true
+            lineChart.legend.enabled = false
             lineChart.data = data
+            if (dailyBalances.count > 0) {
+                lineChart.xAxis.valueFormatter = self
+            }
+            if (dailyBalances.count > 4) {
+            
+                
+              
+                
+                    
+                lineChart.xAxis.labelCount = 4
+                lineChart.setVisibleXRangeMaximum(4)
+            }
+        
+            lineChart.moveViewToX(Double(dailyBalances.count))
+                
+                
+                
+                
+            
             
             
             self.tableView.reloadData()

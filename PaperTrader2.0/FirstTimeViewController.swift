@@ -11,6 +11,8 @@ class FirstTimeViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet var startingAmount: UITextField!
     @IBOutlet var okButton: UIButton!
     
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var dailyBalances = [DailyBalance]()
 
     
     override func viewDidLoad() {
@@ -45,8 +47,6 @@ class FirstTimeViewController: UITableViewController, UITextFieldDelegate {
             startingAmountStr = startingAmount.text!
         }
         
-        print("HeLLO")
-        print(startingAmountStr)
         defaultsss.set(startingAmountStr, forKey: "balanceAmount")
         
         
@@ -59,8 +59,9 @@ class FirstTimeViewController: UITableViewController, UITextFieldDelegate {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "newDataNotif"), object: nil)
         
         
+        
     }
-    
+
     
     
 }
