@@ -26,6 +26,7 @@ class StockPortfolioViewController: UITableViewController,ChartViewDelegate {
     var totalValueDouble: Double = 0.0
 
     var batchRequestString: String = ""
+    var dailyBalanceCount: Int = 0
     
     @IBOutlet var balanceLabel: UILabel!
     @IBOutlet var totalValueLabel: UILabel!
@@ -70,19 +71,7 @@ class StockPortfolioViewController: UITableViewController,ChartViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad();
         
-        //line chart
-        lineChart.delegate = self
-        lineChart.frame = CGRect(x:0,y:0, width: self.view.frame.size.width, height:300)
-       
-        view.addSubview(lineChart)
-        var entries = [ChartDataEntry]()
-        for x in 0..<10 {
-            entries.append(ChartDataEntry(x:Double(x),y:Double(x)))
-        }
-        let set = LineChartDataSet(entries:entries)
-        set.colors = ChartColorTemplates.material()
-        let data = LineChartData(dataSet:set)
-        lineChart.data = data
+        
         
 
         let defaults = UserDefaults.standard
@@ -228,7 +217,7 @@ class StockPortfolioViewController: UITableViewController,ChartViewDelegate {
             fetchRequestDailyBalance.entity = entityDailyBalance
             let sortDescriptorDailyBalance = NSSortDescriptor(
                 key: "date",
-                ascending: false)
+                ascending: true)
             fetchRequestDailyBalance.sortDescriptors = [sortDescriptorDailyBalance]
             do {
                 dailyBalances = try context.fetch(fetchRequestDailyBalance)
@@ -236,12 +225,26 @@ class StockPortfolioViewController: UITableViewController,ChartViewDelegate {
             } catch {
                 //fatalCoreDataError(error
             }
-            if dailyBalances.count > 0 && dateTimeString == dailyBalances[0].dateString {
-                updateDailyBalanceItem(item: self.dailyBalances[0], newBalance: String(format: "%.2f", totalValueDouble))
+            dailyBalanceCount = dailyBalances.count
+            if dailyBalances.count > 0 && dateTimeString == dailyBalances[dailyBalances.count-1].dateString {
+                updateDailyBalanceItem(item: self.dailyBalances[dailyBalances.count-1], newBalance: String(format: "%.2f", totalValueDouble))
             }else {
                 addDailyBalanceItem(date: currentDateTime, balanceAmount: String(format: "%.2f", totalValueDouble), dateString: dateTimeString)
             }
-            
+            //line chart
+            lineChart.delegate = self
+            lineChart.frame = CGRect(x:0,y:0, width: self.view.frame.size.width, height:300)
+           
+            view.addSubview(lineChart)
+            var entries = [ChartDataEntry]()
+            for x in 0..<dailyBalances.count {
+                entries.append(ChartDataEntry(x:Double(x),y:Double(dailyBalances[x].balanceAmount!)!))
+            }
+            let set = LineChartDataSet(entries:entries)
+            set.colors = ChartColorTemplates.material()
+            let data = LineChartData(dataSet:set)
+            lineChart.xAxis.valueFormatter = self
+            lineChart.data = data
             
             
             self.tableView.reloadData()
@@ -434,5 +437,17 @@ class StockPortfolioViewController: UITableViewController,ChartViewDelegate {
     
     
 
+
+}
+
+extension StockPortfolioViewController: IAxisValueFormatter {
+    func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+        var xDate: [String] = []
+        for x in 0..<dailyBalances.count {
+            xDate.append(dailyBalances[x].dateString!)
+        }
+        
+        return xDate[Int(value)]
+    }
 }
 

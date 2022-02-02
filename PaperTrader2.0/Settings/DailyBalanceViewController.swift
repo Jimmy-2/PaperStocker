@@ -66,12 +66,23 @@ class DailyBalanceViewController: UITableViewController {
         formatter.dateStyle = .medium
         formatter.timeZone = TimeZone.current
         let dateTimeString = formatter.string(from: currentDateTime)
-        
+        addDailyBalanceItem(date: currentDateTime, balanceAmount: "140000", dateString: "hello")
        
         
     }
     
     // MARK: Core Data
+    func addDailyBalanceItem(date: Date, balanceAmount: String, dateString: String) {
+        let newItem = DailyBalance(context: context)
+        newItem.balanceAmount = balanceAmount
+        newItem.date = date
+        newItem.dateString = dateString
+        do {
+            try context.save()
+        }catch {
+            
+        }
+    }
     
    
 }
