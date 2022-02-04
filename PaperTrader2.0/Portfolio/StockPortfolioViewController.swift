@@ -231,7 +231,7 @@ class StockPortfolioViewController: UITableViewController,ChartViewDelegate {
             }
             
             if dailyBalances.count == 0 {
-                addDailyBalanceItem(date: currentDateTime, balanceAmount: availableBalance ?? "0", dateString: "Start Bal")
+                addDailyBalanceItem(date: currentDateTime, balanceAmount: availableBalance ?? "0", dateString: "Start")
             }else if dailyBalances.count > 0 && dateTimeString == dailyBalances[dailyBalances.count-1].dateString {
                 updateDailyBalanceItem(item: self.dailyBalances[dailyBalances.count-1], newBalance: String(format: "%.2f", totalValueDouble))
             }else {
@@ -250,9 +250,6 @@ class StockPortfolioViewController: UITableViewController,ChartViewDelegate {
             let set = LineChartDataSet(entries:entries)
             let data = LineChartData(dataSet:set)
             set.drawCirclesEnabled = false
-            lineChart.leftAxis.axisMinimum = 0
-            lineChart.rightAxis.axisMinimum = 0
-            lineChart.xAxis.axisMinimum = 0
             lineChart.xAxis.labelTextColor = UIColor.white
             lineChart.leftAxis.labelTextColor = UIColor.white
             lineChart.rightAxis.labelTextColor = UIColor.white
@@ -265,7 +262,7 @@ class StockPortfolioViewController: UITableViewController,ChartViewDelegate {
             }
             if (dailyBalances.count > 4) {
             
-                
+            
               
                 
                     

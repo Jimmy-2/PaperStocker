@@ -4,12 +4,12 @@
 //
 //  Created by Jimmy  on 11/21/21.
 //
-
+import Charts
 import UIKit
 
 class StockDetailViewController: UITableViewController {
     
-    
+    var candleStickChart = CandleStickChartView()
 
     @IBOutlet var symbolLabel: UILabel!
     @IBOutlet var stockNameLabel: UILabel!
@@ -31,14 +31,16 @@ class StockDetailViewController: UITableViewController {
     let refreshControll = UIRefreshControl()
     
    
-
     
     var searchResult: SearchResult!
     var balancePortfolio: Balance?
     
     var dataTask: URLSessionDataTask?
+    var hpDataTask: URLSessionDataTask?
     var isLoading = false
     
+    
+    var historicalPrice = [HistoricalPrice]()
     var stockDetail = [StockDetail]()
     var open: String? = "loading"
     var high: String? = "loading"
@@ -61,7 +63,7 @@ class StockDetailViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(isPortfolio)
+        
         if let balance = balancePortfolio {
             stockNameLabel.text = balance.stockName
             symbolLabel.text = balance.stock
@@ -133,10 +135,12 @@ class StockDetailViewController: UITableViewController {
     func getStockData() {
         if searchResult != nil || balancePortfolio != nil{
             dataTask?.cancel()
+            hpDataTask?.cancel()
             isLoading = true
    
             
             self.updateUI()
+            
             let apiURL = stocksURL()
             let session = URLSession.shared
             dataTask = session.dataTask(with: apiURL) {data, response, error in
@@ -148,7 +152,6 @@ class StockDetailViewController: UITableViewController {
                         
                         self.stockDetail = self.parse(data: data)
                         if(self.stockDetail.isEmpty) {
-                            print("HELLLLLLLLLLO123123")
                             DispatchQueue.main.async {
                                 self.isLoading = false
                                 self.updateUI()
@@ -237,7 +240,7 @@ class StockDetailViewController: UITableViewController {
                         return
                     }
                 } else {
-                    print("Failure!")
+                    //print("Failure!")
                     
                 }
                 DispatchQueue.main.async {
@@ -249,11 +252,69 @@ class StockDetailViewController: UITableViewController {
             }
             dataTask?.resume()
             
+            
+            
+            //candlestickchart
+            candleStickChart.frame = CGRect(x:0,y:0, width: self.view.frame.size.width, height:300)
+            
+            
+            view.addSubview(candleStickChart)
+            var entries = [ChartDataEntry]()
+            
+            let historicalPriceURL = historicalPriceURL()
+            
+            let hpSession = URLSession.shared
+            hpDataTask = hpSession.dataTask(with: historicalPriceURL) {data, response, error in
+          
+                if let error = error as NSError?, error.code == -999 {
+                    return
+                } else if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
+                    if let data = data {
+                        self.historicalPrice = self.parseHistoricalPrice(data: data)
+                        for i in 0..<self.historicalPrice.count {
+                            entries.append(CandleChartDataEntry(x: Double(i), shadowH: self.historicalPrice[i].high!, shadowL: self.historicalPrice[i].low!, open: self.historicalPrice[i].open!, close: self.historicalPrice[i].close!));
+                        }
+                        let set = CandleChartDataSet(entries:entries)
+                        let data = CandleChartData(dataSet:set)
+                        self.candleStickChart.xAxis.labelTextColor = UIColor.white
+                        self.candleStickChart.leftAxis.labelTextColor = UIColor.white
+                        self.candleStickChart.rightAxis.labelTextColor = UIColor.white
+                      
+                        data.setValueTextColor(UIColor.white)
+                        self.candleStickChart.data = data
+                        self.candleStickChart.animate(xAxisDuration: 0.05)
+                        DispatchQueue.main.async {
+                            self.isLoading = false
+                           
+                        }
+                        return
+                    }
+                } else {
+                    
+                }
+                DispatchQueue.main.async {
+                    self.isLoading = false
+                    self.showNetworkError()
+                }
+            }
+            hpDataTask?.resume()
+            
+            
          
+            
+           
+           
+            
             
             
             
         }
+        
+        
+        
+        
+        
+        
     }
     
     
@@ -299,6 +360,25 @@ class StockDetailViewController: UITableViewController {
     }
  
     */
+    func historicalPriceURL() -> URL {
+        let urlString = String(format: "https://financialmodelingprep.com/api/v3/historical-chart/1min/"+stockSymbol!+"?apikey=d6d32343ce4ed4d79945c94ca7c9c383")
+            //
+        let url = URL(string: urlString)
+        return url!
+    }
+    
+    func parseHistoricalPrice(data: Data) -> [HistoricalPrice] {
+        do {
+            let decoder = JSONDecoder()
+            let result = try decoder.decode([HistoricalPrice].self, from: data)
+          
+            return result
+        } catch {
+            
+            return []
+        }
+    }
+    
     
     func stocksURL() -> URL {
         let urlString = String(format: "https://financialmodelingprep.com/api/v3/quote/%@"+"?apikey=d1980c7326fed76a84ab12644fa786f9",stockSymbol!)
@@ -310,12 +390,11 @@ class StockDetailViewController: UITableViewController {
     
     func parse(data: Data) -> [StockDetail] {
         do {
-            print("HEYHEYHELLO")
             let decoder = JSONDecoder()
             let result = try decoder.decode([StockDetail].self, from: data)
             return result
         } catch {
-            print("JSON Error: \(error)")
+            //print("JSON Error: \(error)")
             return []
         }
     }
