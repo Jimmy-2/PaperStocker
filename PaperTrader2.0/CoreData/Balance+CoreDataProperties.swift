@@ -21,6 +21,7 @@ extension Balance {
     @NSManaged public var price: String?
     @NSManaged public var value: String?
     @NSManaged public var stockName: String?
+    @NSManaged public var avgPrice: String?
 
 }
 

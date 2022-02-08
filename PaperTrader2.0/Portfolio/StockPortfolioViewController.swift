@@ -70,7 +70,7 @@ class StockPortfolioViewController: UITableViewController,ChartViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad();
-        
+        print(UserDefaults.standard.dictionaryRepresentation())
         
         
 
@@ -250,6 +250,10 @@ class StockPortfolioViewController: UITableViewController,ChartViewDelegate {
             let set = LineChartDataSet(entries:entries)
             let data = LineChartData(dataSet:set)
             set.drawCirclesEnabled = false
+            lineChart.leftAxis.axisMinimum = 0
+            lineChart.rightAxis.axisMinimum = 0
+            lineChart.xAxis.axisMinimum = 0
+            lineChart.xAxis.axisMaximum = Double(dailyBalances.count-1)
             lineChart.xAxis.labelTextColor = UIColor.white
             lineChart.leftAxis.labelTextColor = UIColor.white
             lineChart.rightAxis.labelTextColor = UIColor.white
@@ -261,16 +265,20 @@ class StockPortfolioViewController: UITableViewController,ChartViewDelegate {
                 lineChart.xAxis.valueFormatter = self
             }
             if (dailyBalances.count > 4) {
-            
-            
-              
-                
-                    
+        
                 lineChart.xAxis.labelCount = 4
                 lineChart.setVisibleXRangeMaximum(4)
             }
-        
+            lineChart.leftAxis.drawGridLinesEnabled = false
+            lineChart.xAxis.drawGridLinesEnabled = false
+            lineChart.leftAxis.drawAxisLineEnabled = false
+            lineChart.xAxis.drawAxisLineEnabled = false
             lineChart.moveViewToX(Double(dailyBalances.count))
+            
+            
+            lineChart.notifyDataSetChanged()
+            
+            lineChart.animate(xAxisDuration: 0.05)
                 
                 
                 

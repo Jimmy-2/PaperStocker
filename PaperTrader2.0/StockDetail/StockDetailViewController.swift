@@ -7,7 +7,7 @@
 import Charts
 import UIKit
 
-class StockDetailViewController: UITableViewController {
+class StockDetailViewController: UITableViewController,ChartViewDelegate  {
     
     var candleStickChart = CandleStickChartView()
 
@@ -255,11 +255,13 @@ class StockDetailViewController: UITableViewController {
             
             
             //candlestickchart
+            candleStickChart.delegate = self
             candleStickChart.frame = CGRect(x:0,y:0, width: self.view.frame.size.width, height:300)
             
             
             view.addSubview(candleStickChart)
             var entries = [ChartDataEntry]()
+            var candleColors: [UIColor] = []
             
             let historicalPriceURL = historicalPriceURL()
             
@@ -270,18 +272,42 @@ class StockDetailViewController: UITableViewController {
                     return
                 } else if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
                     if let data = data {
+                        
                         self.historicalPrice = self.parseHistoricalPrice(data: data)
+                        
+                        var hpCount: Int =  0
+                        let fullCount = self.historicalPrice.count-1
                         for i in 0..<self.historicalPrice.count {
-                            entries.append(CandleChartDataEntry(x: Double(i), shadowH: self.historicalPrice[i].high!, shadowL: self.historicalPrice[i].low!, open: self.historicalPrice[i].open!, close: self.historicalPrice[i].close!));
+                            hpCount += 1
+                            entries.append(CandleChartDataEntry(x: Double(i), shadowH: self.historicalPrice[fullCount-i].high!, shadowL: self.historicalPrice[fullCount-i].low!, open: self.historicalPrice[fullCount-i].open!, close: self.historicalPrice[fullCount-i].close!));
+                            if self.historicalPrice[fullCount-i].close! < self.historicalPrice[fullCount-i].open! {
+                                candleColors.append(UIColor.red)
+                            }else {
+                                candleColors.append(UIColor.green)
+                                
+                            }
+                                
                         }
                         let set = CandleChartDataSet(entries:entries)
                         let data = CandleChartData(dataSet:set)
                         self.candleStickChart.xAxis.labelTextColor = UIColor.white
                         self.candleStickChart.leftAxis.labelTextColor = UIColor.white
                         self.candleStickChart.rightAxis.labelTextColor = UIColor.white
-                      
+                        self.candleStickChart.xAxis.axisMinimum = 0
+                        self.candleStickChart.xAxis.axisMaximum = Double(self.historicalPrice.count-1)
                         data.setValueTextColor(UIColor.white)
+                        self.candleStickChart.legend.enabled = false
                         self.candleStickChart.data = data
+                        set.colors = candleColors
+                        self.candleStickChart.xAxis.valueFormatter = self
+                        if hpCount > 120 {
+                            self.candleStickChart.xAxis.labelCount = 4
+                            self.candleStickChart.setVisibleXRangeMaximum(120)
+                        }
+                        self.candleStickChart.moveViewToX(Double(hpCount-1))
+                        self.candleStickChart.xAxis.drawGridLinesEnabled = false
+                        self.candleStickChart.leftAxis.drawAxisLineEnabled = false
+                        self.candleStickChart.xAxis.drawAxisLineEnabled = false
                         self.candleStickChart.animate(xAxisDuration: 0.05)
                         DispatchQueue.main.async {
                             self.isLoading = false
@@ -300,6 +326,11 @@ class StockDetailViewController: UITableViewController {
             hpDataTask?.resume()
             
             
+            
+            
+            
+        
+            //add drop down menu to change candle stick time 
          
             
            
@@ -475,5 +506,25 @@ extension UIViewController {
             (_) in
             toastLabel.removeFromSuperview()
         }
+    }
+}
+
+extension StockDetailViewController: IAxisValueFormatter {
+    func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+        var xDate: [String] = []
+        
+        for x in (0..<historicalPrice.count).reversed() {
+            var fullHP:String  = historicalPrice[x].date!
+            let start = fullHP.index(fullHP.startIndex, offsetBy: 5)
+            let end = fullHP.index(fullHP.endIndex, offsetBy: -3)
+            let range = start..<end
+             
+            let hpSubStr: String = String(fullHP[range])
+            xDate.append(hpSubStr)
+        }
+        if (Int(value) > historicalPrice.count-1) {
+            return xDate[historicalPrice.count-1]
+        }
+        return xDate[Int(value)]
     }
 }

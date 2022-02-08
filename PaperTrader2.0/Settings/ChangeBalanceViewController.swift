@@ -10,14 +10,17 @@ import UIKit
 class ChangeBalanceViewController: UITableViewController, UITextFieldDelegate  {
     @IBOutlet var doneButton: UIButton!
     @IBOutlet var editBalanceTextField: UITextField!
-    
+    var availableBalance: String?
+    var availableBalanceDoub: Double = 0.0
     override func viewDidLoad() {
         super.viewDidLoad()
         editBalanceTextField.delegate = self
         
         let defaults = UserDefaults.standard
-        let availableBalance: String? = defaults.string(forKey: "balanceAmount")
-        let availableBalanceDoub: Double = Double(availableBalance!)!
+        availableBalance = defaults.string(forKey: "balanceAmount")
+        
+        availableBalanceDoub = Double(availableBalance!)!
+        
         editBalanceTextField.text = String(format: "%.0f", availableBalanceDoub)
     }
     
@@ -31,6 +34,21 @@ class ChangeBalanceViewController: UITableViewController, UITextFieldDelegate  {
             let defaults = UserDefaults.standard
             defaults.set(editBalanceTextField.text, forKey: "balanceAmount")
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "newDataNotif"), object: nil)
+            
+            
+           
+            var newAmount: String? = editBalanceTextField.text
+            var newAmountDoub: Double = Double(newAmount!)!
+            var newChangeAmount: Double = defaults.double(forKey: "changeAmount")
+            
+            if (newAmountDoub > availableBalanceDoub) {
+                newChangeAmount += (newAmountDoub - availableBalanceDoub)
+            }else if (newAmountDoub < availableBalanceDoub) {
+                newChangeAmount -= (availableBalanceDoub - newAmountDoub)
+            }
+            
+            defaults.set(newChangeAmount , forKey: "changeAmount")
+            
             showToastMessage2(message: "You have successfully changed your balance to " + editBalanceTextField.text!)
         }
        

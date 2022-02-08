@@ -26,8 +26,8 @@
 		BF135C55275ECCCE00B0BE30 /* StockPortfolio.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF135C54275ECCCD00B0BE30 /* StockPortfolio.swift */; };
 		BF2668E7279E689800495F57 /* DailyBalance+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2668E5279E689800495F57 /* DailyBalance+CoreDataClass.swift */; };
 		BF2668E8279E689800495F57 /* DailyBalance+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2668E6279E689800495F57 /* DailyBalance+CoreDataProperties.swift */; };
-		BF2668EA27A9085400495F57 /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2668E927A9085400495F57 /* Stats.swift */; };
 		BF2668EC27AC709500495F57 /* HistoricalPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2668EB27AC709500495F57 /* HistoricalPrice.swift */; };
+		BF2668EE27AE494700495F57 /* SummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2668ED27AE494700495F57 /* SummaryViewController.swift */; };
 		BF53C34D2748983D003E4C02 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF53C34C2748983D003E4C02 /* AppDelegate.swift */; };
 		BF53C34F2748983D003E4C02 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF53C34E2748983D003E4C02 /* SceneDelegate.swift */; };
 		BF53C3512748983D003E4C02 /* SearchStockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF53C3502748983D003E4C02 /* SearchStockViewController.swift */; };
@@ -66,8 +66,8 @@
 		BF135C54275ECCCD00B0BE30 /* StockPortfolio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockPortfolio.swift; sourceTree = "<group>"; };
 		BF2668E5279E689800495F57 /* DailyBalance+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DailyBalance+CoreDataClass.swift"; sourceTree = "<group>"; };
 		BF2668E6279E689800495F57 /* DailyBalance+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DailyBalance+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		BF2668E927A9085400495F57 /* Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
 		BF2668EB27AC709500495F57 /* HistoricalPrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoricalPrice.swift; sourceTree = "<group>"; };
+		BF2668ED27AE494700495F57 /* SummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryViewController.swift; sourceTree = "<group>"; };
 		BF53C3492748983D003E4C02 /* PaperTrader2.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PaperTrader2.0.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF53C34C2748983D003E4C02 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BF53C34E2748983D003E4C02 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -221,7 +221,7 @@
 				BFC81173276428990028A499 /* SettingsViewController.swift */,
 				BFC81179279E2D410028A499 /* DailyBalanceViewController.swift */,
 				BFC8117B279E2F9A0028A499 /* DailyBalanceCell.swift */,
-				BF2668E927A9085400495F57 /* Stats.swift */,
+				BF2668ED27AE494700495F57 /* SummaryViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -364,7 +364,7 @@
 				BF53C3572748983D003E4C02 /* PaperTrader2_0.xcdatamodeld in Sources */,
 				BFC81174276428990028A499 /* SettingsViewController.swift in Sources */,
 				BF135C5327535C0A00B0BE30 /* userDefaults.swift in Sources */,
-				BF2668EA27A9085400495F57 /* Stats.swift in Sources */,
+				BF2668EE27AE494700495F57 /* SummaryViewController.swift in Sources */,
 				BF135C55275ECCCE00B0BE30 /* StockPortfolio.swift in Sources */,
 				BF135C462752E79600B0BE30 /* PortfolioCell.swift in Sources */,
 				BF53C36D2748D174003E4C02 /* SearchResultCell.swift in Sources */,
