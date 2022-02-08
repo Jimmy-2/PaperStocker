@@ -24,10 +24,4 @@ Personal iOS project. Gifs to be added...
 <img src='https://raw.githubusercontent.com/Jimmy-2/PaperStocker/main/gifs/IfNoInternet.gif' title='Refresh gif' width='' alt='Refresh gif' />
 
 
-## Todos
-* - [ ] Add a view that displays daily portfolio balance.
-* - [ ] Graph for daily portfolio balance
-* - [ ] Graphs for individual stocks.
-* - [ ] Automatic price updates for home screen portfolio
-* - [ ] Price alerts and push notification.
 
