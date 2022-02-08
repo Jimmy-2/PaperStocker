@@ -73,7 +73,7 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
         balanceDouble = Double(availableBalance!)
         ableToPurchase = balanceDouble!/Double(currentPrice!)!
         
-        availableToBuyLabel.text = String(format: "%.0f", ableToPurchase!)
+        availableToBuyLabel.text = String(format: "%.0f", floor(ableToPurchase!))
         tradeButton.setTitle(tradeButtonText, for: .normal)
         
         if let index = portfolioSymbols.index(of: symbol!) {
@@ -112,6 +112,7 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
             
         }else {
             if tradeButtonText == "Buy" {
+                //coming from portflio screen
                 if isPortfolio == true {
                     let quantityToBuy: Double = Double(quantityTextField.text!)!
                     if(quantityToBuy > ableToPurchase!) {
@@ -123,9 +124,20 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
                         let currentQuantity: Double = Double((balancePortfolioTrade?.quantity ?? "0"))!
                         let newQuantity = quantityToBuy+currentQuantity
                         let newValue = newQuantity*Double(currentPrice!)!
-                        updateQuantity(item: balancePortfolioTrade!, newQuantity: String(newQuantity))
-                        updateValue(item: balancePortfolioTrade!, newValue: String(newValue))
                         
+                        //update quantity of stock in coredata
+                        updateQuantity(item: balancePortfolioTrade!, newQuantity: String(newQuantity))
+                        
+                        //update total value of stock in coredata
+                        updateValue(item: balancePortfolioTrade!, newValue: String(newValue))
+                        updatePrice(item: balancePortfolioTrade!, newPrice: String(currentPrice!))
+                        
+                        let oldAvgPrice: String = balancePortfolioTrade!.avgPrice!
+                        let newPositionVal:Double = quantityToBuy*Double(currentPrice!)!
+                        let oldPositionVal:Double = currentQuantity*Double(oldAvgPrice)!
+                        let newAvgPrice: Double = (newPositionVal + oldPositionVal)/newQuantity
+                            
+                        updateAvgPrice(item: balancePortfolioTrade!, newAvgprice: String(newAvgPrice))
                         
                         var spentAmount: Double? = quantityToBuy*Double(currentPrice!)!
                         balanceDouble = balanceDouble! - spentAmount!
@@ -137,6 +149,7 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
                     }
                     
                     
+                //coming from search stock screen
                 }else {
                     let quantityToBuy: Double = Double(quantityTextField.text!)!
                     if(quantityToBuy > ableToPurchase!) {
@@ -148,8 +161,20 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
                             let currentQuantity: Double = Double((models[index].quantity)!)!
                             let newQuantity = quantityToBuy+currentQuantity
                             let newValue = newQuantity*Double(currentPrice!)!
+                            
+                            //update quantity of stock in coredata
                             updateQuantity(item: models[index], newQuantity: String(newQuantity))
+                            
+                            //update total value of stock in coredata
                             updateValue(item: models[index], newValue: String(newValue))
+                            updatePrice(item: balancePortfolioTrade!, newPrice: String(currentPrice!))
+                            
+                            let oldAvgPrice: String = balancePortfolioTrade!.avgPrice!
+                            let newPositionVal:Double = quantityToBuy*Double(currentPrice!)!
+                            let oldPositionVal:Double = currentQuantity*Double(oldAvgPrice)!
+                            let newAvgPrice: Double = (newPositionVal + oldPositionVal)/newQuantity
+                                
+                            updateAvgPrice(item: balancePortfolioTrade!, newAvgprice: String(newAvgPrice))
                             
                             var spentAmount: Double? = quantityToBuy*Double(currentPrice!)!
                             balanceDouble = balanceDouble! - spentAmount!
@@ -159,8 +184,9 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
                             showToastMessage2(message: "You have successfully purchased " + quantityTextField.text! + " shares!")
                             
                         }else {
+                            //in stock does not exist in portfolio then we will create a new entry for it in coredata
                             var stockValue:Double = Double(currentPrice!)! * Double(quantityTextField.text!)!
-                            createItem(stock: symbol!, stockName: stockName!, price: currentPrice!, quantity: quantityTextField.text!, value: String(stockValue))
+                            createItem(stock: symbol!, stockName: stockName!, price: currentPrice!, quantity: quantityTextField.text!, value: String(stockValue), avgPrice: currentPrice!)
                             
                             var spentAmount: Double? = quantityToBuy*Double(currentPrice!)!
                             balanceDouble = balanceDouble! - spentAmount!
@@ -197,6 +223,7 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
                         let newValue = newQuantity*Double(currentPrice!)!
                         updateQuantity(item: balancePortfolioTrade!, newQuantity: String(newQuantity))
                         updateValue(item: balancePortfolioTrade!, newValue: String(newValue))
+                        updatePrice(item: balancePortfolioTrade!, newPrice: String(currentPrice!))
                         var addAmount: Double? = quantityToSell*Double(currentPrice!)!
                         balanceDouble = balanceDouble! + addAmount!
                         var newBalance:String? = String(format: "%f", balanceDouble!)
@@ -225,6 +252,7 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
                             let newValue = newQuantity*Double(currentPrice!)!
                             updateQuantity(item: models[index], newQuantity: String(newQuantity))
                             updateValue(item: models[index], newValue: String(newValue))
+                            updatePrice(item: balancePortfolioTrade!, newPrice: String(currentPrice!))
                             var addAmount: Double? = quantityToSell*Double(currentPrice!)!
                             balanceDouble = balanceDouble! + addAmount!
                             var newBalance:String? = String(format: "%f", balanceDouble!)
@@ -291,17 +319,17 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
         
     }
     
-    func createItem(stock: String, stockName: String, price: String, quantity: String, value: String) {
+    func createItem(stock: String, stockName: String, price: String, quantity: String, value: String, avgPrice:String) {
         let newItem = Balance(context: context)
         newItem.stock = stock
         newItem.stockName = stockName
         
-        //testing price refresh
-        //newItem.price = price
-        newItem.price = "32"
+   
+        newItem.price = price
+  
         newItem.quantity = quantity
         newItem.value = value
-        
+        newItem.avgPrice = avgPrice
         do {
             try context.save()
             
@@ -337,9 +365,22 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
             
         }
     }
+    func updateAvgPrice(item: Balance, newAvgprice: String) {
+        item.avgPrice = newAvgprice
+        do {
+            try context.save()
+        }catch {
+            
+        }
+    }
     
-    func updatePrice(item: Balance, newPrice: String, newValue: String) {
-        
+    func updatePrice(item: Balance, newPrice: String) {
+        item.price = newPrice
+        do {
+            try context.save()
+        }catch {
+            
+        }
     }
 
 }

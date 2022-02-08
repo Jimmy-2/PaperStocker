@@ -70,7 +70,7 @@ class StockPortfolioViewController: UITableViewController,ChartViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad();
-        
+        print(UserDefaults.standard.dictionaryRepresentation())
         
         
 
@@ -231,7 +231,7 @@ class StockPortfolioViewController: UITableViewController,ChartViewDelegate {
             }
             
             if dailyBalances.count == 0 {
-                addDailyBalanceItem(date: currentDateTime, balanceAmount: availableBalance ?? "0", dateString: "Start Bal")
+                addDailyBalanceItem(date: currentDateTime, balanceAmount: availableBalance ?? "0", dateString: "Start")
             }else if dailyBalances.count > 0 && dateTimeString == dailyBalances[dailyBalances.count-1].dateString {
                 updateDailyBalanceItem(item: self.dailyBalances[dailyBalances.count-1], newBalance: String(format: "%.2f", totalValueDouble))
             }else {
@@ -253,6 +253,7 @@ class StockPortfolioViewController: UITableViewController,ChartViewDelegate {
             lineChart.leftAxis.axisMinimum = 0
             lineChart.rightAxis.axisMinimum = 0
             lineChart.xAxis.axisMinimum = 0
+            lineChart.xAxis.axisMaximum = Double(dailyBalances.count-1)
             lineChart.xAxis.labelTextColor = UIColor.white
             lineChart.leftAxis.labelTextColor = UIColor.white
             lineChart.rightAxis.labelTextColor = UIColor.white
@@ -264,16 +265,20 @@ class StockPortfolioViewController: UITableViewController,ChartViewDelegate {
                 lineChart.xAxis.valueFormatter = self
             }
             if (dailyBalances.count > 4) {
-            
-                
-              
-                
-                    
+        
                 lineChart.xAxis.labelCount = 4
                 lineChart.setVisibleXRangeMaximum(4)
             }
-        
+            lineChart.leftAxis.drawGridLinesEnabled = false
+            lineChart.xAxis.drawGridLinesEnabled = false
+            lineChart.leftAxis.drawAxisLineEnabled = false
+            lineChart.xAxis.drawAxisLineEnabled = false
             lineChart.moveViewToX(Double(dailyBalances.count))
+            
+            
+            lineChart.notifyDataSetChanged()
+            
+            lineChart.animate(xAxisDuration: 0.05)
                 
                 
                 

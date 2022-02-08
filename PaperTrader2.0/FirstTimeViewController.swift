@@ -50,7 +50,7 @@ class FirstTimeViewController: UITableViewController, UITextFieldDelegate {
         defaultsss.set(startingAmountStr, forKey: "balanceAmount")
         
         
-        
+        defaultsss.set(0, forKey: "changeAmount")
         
         userDefaults.defaults.setNotNew()
         

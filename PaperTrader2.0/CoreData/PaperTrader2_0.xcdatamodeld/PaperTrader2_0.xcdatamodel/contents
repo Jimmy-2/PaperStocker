@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20G165" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Balance" representedClassName="Balance" syncable="YES">
+        <attribute name="avgPrice" optional="YES" attributeType="String"/>
         <attribute name="price" optional="YES" attributeType="String"/>
         <attribute name="quantity" optional="YES" attributeType="String"/>
         <attribute name="stock" optional="YES" attributeType="String"/>
@@ -13,7 +14,7 @@
         <attribute name="dateString" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="Balance" positionX="-45" positionY="0" width="128" height="104"/>
+        <element name="Balance" positionX="-45" positionY="0" width="128" height="119"/>
         <element name="DailyBalance" positionX="-45" positionY="36" width="128" height="74"/>
     </elements>
 </model>
