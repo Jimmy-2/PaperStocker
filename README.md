@@ -6,7 +6,7 @@
 3. [Gifs](#Gifs)
 4. [Todos](#Todos)
 
-Personal iOS project. Gifs to be added...
+Personal iOS project. Gifs to be added once premium endpoints subscription is purchased
 
 
 ## Overview
