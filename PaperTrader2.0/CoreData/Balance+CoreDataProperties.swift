@@ -22,7 +22,8 @@ extension Balance {
     @NSManaged public var value: String?
     @NSManaged public var stockName: String?
     @NSManaged public var avgPrice: String?
-
+    @NSManaged public var gainsLosses: String?
+    @NSManaged public var gainsLossesPercent: String?
 }
 
 extension Balance : Identifiable {

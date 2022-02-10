@@ -14,7 +14,8 @@ class PortfolioCell: UITableViewCell {
     @IBOutlet var priceLabel: UILabel!
     @IBOutlet var quantityLabel: UILabel!
     @IBOutlet var valueLabel: UILabel!
-    
+    @IBOutlet var avgPriceLabel: UILabel!
+    @IBOutlet var gainsLossLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -44,6 +45,10 @@ class PortfolioCell: UITableViewCell {
         
         var valueDoub: Double = Double(balance.value!)!
         valueLabel.text = String(format: "%.2f", valueDoub)
+        
+        avgPriceLabel.text = balance.avgPrice
+        
+        gainsLossLabel.text = balance.gainsLosses
         
     }
 

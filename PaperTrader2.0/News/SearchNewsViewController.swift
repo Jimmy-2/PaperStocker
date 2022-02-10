@@ -73,7 +73,7 @@ class SearchNewsViewController: UIViewController {
   }
 
   func showNetworkError() {
-    let alert = UIAlertController(title: "Whoops...", message: "There was an error accessing the news search. Please try again.", preferredStyle: .alert)
+    let alert = UIAlertController(title: "Whoops...", message: "There was an error accessing the news search. Please try again. (Currently using stocknewsapi to obtain news data. Trial has ended so I will be switching to financialmodelingprep news endpoint. If you want to test out the news, please make your own stocknewsapi free trial and change the api)", preferredStyle: .alert)
 
     let action = UIAlertAction(title: "OK", style: .default, handler: nil)
     alert.addAction(action)

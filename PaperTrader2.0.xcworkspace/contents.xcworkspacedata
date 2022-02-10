@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/jimmy/Documents/PaperTrader2.0/PaperTrader2.0/CoreData/StockRecords+CoreDataClass.swift">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/jimmy/Documents/PaperTrader2.0/PaperTrader2.0/CoreData/StockRecords+CoreDataProperties.swift">
+   </FileRef>
+   <FileRef
       location = "group:PaperTrader2.0.xcodeproj">
    </FileRef>
    <FileRef

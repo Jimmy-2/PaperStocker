@@ -28,6 +28,8 @@
 		BF2668E8279E689800495F57 /* DailyBalance+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2668E6279E689800495F57 /* DailyBalance+CoreDataProperties.swift */; };
 		BF2668EC27AC709500495F57 /* HistoricalPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2668EB27AC709500495F57 /* HistoricalPrice.swift */; };
 		BF2668EE27AE494700495F57 /* SummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2668ED27AE494700495F57 /* SummaryViewController.swift */; };
+		BF2668F927B4BF6400495F57 /* StockRecords+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2668F827B4BF6400495F57 /* StockRecords+CoreDataProperties.swift */; };
+		BF2668FA27B4BF6400495F57 /* StockRecords+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2668F727B4BF6400495F57 /* StockRecords+CoreDataClass.swift */; };
 		BF53C34D2748983D003E4C02 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF53C34C2748983D003E4C02 /* AppDelegate.swift */; };
 		BF53C34F2748983D003E4C02 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF53C34E2748983D003E4C02 /* SceneDelegate.swift */; };
 		BF53C3512748983D003E4C02 /* SearchStockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF53C3502748983D003E4C02 /* SearchStockViewController.swift */; };
@@ -68,6 +70,8 @@
 		BF2668E6279E689800495F57 /* DailyBalance+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DailyBalance+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		BF2668EB27AC709500495F57 /* HistoricalPrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoricalPrice.swift; sourceTree = "<group>"; };
 		BF2668ED27AE494700495F57 /* SummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryViewController.swift; sourceTree = "<group>"; };
+		BF2668F727B4BF6400495F57 /* StockRecords+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "StockRecords+CoreDataClass.swift"; path = "/Users/jimmy/Documents/PaperTrader2.0/PaperTrader2.0/CoreData/StockRecords+CoreDataClass.swift"; sourceTree = "<absolute>"; };
+		BF2668F827B4BF6400495F57 /* StockRecords+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "StockRecords+CoreDataProperties.swift"; path = "/Users/jimmy/Documents/PaperTrader2.0/PaperTrader2.0/CoreData/StockRecords+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
 		BF53C3492748983D003E4C02 /* PaperTrader2.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PaperTrader2.0.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF53C34C2748983D003E4C02 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BF53C34E2748983D003E4C02 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -154,6 +158,8 @@
 		BF135C48275328B500B0BE30 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				BF2668F727B4BF6400495F57 /* StockRecords+CoreDataClass.swift */,
+				BF2668F827B4BF6400495F57 /* StockRecords+CoreDataProperties.swift */,
 				BF2668E5279E689800495F57 /* DailyBalance+CoreDataClass.swift */,
 				BF2668E6279E689800495F57 /* DailyBalance+CoreDataProperties.swift */,
 				BF53C3552748983D003E4C02 /* PaperTrader2_0.xcdatamodeld */,
@@ -344,6 +350,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF2668FA27B4BF6400495F57 /* StockRecords+CoreDataClass.swift in Sources */,
 				BF135C2A274C560500B0BE30 /* TradeViewController.swift in Sources */,
 				BFC8117A279E2D410028A499 /* DailyBalanceViewController.swift in Sources */,
 				BF53C3512748983D003E4C02 /* SearchStockViewController.swift in Sources */,
@@ -367,6 +374,7 @@
 				BF2668EE27AE494700495F57 /* SummaryViewController.swift in Sources */,
 				BF135C55275ECCCE00B0BE30 /* StockPortfolio.swift in Sources */,
 				BF135C462752E79600B0BE30 /* PortfolioCell.swift in Sources */,
+				BF2668F927B4BF6400495F57 /* StockRecords+CoreDataProperties.swift in Sources */,
 				BF53C36D2748D174003E4C02 /* SearchResultCell.swift in Sources */,
 				BF135C3C2750985500B0BE30 /* Balance+CoreDataProperties.swift in Sources */,
 				BF135C2E274F5FB200B0BE30 /* SearchNewsResult.swift in Sources */,
