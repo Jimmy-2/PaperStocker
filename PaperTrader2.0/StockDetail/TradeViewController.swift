@@ -38,10 +38,13 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
 
     
     private var models = [Balance]()
+    private var stockRecordsModels = [StockRecords]()
+    
     
     var isPortfolio: Bool!
     
     var portfolioSymbols: [String] = []
+    var stockRecordsSymbols: [String] = []
     
     @IBOutlet var availableToBuyLabel: UILabel!
     @IBOutlet var shareAmountLabel: UILabel!
@@ -63,7 +66,7 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
         let defaults = UserDefaults.standard
     
         getAllPortfolioItems()
-        print(self.portfolioSymbols)
+        getAllStockRecordsItems()
         
         quantityTextField.delegate = self
 
@@ -141,7 +144,7 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
                         let oldPositionVal:Double = currentQuantity*Double(oldAvgPrice)!
                         let newAvgPrice: Double = (newPositionVal + oldPositionVal)/newQuantity
                             
-                        updateAvgPrice(item: balancePortfolioTrade!, newAvgprice: String(newAvgPrice))
+                        updateAvgPrice(item: balancePortfolioTrade!, newAvgprice: String(format: "%.2f",newAvgPrice))
                         
                         var spentAmount: Double? = quantityToBuy*Double(currentPrice!)!
                         balanceDouble = balanceDouble! - spentAmount!
@@ -161,7 +164,7 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
                     }else {
                         //check if stock exists in database and if it does, get the index of it from database
                         if let index = portfolioSymbols.index(of: symbol!) {
-                            print(models[index].quantity)
+                        
                             let currentQuantity: Double = Double((models[index].quantity)!)!
                             let newQuantity = quantityToBuy+currentQuantity
                             let newValue = newQuantity*Double(currentPrice!)!
@@ -188,7 +191,7 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
                             showToastMessage2(message: "You have successfully purchased " + quantityTextField.text! + " shares!")
                             
                         }else {
-                            //in stock does not exist in portfolio then we will create a new entry for it in coredata
+                            //if stock does not exist in portfolio then we will create a new entry for it in coredata
                             var stockValue:Double = Double(currentPrice!)! * Double(quantityTextField.text!)!
                             createItem(stock: symbol!, stockName: stockName!, price: currentPrice!, quantity: quantityTextField.text!, value: String(stockValue), avgPrice: currentPrice!)
                             
@@ -213,13 +216,32 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
                     let currentQuantity: Double = Double((balancePortfolioTrade?.quantity)!)!
                     
                     if quantityToSell >= currentQuantity {
-                        deleteItem(item: balancePortfolioTrade!)
                         
+                        
+                        
+                        //addAmount = total value gained from selling stock
                         var addAmount: Double? = currentQuantity*Double(currentPrice!)!
+                        var avgPriceDoub = Double((balancePortfolioTrade?.avgPrice)!)
+                        var ifSoldAtAvg = avgPriceDoub! * currentQuantity
+                        
+                        var gainsLosses = addAmount! - ifSoldAtAvg
+                        
+                        //get index of stock from stockrecords database if it exists
+                        if let stockRecordsIndex = stockRecordsSymbols.index(of: symbol!) {
+                           var oldTotalProfits = stockRecordsModels[stockRecordsIndex].totalProfits
+                            var newTotalProfits = oldTotalProfits + gainsLosses
+                        
+                            updateStockRecordsTotalProfits(item: stockRecordsModels[stockRecordsIndex], newTotalProfit: newTotalProfits)
+                            
+                        }else { //otherwise we create an entry for this stock in the stockrecords database
+                            createStockRecordsItem(stockSymbol: symbol!, totalProfit: gainsLosses)
+                        }
+                        
                         balanceDouble = balanceDouble! + addAmount!
                         var newBalance:String? = String(format: "%f", balanceDouble!)
                         let defaults = UserDefaults.standard
                         defaults.set(newBalance, forKey: "balanceAmount")
+                        deleteItem(item: balancePortfolioTrade!)
                         showToastMessage2(message: "You have successfully sold all your shares of " + symbol!)
                         
                     }else {
@@ -229,6 +251,25 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
                         updateValue(item: balancePortfolioTrade!, newValue: String(newValue))
                         updatePrice(item: balancePortfolioTrade!, newPrice: String(currentPrice!))
                         var addAmount: Double? = quantityToSell*Double(currentPrice!)!
+                        var avgPriceDoub = Double((balancePortfolioTrade?.avgPrice)!)
+                        var ifSoldAtAvg = avgPriceDoub! * quantityToSell
+                        
+                        var gainsLosses = addAmount! - ifSoldAtAvg
+               
+                        
+                        //get index of stock from stockrecords database if it exists
+                        if let stockRecordsIndex = stockRecordsSymbols.index(of: symbol!) {
+                           var oldTotalProfits = stockRecordsModels[stockRecordsIndex].totalProfits
+                            var newTotalProfits = oldTotalProfits + gainsLosses
+                        
+                            updateStockRecordsTotalProfits(item: stockRecordsModels[stockRecordsIndex], newTotalProfit: newTotalProfits)
+                            
+                        }else { //otherwise we create an entry for this stock in the stockrecords database
+                            createStockRecordsItem(stockSymbol: symbol!, totalProfit: gainsLosses)
+                        }
+                        
+                        
+                        
                         balanceDouble = balanceDouble! + addAmount!
                         var newBalance:String? = String(format: "%f", balanceDouble!)
                         let defaults = UserDefaults.standard
@@ -239,13 +280,29 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
                     
                 }else {
                     if let index = portfolioSymbols.index(of: symbol!) {
-                        print(models[index].quantity)
+                        
                         let quantityToSell: Double = Double(quantityTextField.text!)!
                         let currentQuantity: Double = Double((models[index].quantity)!)!
                         
                         if quantityToSell >= currentQuantity {
                             deleteItem(item: models[index])
                             var addAmount: Double? = currentQuantity*Double(currentPrice!)!
+                            var avgPriceDoub = Double((balancePortfolioTrade?.avgPrice)!)
+                            var ifSoldAtAvg = avgPriceDoub! * currentQuantity
+                            
+                            var gainsLosses = addAmount! - ifSoldAtAvg
+                   
+                            //get index of stock from stockrecords database if it exists
+                            if let stockRecordsIndex = stockRecordsSymbols.index(of: symbol!) {
+                               var oldTotalProfits = stockRecordsModels[stockRecordsIndex].totalProfits
+                                var newTotalProfits = oldTotalProfits + gainsLosses
+                            
+                                updateStockRecordsTotalProfits(item: stockRecordsModels[stockRecordsIndex], newTotalProfit: newTotalProfits)
+                                
+                            }else { //otherwise we create an entry for this stock in the stockrecords database
+                                createStockRecordsItem(stockSymbol: symbol!, totalProfit: gainsLosses)
+                            }
+                            
                             balanceDouble = balanceDouble! + addAmount!
                             var newBalance:String? = String(format: "%f", balanceDouble!)
                             let defaults = UserDefaults.standard
@@ -258,6 +315,22 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
                             updateValue(item: models[index], newValue: String(newValue))
                             updatePrice(item: balancePortfolioTrade!, newPrice: String(currentPrice!))
                             var addAmount: Double? = quantityToSell*Double(currentPrice!)!
+                            var avgPriceDoub = Double((balancePortfolioTrade?.avgPrice)!)
+                            var ifSoldAtAvg = avgPriceDoub! * quantityToSell
+                            
+                            var gainsLosses = addAmount! - ifSoldAtAvg
+                   
+                            //get index of stock from stockrecords database if it exists
+                            if let stockRecordsIndex = stockRecordsSymbols.index(of: symbol!) {
+                               var oldTotalProfits = stockRecordsModels[stockRecordsIndex].totalProfits
+                                var newTotalProfits = oldTotalProfits + gainsLosses
+                            
+                                updateStockRecordsTotalProfits(item: stockRecordsModels[stockRecordsIndex], newTotalProfit: newTotalProfits)
+                                
+                            }else { //otherwise we create an entry for this stock in the stockrecords database
+                                createStockRecordsItem(stockSymbol: symbol!, totalProfit: gainsLosses)
+                            }
+                            
                             balanceDouble = balanceDouble! + addAmount!
                             var newBalance:String? = String(format: "%f", balanceDouble!)
                             let defaults = UserDefaults.standard
@@ -309,6 +382,24 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
             models = try context.fetch(Balance.fetchRequest())
             for (index, stock) in models.enumerated(){
                 self.portfolioSymbols.append(self.models[index].stock!)
+            }
+            
+            
+            DispatchQueue.main.async {
+                
+                
+                
+            }
+        }catch {
+            // error
+        }
+        
+    }
+    func getAllStockRecordsItems() {
+        do {
+            stockRecordsModels = try context.fetch(StockRecords.fetchRequest())
+            for (index, stockSymbol) in stockRecordsModels.enumerated(){
+                self.stockRecordsSymbols.append(self.stockRecordsModels[index].stockSymbol!)
             }
             
             
@@ -387,7 +478,7 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
         }
     }
     
-    func createStockRecordItem(stockSymbol: String, totalProfit: Double) {
+    func createStockRecordsItem(stockSymbol: String, totalProfit: Double) {
         let newItem = StockRecords(context: context)
         newItem.stockSymbol = stockSymbol
         newItem.totalProfits = totalProfit
@@ -395,6 +486,15 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
         do {
             try context.save()
             
+        }catch {
+            
+        }
+    }
+    
+    func updateStockRecordsTotalProfits(item: StockRecords, newTotalProfit: Double) {
+        item.totalProfits = newTotalProfit
+        do {
+            try context.save()
         }catch {
             
         }
