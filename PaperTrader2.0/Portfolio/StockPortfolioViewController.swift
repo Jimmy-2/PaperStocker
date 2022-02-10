@@ -353,7 +353,7 @@ class StockPortfolioViewController: UITableViewController,ChartViewDelegate {
                             print(newGainLoss)
                             print(gainLossPercentage)
                             print(self.balances[index].avgPrice!)
-                            self.updateGainsLosses(item: self.balances[index], newGainloss: String(newGainLoss), newGainLossPercent: String(format: "%.2f",gainLossPercentage) + "%")
+                            self.updateGainsLosses(item: self.balances[index], newGainloss: String(format: "%.2f",newGainLoss), newGainLossPercent: String(format: "%.2f",gainLossPercentage) + "%")
                         }
                         
               

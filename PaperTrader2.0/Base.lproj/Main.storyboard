@@ -1335,7 +1335,7 @@
                                                 <constraint firstAttribute="width" constant="100" id="C9i-Cv-MNe"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                            <color key="textColor" systemColor="systemRedColor"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -1380,6 +1380,7 @@
                                 <connections>
                                     <outlet property="avgPriceLabel" destination="6xu-lF-rms" id="VDV-h7-mGT"/>
                                     <outlet property="gainsLossLabel" destination="xlN-D5-Id9" id="ykN-DM-f33"/>
+                                    <outlet property="gainsLossPercentLabel" destination="EQG-P7-xtI" id="jbt-P9-oU5"/>
                                     <outlet property="priceLabel" destination="kvp-6e-zGe" id="0dC-3v-3gK"/>
                                     <outlet property="quantityLabel" destination="fhB-RC-Rft" id="sGI-fW-VfU"/>
                                     <outlet property="stockNameLabel" destination="szV-xm-fzt" id="6P1-Gg-3UF"/>
@@ -1763,9 +1764,6 @@
         </systemColor>
         <systemColor name="systemPinkColor">
             <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

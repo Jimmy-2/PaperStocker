@@ -75,7 +75,7 @@ class SummaryViewController: UITableViewController,ChartViewDelegate  {
         let dataPie = PieChartData(dataSet:setPie)
         pieChart.data = dataPie
         
-        changeAmountLabel.text = String(defaults.double(forKey: "changeAmount"))
+        //changeAmountLabel.text = String(defaults.double(forKey: "changeAmount"))
         
     }
     

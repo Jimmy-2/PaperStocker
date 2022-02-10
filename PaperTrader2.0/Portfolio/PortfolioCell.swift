@@ -16,6 +16,7 @@ class PortfolioCell: UITableViewCell {
     @IBOutlet var valueLabel: UILabel!
     @IBOutlet var avgPriceLabel: UILabel!
     @IBOutlet var gainsLossLabel: UILabel!
+    @IBOutlet var gainsLossPercentLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -48,7 +49,21 @@ class PortfolioCell: UITableViewCell {
         
         avgPriceLabel.text = balance.avgPrice
         
+        if (balance.gainsLosses != nil) {
+            if(Double(balance.gainsLosses!)! > 0) {
+                self.gainsLossLabel.textColor = UIColor(red: 35/255, green: 200/255, blue: 35/255, alpha: 1.0)
+                self.gainsLossPercentLabel.textColor = UIColor(red: 35/255, green: 200/255, blue: 35/255, alpha: 1.0)
+                self.avgPriceLabel.textColor = UIColor(red: 35/255, green: 200/255, blue: 35/255, alpha: 1.0)
+            }else if ((Double(balance.gainsLosses!)! < 0)){ //if == 0, color will be white
+                self.gainsLossLabel.textColor = UIColor(red: 255/255, green: 20/255, blue: 25/255, alpha: 1.0)
+                self.gainsLossPercentLabel.textColor = UIColor(red: 255/255, green: 20/255, blue: 25/255, alpha: 1.0)
+                self.avgPriceLabel.textColor = UIColor(red: 255/255, green: 20/255, blue: 25/255, alpha: 1.0)
+        }
+        
+            
+        }
         gainsLossLabel.text = balance.gainsLosses
+        gainsLossPercentLabel.text = balance.gainsLossesPercent
         
     }
 
