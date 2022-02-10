@@ -32,6 +32,7 @@ class StockPortfolioViewController: UITableViewController,ChartViewDelegate {
     @IBOutlet var totalValueLabel: UILabel!
     @IBOutlet var noStockLabel: UILabel!
     
+    
     var newPrices: [String:String] = [:]
     
     
@@ -162,14 +163,6 @@ class StockPortfolioViewController: UITableViewController,ChartViewDelegate {
                 self.balanceLabel.text = String(format: "%.2f", availableBalanceDoub)
             }
             
-            
-            
-            
-            
-            
-            
-            
-            
             let fetchRequest = NSFetchRequest<Balance>()
             
             let entity = Balance.entity()
@@ -184,15 +177,10 @@ class StockPortfolioViewController: UITableViewController,ChartViewDelegate {
                 self.fatalCoreDataError(error)
               }
             
-            
-            
-            
             totalValueDouble = 0.0
             for (index, stock) in self.balances.enumerated(){
                 var stockValue: Double = Double(self.balances[index].value!)!
                 totalValueDouble = totalValueDouble + stockValue
-                
-                print(self.balances[index].value)
       
             }
             if balances.count == 0 {
@@ -336,16 +324,36 @@ class StockPortfolioViewController: UITableViewController,ChartViewDelegate {
                         if(self.newPrices[stockToUpdate] == nil) {
                            
                         }else {
+                            
+                            
+                            
                         
-                            self.updatePrice(item: self.balances[index], newValue: self.newPrices[stockToUpdate]!)
+                            
                    
                             var newPriceStr: String = self.balances[index].price!
                             var newPriceDoub: Double = Double(newPriceStr)!
                             var quantityStr: String = self.balances[index].quantity!
                             var quantityDoub: Double = Double(quantityStr)!
-                    
+                           
+                            
+                            
+                            
+                            
+                            self.updatePrice(item: self.balances[index], newValue: self.newPrices[stockToUpdate]!)
+                            
                             var newTotalVal: Double? = quantityDoub*newPriceDoub
                             self.updateValue(item: self.balances[index], newValue: String(newTotalVal!))
+                            
+                            var oldStockValue: Double = Double(self.balances[index].avgPrice!)! * quantityDoub
+                            var newGainLoss: Double = newTotalVal! - oldStockValue
+                            var gainLossPercentage: Double = 100 * (newTotalVal! - oldStockValue)/oldStockValue
+                                //make a history screen that shows the profits of every stock traded
+                                
+                                //if your avg cost is 120 with 100 quanitiy and stock price is at 90, your stock value is down 3000. but if you sell like 10 stock at 90 dollars, your have truly lost 300. This -300 will be stored in the stockrecords database. I will visually display the gains/losses of the stock holdings based on the avg price and quantity of stock held in the portfolio tab and display the total losses in a summary tab.
+                            print(newGainLoss)
+                            print(gainLossPercentage)
+                            print(self.balances[index].avgPrice!)
+                            self.updateGainsLosses(item: self.balances[index], newGainloss: String(newGainLoss), newGainLossPercent: String(format: "%.2f",gainLossPercentage) + "%")
                         }
                         
               
@@ -391,7 +399,7 @@ class StockPortfolioViewController: UITableViewController,ChartViewDelegate {
     }
     
     func showNetworkError() {
-        let alert = UIAlertController(title: "Whoops...", message: "There was an error refreshing the stock information. Please try again.", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Whoops...", message: "There was an error refreshing the stock information. Please try again. (API endpoint for batch refresh in portfolio screen is a premium endpoint and cost money. However if you only have one stock in portfolio, it will work as intended)", preferredStyle: .alert)
         if(balances.count == 0) {
             
         }else {
@@ -431,6 +439,7 @@ class StockPortfolioViewController: UITableViewController,ChartViewDelegate {
             
         }
     }
+
     
     func updatePrice(item: Balance, newValue: String) {
         item.price = newValue
@@ -440,6 +449,18 @@ class StockPortfolioViewController: UITableViewController,ChartViewDelegate {
             
         }
     }
+    
+    func updateGainsLosses(item: Balance, newGainloss: String, newGainLossPercent: String) {
+        item.gainsLosses = newGainloss
+        item.gainsLossesPercent = newGainLossPercent
+        do {
+            try context.save()
+        }catch {
+            
+        }
+    }
+    
+  
     
     func addDailyBalanceItem(date: Date, balanceAmount: String, dateString: String) {
         let newItem = DailyBalance(context: context)

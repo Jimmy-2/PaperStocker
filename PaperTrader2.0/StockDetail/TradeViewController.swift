@@ -30,8 +30,12 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
     var tradeButtonText: String?
     var availableBalance: String?
     
+    //calculate profits even time we sell a stock and put that record into the stockrecords database
+    var stockRecords = [StockRecords]()
+    
     
     var balancePortfolioTrade: Balance?
+
     
     private var models = [Balance]()
     
@@ -378,6 +382,19 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
         item.price = newPrice
         do {
             try context.save()
+        }catch {
+            
+        }
+    }
+    
+    func createStockRecordItem(stockSymbol: String, totalProfit: Double) {
+        let newItem = StockRecords(context: context)
+        newItem.stockSymbol = stockSymbol
+        newItem.totalProfits = totalProfit
+        
+        do {
+            try context.save()
+            
         }catch {
             
         }
