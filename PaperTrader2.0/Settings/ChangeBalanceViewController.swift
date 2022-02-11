@@ -10,6 +10,7 @@ import UIKit
 class ChangeBalanceViewController: UITableViewController, UITextFieldDelegate  {
     @IBOutlet var doneButton: UIButton!
     @IBOutlet var editBalanceTextField: UITextField!
+    @IBOutlet var changeAmountLabel: UILabel!
     var availableBalance: String?
     var availableBalanceDoub: Double = 0.0
     override func viewDidLoad() {
@@ -22,6 +23,13 @@ class ChangeBalanceViewController: UITableViewController, UITextFieldDelegate  {
         availableBalanceDoub = Double(availableBalance!)!
         
         editBalanceTextField.text = String(format: "%.0f", availableBalanceDoub)
+        var changeAmountText = String(defaults.double(forKey: "changeAmount"))
+        if (defaults.double(forKey: "changeAmount") > 0) {
+            changeAmountText = "+" + changeAmountText
+        }else if (defaults.double(forKey: "changeAmount") < 0) {
+            changeAmountText = "-" + changeAmountText
+        }
+        changeAmountLabel.text = changeAmountText
     }
     
     

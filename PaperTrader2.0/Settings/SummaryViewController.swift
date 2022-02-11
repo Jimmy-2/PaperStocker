@@ -11,7 +11,7 @@ import Charts
 
 class SummaryViewController: UITableViewController,ChartViewDelegate  {
     var pieChart = PieChartView()
-    @IBOutlet var changeAmountLabel: UILabel!
+    
     @IBOutlet var totalProfitMade: UILabel!
     //store avg cost of each stock in database and set the label to the one with the highest gain
     @IBOutlet var biggestWin: UILabel!
@@ -23,33 +23,56 @@ class SummaryViewController: UITableViewController,ChartViewDelegate  {
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     var balances = [Balance]()
-    
+    var stockRecords = [StockRecords]()
     
     var gainsDictionary = Dictionary<String, Double>()
     
+    // MARK: Table View Delegates
+    override func tableView(
+        _ tableView: UITableView,
+        numberOfRowsInSection section: Int
+    ) -> Int {
+        
+        return stockRecords.count
+    }
+    
+    override func tableView(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+      ) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(
+          withIdentifier: "StockRecordsCell",
+          for: indexPath) as! StockRecordsCell
+        
+        let stockRecord = stockRecords[indexPath.row]
+        
+        cell.configure(for: stockRecord)
+        return cell
+    }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let defaults = UserDefaults.standard
         //fatching portfolio items
-        let fetchRequest = NSFetchRequest<Balance>()
+        let fetchRequest = NSFetchRequest<StockRecords>()
         
-        let entity = Balance.entity()
+        let entity = StockRecords.entity()
         fetchRequest.entity = entity
           
         let sortDescriptor = NSSortDescriptor(
-            key: "stock",
+            key: "totalProfits",
             ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         do {
-            balances = try context.fetch(fetchRequest)
+            stockRecords = try context.fetch(fetchRequest)
             
             
         } catch {
             //fatalCoreDataError(error)
         }
         
+        /*
         for (index, _) in self.balances.enumerated(){
             var avgPrice: Double = Double(self.balances[index].avgPrice!)!
             var currQuanitity: Double = Double(self.balances[index].quantity!)!
@@ -61,6 +84,7 @@ class SummaryViewController: UITableViewController,ChartViewDelegate  {
         }
         
         print(gainsDictionary)
+        */
         
         pieChart.delegate = self
         pieChart.frame = CGRect(x:0,y:0, width: self.view.frame.size.width, height:300)
@@ -75,7 +99,7 @@ class SummaryViewController: UITableViewController,ChartViewDelegate  {
         let dataPie = PieChartData(dataSet:setPie)
         pieChart.data = dataPie
         
-        //changeAmountLabel.text = String(defaults.double(forKey: "changeAmount"))
+        
         
     }
     
