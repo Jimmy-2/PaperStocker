@@ -26,7 +26,13 @@ class StockRecordsCell: UITableViewCell {
     // MARK: - Helper Method
     func configure(for stockRecords: StockRecords) {
         stockSymbolLabel.text = stockRecords.stockSymbol
-        totalProfitsLabel.text = String(stockRecords.totalProfits)
+        totalProfitsLabel.text = String(format: "%.2f",stockRecords.totalProfits)
+        if (stockRecords.totalProfits < 0) {
+            self.totalProfitsLabel.textColor = UIColor(red: 255/255, green: 20/255, blue: 25/255, alpha: 1.0)
+        }else if (stockRecords.totalProfits > 0) {
+            self.totalProfitsLabel.textColor = UIColor(red: 35/255, green: 200/255, blue: 35/255, alpha: 1.0)
+            
+        }
     }
 
     

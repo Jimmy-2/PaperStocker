@@ -12,11 +12,12 @@ import Charts
 class SummaryViewController: UITableViewController,ChartViewDelegate  {
     var pieChart = PieChartView()
     
-    @IBOutlet var totalProfitMade: UILabel!
+    @IBOutlet var allTimeProfitLabel: UILabel!
     //store avg cost of each stock in database and set the label to the one with the highest gain
-    @IBOutlet var biggestWin: UILabel!
-    @IBOutlet var biggestLoss: UILabel!
-    
+    @IBOutlet var mostProfitableStockSymbolLabel: UILabel!
+    @IBOutlet var leastProfitableStockSymbolLabel: UILabel!
+    @IBOutlet var mostProfitableStockProfitLabel: UILabel!
+    @IBOutlet var leastProfitableStockProfitLabel: UILabel!
     
     
     
@@ -24,6 +25,14 @@ class SummaryViewController: UITableViewController,ChartViewDelegate  {
     
     var balances = [Balance]()
     var stockRecords = [StockRecords]()
+    var allTimeProfit: Double = 0.0
+    
+    var leastProfitableStock: String = ""
+    var leastProfitableStockAmount: Double = Double.infinity
+    
+    var mostProfitableStock: String = ""
+    var mostProfitableStockAmount: Double = -Double.infinity
+    
     
     var gainsDictionary = Dictionary<String, Double>()
     
@@ -72,6 +81,51 @@ class SummaryViewController: UITableViewController,ChartViewDelegate  {
             //fatalCoreDataError(error)
         }
         
+        
+        
+        print(mostProfitableStockAmount)
+        
+        // put everything under here in a refresh function that can be called to reload table view from portfolio screen
+        for i in 0..<stockRecords.count {
+            allTimeProfit += stockRecords[i].totalProfits
+            if (stockRecords[i].totalProfits > mostProfitableStockAmount) {
+                self.mostProfitableStockAmount = stockRecords[i].totalProfits
+                self.mostProfitableStock = stockRecords[i].stockSymbol!
+            }
+            if (stockRecords[i].totalProfits < leastProfitableStockAmount) {
+                self.leastProfitableStockAmount = stockRecords[i].totalProfits
+                self.leastProfitableStock = stockRecords[i].stockSymbol!
+            }
+        }
+        if(stockRecords.count > 0) {
+            mostProfitableStockSymbolLabel.text = mostProfitableStock
+            mostProfitableStockProfitLabel.text = String(format: "%.2f",mostProfitableStockAmount)
+            leastProfitableStockSymbolLabel.text = leastProfitableStock
+            leastProfitableStockProfitLabel.text = String(format: "%.2f",leastProfitableStockAmount)
+            
+            if (mostProfitableStockAmount > 0) {
+                self.mostProfitableStockProfitLabel.textColor = UIColor(red: 35/255, green: 200/255, blue: 35/255, alpha: 1.0)
+            }else if(mostProfitableStockAmount < 0) {
+                self.mostProfitableStockProfitLabel.textColor = UIColor(red: 255/255, green: 20/255, blue: 25/255, alpha: 1.0)
+            }
+            
+            if (leastProfitableStockAmount > 0) {
+                self.leastProfitableStockProfitLabel.textColor = UIColor(red: 35/255, green: 200/255, blue: 35/255, alpha: 1.0)
+            }else if (leastProfitableStockAmount < 0) {
+                self.mostProfitableStockProfitLabel.textColor = UIColor(red: 255/255, green: 20/255, blue: 25/255, alpha: 1.0)
+            }
+            
+            allTimeProfitLabel.text = String(format: "%.2f",allTimeProfit)
+            if (allTimeProfit > 0) {
+                self.allTimeProfitLabel.textColor = UIColor(red: 35/255, green: 200/255, blue: 35/255, alpha: 1.0)
+            }else if(allTimeProfit < 0) {
+                self.allTimeProfitLabel.textColor = UIColor(red: 255/255, green: 20/255, blue: 25/255, alpha: 1.0)
+            }
+        }
+        
+        print(allTimeProfit)
+        print(mostProfitableStock)
+        print(leastProfitableStock)
         /*
         for (index, _) in self.balances.enumerated(){
             var avgPrice: Double = Double(self.balances[index].avgPrice!)!
@@ -87,7 +141,7 @@ class SummaryViewController: UITableViewController,ChartViewDelegate  {
         */
         
         pieChart.delegate = self
-        pieChart.frame = CGRect(x:0,y:0, width: self.view.frame.size.width, height:300)
+        pieChart.frame = CGRect(x:0,y:20, width: self.view.frame.size.width, height:300)
 
         view.addSubview(pieChart)
         var entriesPie = [ChartDataEntry]()
