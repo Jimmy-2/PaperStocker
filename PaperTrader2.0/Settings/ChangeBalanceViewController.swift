@@ -15,6 +15,11 @@ class ChangeBalanceViewController: UITableViewController, UITextFieldDelegate  {
     var availableBalanceDoub: Double = 0.0
     override func viewDidLoad() {
         super.viewDidLoad()
+        refreshScreen()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshScreen), name: NSNotification.Name(rawValue: "changeBalanceDataNotif"), object: nil)
+    }
+    
+    @objc func refreshScreen()  {
         editBalanceTextField.delegate = self
         
         let defaults = UserDefaults.standard
@@ -23,7 +28,7 @@ class ChangeBalanceViewController: UITableViewController, UITextFieldDelegate  {
         availableBalanceDoub = Double(availableBalance!)!
         
         editBalanceTextField.text = String(format: "%.0f", availableBalanceDoub)
-        var changeAmountText = String(defaults.double(forKey: "changeAmount"))
+        var changeAmountText = String(format: "%.2f", defaults.double(forKey: "changeAmount"))
         if (defaults.double(forKey: "changeAmount") > 0) {
             changeAmountText = "+" + changeAmountText
         }else if (defaults.double(forKey: "changeAmount") < 0) {
@@ -31,8 +36,6 @@ class ChangeBalanceViewController: UITableViewController, UITextFieldDelegate  {
         }
         changeAmountLabel.text = changeAmountText
     }
-    
-    
     @IBAction func doneEditting () {
         if editBalanceTextField.text! == "" {
             showToastMessage(message: "No changes made")
@@ -58,6 +61,7 @@ class ChangeBalanceViewController: UITableViewController, UITextFieldDelegate  {
             defaults.set(newChangeAmount , forKey: "changeAmount")
             
             showToastMessage2(message: "You have successfully changed your balance to " + editBalanceTextField.text!)
+            self.refreshScreen()
         }
        
         view.endEditing(true)

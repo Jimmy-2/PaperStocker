@@ -42,6 +42,10 @@ class DailyBalanceViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        refreshTable() 
+        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshTable), name: NSNotification.Name(rawValue: "newDailyBalanceDataNotif"), object: nil)
+    }
+    @objc func refreshTable()  {
         let fetchRequest = NSFetchRequest<DailyBalance>()
         
         let entity = DailyBalance.entity()
@@ -56,7 +60,7 @@ class DailyBalanceViewController: UITableViewController {
         } catch {
             //fatalCoreDataError(error)
         }
-        print(dailyBalances.count)
+        self.tableView.reloadData()
     }
     
     @IBAction func testAddBalance() {

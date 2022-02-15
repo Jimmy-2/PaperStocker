@@ -350,6 +350,9 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
             //deleteItem(item: balancePortfolioTrade!)
             dismiss(animated: true, completion: nil)
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "newDataNotif"), object: nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "newSummaryDataNotif"), object: nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "changeBalanceDataNotif"), object: nil)
+
             
         }
         
