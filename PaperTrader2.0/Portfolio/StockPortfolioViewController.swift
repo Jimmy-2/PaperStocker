@@ -225,6 +225,8 @@ class StockPortfolioViewController: UITableViewController,ChartViewDelegate {
             }else {
                 addDailyBalanceItem(date: currentDateTime, balanceAmount: String(format: "%.2f", totalValueDouble), dateString: dateTimeString)
             }
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "newDailyBalanceDataNotif"), object: nil)
+            
             //line chart
        
             lineChart.delegate = self

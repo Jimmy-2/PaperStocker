@@ -41,6 +41,7 @@
 		BF53C36A2748CD43003E4C02 /* NothingFoundCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF53C3692748CD43003E4C02 /* NothingFoundCell.xib */; };
 		BF53C36D2748D174003E4C02 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF53C36B2748D174003E4C02 /* SearchResultCell.swift */; };
 		BF53C36E2748D174003E4C02 /* SearchResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF53C36C2748D174003E4C02 /* SearchResultCell.xib */; };
+		BFC6695A27B711930059AC07 /* StockRecordsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC6695927B711930059AC07 /* StockRecordsCell.swift */; };
 		BFC811712761EED50028A499 /* ChangeBalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC811702761EED40028A499 /* ChangeBalanceViewController.swift */; };
 		BFC81174276428990028A499 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC81173276428990028A499 /* SettingsViewController.swift */; };
 		BFC8117A279E2D410028A499 /* DailyBalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC81179279E2D410028A499 /* DailyBalanceViewController.swift */; };
@@ -85,6 +86,7 @@
 		BF53C3692748CD43003E4C02 /* NothingFoundCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NothingFoundCell.xib; sourceTree = "<group>"; };
 		BF53C36B2748D174003E4C02 /* SearchResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 		BF53C36C2748D174003E4C02 /* SearchResultCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchResultCell.xib; sourceTree = "<group>"; };
+		BFC6695927B711930059AC07 /* StockRecordsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockRecordsCell.swift; sourceTree = "<group>"; };
 		BFC811702761EED40028A499 /* ChangeBalanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeBalanceViewController.swift; sourceTree = "<group>"; };
 		BFC81173276428990028A499 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		BFC81179279E2D410028A499 /* DailyBalanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyBalanceViewController.swift; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 				BFC81179279E2D410028A499 /* DailyBalanceViewController.swift */,
 				BFC8117B279E2F9A0028A499 /* DailyBalanceCell.swift */,
 				BF2668ED27AE494700495F57 /* SummaryViewController.swift */,
+				BFC6695927B711930059AC07 /* StockRecordsCell.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -351,6 +354,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF2668FA27B4BF6400495F57 /* StockRecords+CoreDataClass.swift in Sources */,
+				BFC6695A27B711930059AC07 /* StockRecordsCell.swift in Sources */,
 				BF135C2A274C560500B0BE30 /* TradeViewController.swift in Sources */,
 				BFC8117A279E2D410028A499 /* DailyBalanceViewController.swift in Sources */,
 				BF53C3512748983D003E4C02 /* SearchStockViewController.swift in Sources */,

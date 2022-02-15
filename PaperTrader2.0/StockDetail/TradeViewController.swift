@@ -285,9 +285,9 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
                         let currentQuantity: Double = Double((models[index].quantity)!)!
                         
                         if quantityToSell >= currentQuantity {
-                            deleteItem(item: models[index])
+                            
                             var addAmount: Double? = currentQuantity*Double(currentPrice!)!
-                            var avgPriceDoub = Double((balancePortfolioTrade?.avgPrice)!)
+                            var avgPriceDoub = Double(models[index].avgPrice!)
                             var ifSoldAtAvg = avgPriceDoub! * currentQuantity
                             
                             var gainsLosses = addAmount! - ifSoldAtAvg
@@ -307,15 +307,16 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
                             var newBalance:String? = String(format: "%f", balanceDouble!)
                             let defaults = UserDefaults.standard
                             defaults.set(newBalance, forKey: "balanceAmount")
+                            deleteItem(item: models[index])
                             showToastMessage2(message: "You have successfully sold all your shares of " + symbol!)
                         }else {
                             let newQuantity:Double = currentQuantity-quantityToSell
                             let newValue = newQuantity*Double(currentPrice!)!
                             updateQuantity(item: models[index], newQuantity: String(newQuantity))
                             updateValue(item: models[index], newValue: String(newValue))
-                            updatePrice(item: balancePortfolioTrade!, newPrice: String(currentPrice!))
+                            updatePrice(item: models[index], newPrice: String(currentPrice!))
                             var addAmount: Double? = quantityToSell*Double(currentPrice!)!
-                            var avgPriceDoub = Double((balancePortfolioTrade?.avgPrice)!)
+                            var avgPriceDoub = Double((models[index].avgPrice)!)
                             var ifSoldAtAvg = avgPriceDoub! * quantityToSell
                             
                             var gainsLosses = addAmount! - ifSoldAtAvg
@@ -349,6 +350,9 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
             //deleteItem(item: balancePortfolioTrade!)
             dismiss(animated: true, completion: nil)
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "newDataNotif"), object: nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "newSummaryDataNotif"), object: nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "changeBalanceDataNotif"), object: nil)
+
             
         }
         
