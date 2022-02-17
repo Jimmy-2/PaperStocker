@@ -9,6 +9,7 @@ import UIKit
 import CoreData
 
 
+
 class TradeViewController: UIViewController, UITextFieldDelegate  {
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -151,7 +152,7 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
                         var newBalance:String? = String(format: "%f", balanceDouble!)
                         let defaults = UserDefaults.standard
                         defaults.set(newBalance, forKey: "balanceAmount")
-                        showToastMessage2(message: "You have successfully purchased " + quantityTextField.text! + " shares!")
+                        showToastMessage2(message: "You have successfully purchased " + quantityTextField.text! + " share(s)!")
                         //deleteItem(item: balancePortfolioTrade!)
                     }
                     
@@ -188,7 +189,7 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
                             var newBalance:String? = String(format: "%f", balanceDouble!)
                             let defaults = UserDefaults.standard
                             defaults.set(newBalance, forKey: "balanceAmount")
-                            showToastMessage2(message: "You have successfully purchased " + quantityTextField.text! + " shares!")
+                            showToastMessage2(message: "You have successfully purchased " + quantityTextField.text! + " share(s)!")
                             
                         }else {
                             //if stock does not exist in portfolio then we will create a new entry for it in coredata
@@ -200,7 +201,7 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
                             var newBalance:String? = String(format: "%f", balanceDouble!)
                             let defaults = UserDefaults.standard
                             defaults.set(newBalance, forKey: "balanceAmount")
-                            showToastMessage2(message: "You have successfully purchased " + quantityTextField.text! + " shares!")
+                            showToastMessage2(message: "You have successfully purchased " + quantityTextField.text! + " share(s)!")
                             
                         }
                     }
@@ -274,7 +275,7 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
                         var newBalance:String? = String(format: "%f", balanceDouble!)
                         let defaults = UserDefaults.standard
                         defaults.set(newBalance, forKey: "balanceAmount")
-                        showToastMessage(message: "You have successfully sold " + quantityTextField.text! + " shares!")
+                        showToastMessage(message: "You have successfully sold " + quantityTextField.text! + " share(s)!")
                     }
                     
                     
@@ -336,7 +337,7 @@ class TradeViewController: UIViewController, UITextFieldDelegate  {
                             var newBalance:String? = String(format: "%f", balanceDouble!)
                             let defaults = UserDefaults.standard
                             defaults.set(newBalance, forKey: "balanceAmount")
-                            showToastMessage(message: "You have successfully sold " + quantityTextField.text! + " shares!")
+                            showToastMessage(message: "You have successfully sold " + quantityTextField.text! + " share(s)!")
                         }
                         
                         

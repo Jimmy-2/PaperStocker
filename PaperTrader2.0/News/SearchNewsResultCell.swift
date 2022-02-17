@@ -12,10 +12,9 @@ class SearchNewsResultCell: UITableViewCell {
     @IBOutlet var newsTextLabel: UILabel!
     @IBOutlet var sourceLabel: UILabel!
     @IBOutlet var dateLabel: UILabel!
-    @IBOutlet var sentimentLabel: UILabel!
+    @IBOutlet var stockSymbolLabel: UILabel!
     
     
-    @IBOutlet var sentimentImage: UIImageView!
     @IBOutlet var newsImageView: UIImageView!
     
     var downloadTask: URLSessionDownloadTask?
@@ -48,19 +47,8 @@ class SearchNewsResultCell: UITableViewCell {
         newsTextLabel.text = result.newsBodyText
         sourceLabel.text = result.sourceText
         dateLabel.text = result.dateText
-        
-        var sentimentVal: String = result.sentimentText
-        if (sentimentVal == "Positive") {
-            sentimentImage.image = UIImage(systemName: "hand.thumbsup.fill")
-            sentimentImage.tintColor = UIColor.green
-        }else if (sentimentVal == "Negative") {
-            
-            sentimentImage.image = UIImage(systemName: "hand.thumbsdown.fill")
-            sentimentImage.tintColor = UIColor.red
-            
-        }else {
-            
-        }
+        stockSymbolLabel.text = result.symbol
+       
         //sentimentLabel.text = result.sentimentText
 
         

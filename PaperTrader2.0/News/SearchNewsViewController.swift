@@ -54,7 +54,8 @@ class SearchNewsViewController: UIViewController {
     
     //let encodedText = searchText.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
     let encodedText2 = searchText.replacingOccurrences(of: " ", with: ",")
-    let urlString = "https://stocknewsapi.com/api/v1?tickers=\(encodedText2)" + "&items=50&token=i0rpdgcnbrcgaimxbclxhztmuu6sk8jm79zcludj&fbclid=IwAR0pguARasu-pDs_Jcy4Wc4fCL_JIXCjRc_JYwsSN57xOSCnhleL3I2LDHA%22"
+    let urlString = "https://financialmodelingprep.com/api/v3/stock_news?tickers=\(encodedText2.uppercased())" + "&apikey=" + apiKey.key
+    print(urlString)
     let url = URL(string: urlString)
     return url!
   }
@@ -63,17 +64,18 @@ class SearchNewsViewController: UIViewController {
   func parse(data: Data) -> [SearchNewsResult] {
     do {
       let decoder = JSONDecoder()
-      let result = try decoder.decode(ResultArray.self, from: data)
-      return result.data
+      let result = try decoder.decode([SearchNewsResult].self, from: data)
+      return result
         
     } catch {
       print("JSON Error: \(error)")
+      
       return []
     }
   }
 
   func showNetworkError() {
-    let alert = UIAlertController(title: "Whoops...", message: "There was an error accessing the news search. Please try again. (Currently using stocknewsapi to obtain news data. Trial has ended so I will be switching to financialmodelingprep news endpoint. If you want to test out the news, please make your own stocknewsapi free trial and change the api)", preferredStyle: .alert)
+    let alert = UIAlertController(title: "Whoops...", message: "There was an error accessing the news search. Please try again.", preferredStyle: .alert)
 
     let action = UIAlertAction(title: "OK", style: .default, handler: nil)
     alert.addAction(action)

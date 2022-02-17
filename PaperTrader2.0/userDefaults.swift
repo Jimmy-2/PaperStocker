@@ -17,6 +17,7 @@ class userDefaults {
     }
     
     var startingBalance: String!
+    var startingAPI: String! = "759f961b30cfa1ba04e6c81520cbd0cd"
     
     func isNew() -> Bool{
         return !UserDefaults.standard.bool(forKey: "isNew")

@@ -43,7 +43,7 @@ class StockPortfolioViewController: UITableViewController,ChartViewDelegate {
     var dataTask: URLSessionDataTask?
     var isLoading = false
     
-    
+
     
     // MARK: Table View Delegates
     override func tableView(
@@ -79,7 +79,8 @@ class StockPortfolioViewController: UITableViewController,ChartViewDelegate {
         let availableBalance: String? = defaults.string(forKey: "balanceAmount")
         let availableBalanceDoub: Double = Double(availableBalance ?? "100000")!
         self.balanceLabel.text = String(format: "%.2f", availableBalanceDoub)
-
+        
+       
         //fatching portfolio items
         let fetchRequest = NSFetchRequest<Balance>()
         
@@ -119,7 +120,8 @@ class StockPortfolioViewController: UITableViewController,ChartViewDelegate {
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.refresh), name: NSNotification.Name(rawValue: "newDataNotif"), object: nil)
        
-    
+
+        
         self.refresh()
             
         
@@ -152,6 +154,7 @@ class StockPortfolioViewController: UITableViewController,ChartViewDelegate {
     }
     
     @objc func refresh() {
+        self.tableView.reloadData()
         
         
         DispatchQueue.main.async { [self] in
@@ -384,7 +387,7 @@ class StockPortfolioViewController: UITableViewController,ChartViewDelegate {
     }
     
     func stocksURL() -> URL {
-        let urlString = String(format: "https://financialmodelingprep.com/api/v3/quote/"+batchRequestString+"?apikey=a648ba199bfe8c139430db2f19fb782f")
+        let urlString = String(format: "https://financialmodelingprep.com/api/v3/quote/"+batchRequestString+"?apikey="+apiKey.key)
         let url = URL(string: urlString)
         return url!
     }
@@ -401,7 +404,7 @@ class StockPortfolioViewController: UITableViewController,ChartViewDelegate {
     }
     
     func showNetworkError() {
-        let alert = UIAlertController(title: "Whoops...", message: "There was an error refreshing the stock information. Please try again. (API endpoint for batch refresh in portfolio screen is a premium endpoint and cost money. However if you only have one stock in portfolio, it will work as intended)", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Whoops...", message: "There was an error refreshing the stock information. Please try again.", preferredStyle: .alert)
         if(balances.count == 0) {
             
         }else {

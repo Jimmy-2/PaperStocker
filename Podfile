@@ -6,4 +6,5 @@ target 'PaperTrader2.0' do
   use_frameworks!
 
 pod 'Charts'
+pod 'DropDown'
 end
