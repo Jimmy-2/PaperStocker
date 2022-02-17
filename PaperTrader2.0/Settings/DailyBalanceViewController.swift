@@ -72,6 +72,7 @@ class DailyBalanceViewController: UITableViewController {
         let dateTimeString = formatter.string(from: currentDateTime)
         //addDailyBalanceItem(date: currentDateTime, balanceAmount: "140000", dateString: "Feb 2, 2022")
         //deleteItem(item: dailyBalances[1])
+        print("HELLO")
        
         
     }

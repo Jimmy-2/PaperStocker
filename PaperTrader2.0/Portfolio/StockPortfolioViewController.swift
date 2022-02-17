@@ -404,7 +404,7 @@ class StockPortfolioViewController: UITableViewController,ChartViewDelegate {
     }
     
     func showNetworkError() {
-        let alert = UIAlertController(title: "Whoops...", message: "There was an error refreshing the stock information. Please try again. (API endpoint for batch refresh in portfolio screen is a premium endpoint and cost money. However if you only have one stock in portfolio, it will work as intended)", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Whoops...", message: "There was an error refreshing the stock information. Please try again.", preferredStyle: .alert)
         if(balances.count == 0) {
             
         }else {

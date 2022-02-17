@@ -5,11 +5,16 @@
 //  Created by Jimmy  on 11/21/21.
 //
 import Charts
+import DropDown
 import UIKit
 
 class StockDetailViewController: UITableViewController,ChartViewDelegate  {
     
     var candleStickChart = CandleStickChartView()
+    
+    let dropDown = DropDown()
+    
+    @IBOutlet var dropDownButton: UIButton!
 
     @IBOutlet var symbolLabel: UILabel!
     @IBOutlet var stockNameLabel: UILabel!
@@ -30,7 +35,7 @@ class StockDetailViewController: UITableViewController,ChartViewDelegate  {
     
     let refreshControll = UIRefreshControl()
     
-   
+    var candleStickTime: String = "5min"
     
     var searchResult: SearchResult!
     var balancePortfolio: Balance?
@@ -63,6 +68,9 @@ class StockDetailViewController: UITableViewController,ChartViewDelegate  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //dropdown menu view
+        dropDown.anchorView = dropDownButton
+        dropDown.dataSource = ["1min","5min","15min"]
         
         if let balance = balancePortfolio {
             stockNameLabel.text = balance.stockName
@@ -86,13 +94,24 @@ class StockDetailViewController: UITableViewController,ChartViewDelegate  {
         
     }
     
-    
-    
-    
+    @IBAction func dropDownClicked() {
+        dropDown.show()
+        dropDown.layer.zPosition = 1;
+        dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+            print("Selected item: \(item) at index: \(index)")
+            //self.dropDownButton.setTitle(item,for: .normal)
+            candleStickTime = item
+            print(candleStickTime)
+            self.getStockData()
+        }
+        
+    }
+
    
     
     // MARK: - Action Methods
     @IBAction func buyStock() {
+        print("HELLO")
         trade = "Buy"
         let balance: Balance
         performSegue(withIdentifier: "ShowTrade", sender: nil)
@@ -392,7 +411,7 @@ class StockDetailViewController: UITableViewController,ChartViewDelegate  {
  
     */
     func historicalPriceURL() -> URL {
-        let urlString = String(format: "https://financialmodelingprep.com/api/v3/historical-chart/1min/"+stockSymbol!+"?apikey="+apiKey.key)
+        let urlString = String(format: "https://financialmodelingprep.com/api/v3/historical-chart/"+candleStickTime+"/"+stockSymbol!+"?apikey="+apiKey.key)
             //
         let url = URL(string: urlString)
         return url!
