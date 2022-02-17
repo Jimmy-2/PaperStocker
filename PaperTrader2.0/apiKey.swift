@@ -6,5 +6,6 @@
 //
 
 struct apiKey {
-    static var key = "Add FinancialModelingPrep key here"
+    //enter financialmodeling prep api key here
+    static var key = ""
 }

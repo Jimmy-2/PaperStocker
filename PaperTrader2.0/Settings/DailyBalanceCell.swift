@@ -8,8 +8,10 @@
 import UIKit
 
 class DailyBalanceCell: UITableViewCell {
+    
     @IBOutlet var balanceAmountLabel: UILabel!
     @IBOutlet var dateLabel: UILabel!
+    
     @IBOutlet var availableLabel: UILabel!
     @IBOutlet var totalStockValueLabel: UILabel!
     
@@ -28,8 +30,6 @@ class DailyBalanceCell: UITableViewCell {
     // MARK: - Helper Method
     func configure(for dailyBalance: DailyBalance) {
         balanceAmountLabel.text = dailyBalance.balanceAmount
-        
-        
         dateLabel.text = dailyBalance.dateString
         
     }

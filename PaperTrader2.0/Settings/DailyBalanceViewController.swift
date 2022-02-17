@@ -10,6 +10,7 @@ import UIKit
 import CoreData
 
 class DailyBalanceViewController: UITableViewController {
+    
     @IBOutlet var dropdownButton: UIButton!
     
     let dropDown = DropDown()
@@ -17,6 +18,7 @@ class DailyBalanceViewController: UITableViewController {
     var sortingOrder: Bool = false
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
     var dailyBalances = [DailyBalance]()
     
     // MARK: Table View Delegates
@@ -45,11 +47,15 @@ class DailyBalanceViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         dropDown.anchorView = dropdownButton
         dropDown.dataSource = ["DESC\u{2193}","ASC\u{2191}"]
-        refreshTable() 
+        
+        refreshTable()
+        
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshTable), name: NSNotification.Name(rawValue: "newDailyBalanceDataNotif"), object: nil)
     }
+    
     @objc func refreshTable()  {
         let fetchRequest = NSFetchRequest<DailyBalance>()
         
@@ -101,15 +107,5 @@ class DailyBalanceViewController: UITableViewController {
         }
     }
     
-    //for testing
-    func deleteItem(item: DailyBalance) {
-        context.delete(item)
-        
-        do {
-            try context.save()
-        }catch {
-            
-        }
-    }
    
 }
