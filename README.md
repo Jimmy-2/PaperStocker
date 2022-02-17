@@ -15,13 +15,24 @@ Personal iOS project. Gifs to be added once premium endpoints subscription is pu
 ##### Apis
 
 ## Gifs
+
 ##### Home screen and stock detail screen swipe down to refresh:
 
-<img src='https://raw.githubusercontent.com/Jimmy-2/PaperStocker/main/gifs/Refresh1.gif' title='Refresh gif' width='' alt='Refresh gif' />
+<img src='https://github.com/Jimmy-2/HoodRobin/blob/master/gifs/AlertsScreen.gif?raw=true' title='Push Notifications' width='' alt='Push Notifications' />
 
-##### Home screen and stock detail screen swipe down to refresh when phone has no internet(Minor adjustments need to be made on dismissing the refreshing symbol):
+<img src='https://github.com/Jimmy-2/HoodRobin/blob/master/gifs/AlertsScreen2.gif?raw=true' title='Data Persistence' width='' alt='Data Persistence' />
 
-<img src='https://raw.githubusercontent.com/Jimmy-2/PaperStocker/main/gifs/IfNoInternet.gif' title='Refresh gif' width='' alt='Refresh gif' />
+
+##### Portfolio screen and graphs:
+
+<img src='https://github.com/Jimmy-2/HoodRobin/blob/master/gifs/PortfolioScreenAndGraphs1.gif?raw=true' title='Candlestick Screens' width='' alt='Candlestick Screens' />
+
+<img src='https://github.com/Jimmy-2/HoodRobin/blob/master/gifs/PortfolioScreenAndGraphs2.gif?raw=true' title='Portfolio Screen Graphs' width='' alt='Portfolio Screen Graphs' />
+
+
+##### News screen:
+
+<img src='https://github.com/Jimmy-2/HoodRobin/blob/master/gifs/NewsScreen.gif?raw=true' title='News Screen' width='' alt='News Screen' />
 
 
 
