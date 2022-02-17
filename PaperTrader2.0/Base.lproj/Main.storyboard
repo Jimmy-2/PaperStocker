@@ -479,20 +479,20 @@
                     <navigationItem key="navigationItem" id="oSP-7V-agu">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="Xxy-Yd-7hN">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="J7Y-ho-pTC">
-                                <rect key="frame" x="313" y="7" width="75" height="22"/>
+                                <rect key="frame" x="284" y="11" width="75" height="22.5"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal">
-                                    <imageReference key="image" image="list.dash" catalog="system" symbolScale="large"/>
+                                    <imageReference key="image" image="arrow.up.arrow.down" catalog="system" symbolScale="large"/>
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
                                 </state>
                                 <connections>
-                                    <action selector="testAddBalance" destination="U6J-Wi-zqe" eventType="touchUpInside" id="qdj-eH-bce"/>
+                                    <action selector="dropdownClicked" destination="U6J-Wi-zqe" eventType="touchUpInside" id="qdj-eH-bce"/>
                                 </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="testButton" destination="J7Y-ho-pTC" id="DMn-yU-cHb"/>
+                        <outlet property="dropdownButton" destination="J7Y-ho-pTC" id="DMn-yU-cHb"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qN6-bd-CaK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -667,9 +667,23 @@
                             <outlet property="delegate" destination="SJw-vy-4ey" id="qnM-u1-Yzd"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="ecE-vD-tKe"/>
+                    <navigationItem key="navigationItem" id="ecE-vD-tKe">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="5p1-Y7-0zB">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="469-k0-Vqd">
+                                <rect key="frame" x="281" y="11" width="78" height="22.5"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal">
+                                    <imageReference key="image" image="arrow.up.arrow.down" catalog="system" symbolScale="large"/>
+                                </state>
+                                <connections>
+                                    <action selector="dropDownClicked" destination="SJw-vy-4ey" eventType="touchUpInside" id="MuB-5V-4eM"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="allTimeProfitLabel" destination="9eA-hC-5pD" id="0Sk-4D-hra"/>
+                        <outlet property="dropDownButton" destination="469-k0-Vqd" id="Xyk-11-yzJ"/>
                         <outlet property="leastProfitableStockProfitLabel" destination="LEC-pB-AKD" id="reN-Gd-itQ"/>
                         <outlet property="leastProfitableStockSymbolLabel" destination="eC6-RY-IfQ" id="xIv-57-QEt"/>
                         <outlet property="mostProfitableStockProfitLabel" destination="DJL-iB-HMz" id="ybV-EM-5zt"/>
@@ -1905,6 +1919,7 @@
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.66115379620000003" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
     <resources>
+        <image name="arrow.up.arrow.down" catalog="system" width="128" height="98"/>
         <image name="chart.bar.fill" catalog="system" width="128" height="92"/>
         <image name="clear.fill" catalog="system" width="128" height="114"/>
         <image name="gearshape" catalog="system" width="128" height="121"/>

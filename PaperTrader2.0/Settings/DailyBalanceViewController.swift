@@ -5,13 +5,16 @@
 //  Created by Jimmy  on 1/23/22.
 //
 
-
+import DropDown
 import UIKit
 import CoreData
 
 class DailyBalanceViewController: UITableViewController {
-    @IBOutlet var testButton: UIButton!
+    @IBOutlet var dropdownButton: UIButton!
     
+    let dropDown = DropDown()
+    
+    var sortingOrder: Bool = false
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var dailyBalances = [DailyBalance]()
@@ -42,6 +45,8 @@ class DailyBalanceViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        dropDown.anchorView = dropdownButton
+        dropDown.dataSource = ["DESC\u{2193}","ASC\u{2191}"]
         refreshTable() 
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshTable), name: NSNotification.Name(rawValue: "newDailyBalanceDataNotif"), object: nil)
     }
@@ -52,7 +57,7 @@ class DailyBalanceViewController: UITableViewController {
         fetchRequest.entity = entity
         let sortDescriptor = NSSortDescriptor(
             key: "date",
-            ascending: false)
+            ascending: sortingOrder)
         fetchRequest.sortDescriptors = [sortDescriptor]
         do {
             dailyBalances = try context.fetch(fetchRequest)
@@ -63,16 +68,22 @@ class DailyBalanceViewController: UITableViewController {
         self.tableView.reloadData()
     }
     
-    @IBAction func testAddBalance() {
-        let currentDateTime = Date()
-        let formatter = DateFormatter()
-        formatter.timeStyle = .none
-        formatter.dateStyle = .medium
-        formatter.timeZone = TimeZone.current
-        let dateTimeString = formatter.string(from: currentDateTime)
-        //addDailyBalanceItem(date: currentDateTime, balanceAmount: "140000", dateString: "Feb 2, 2022")
-        //deleteItem(item: dailyBalances[1])
-        print("HELLO")
+    @IBAction func dropdownClicked() {
+        dropDown.show()
+        dropDown.layer.zPosition = 1;
+        dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+            print("Selected item: \(item) at index: \(index)")
+            //self.dropDownButton.setTitle(item,for: .normal)
+            if item == "\u{2793}" {
+                sortingOrder = false
+            }
+                
+            else {
+                sortingOrder = true
+            }
+            
+            self.refreshTable()
+        }
        
         
     }
