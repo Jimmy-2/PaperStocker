@@ -8,11 +8,14 @@
 import UIKit
 
 class ChangeBalanceViewController: UITableViewController, UITextFieldDelegate  {
+    
     @IBOutlet var doneButton: UIButton!
     @IBOutlet var editBalanceTextField: UITextField!
     @IBOutlet var changeAmountLabel: UILabel!
+    
     var availableBalance: String?
     var availableBalanceDoub: Double = 0.0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         refreshScreen()
@@ -24,11 +27,10 @@ class ChangeBalanceViewController: UITableViewController, UITextFieldDelegate  {
         
         let defaults = UserDefaults.standard
         availableBalance = defaults.string(forKey: "balanceAmount")
-        
         availableBalanceDoub = Double(availableBalance!)!
-        
         editBalanceTextField.text = String(format: "%.0f", availableBalanceDoub)
         var changeAmountText = String(format: "%.2f", defaults.double(forKey: "changeAmount"))
+        
         if (defaults.double(forKey: "changeAmount") > 0) {
             changeAmountText = "+" + changeAmountText
         }else if (defaults.double(forKey: "changeAmount") < 0) {
@@ -39,17 +41,13 @@ class ChangeBalanceViewController: UITableViewController, UITextFieldDelegate  {
     @IBAction func doneEditting () {
         if editBalanceTextField.text! == "" {
             showToastMessage(message: "No changes made")
-
-            
         }else {
             let defaults = UserDefaults.standard
             defaults.set(editBalanceTextField.text, forKey: "balanceAmount")
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "newDataNotif"), object: nil)
-            
-            
-           
-            var newAmount: String? = editBalanceTextField.text
-            var newAmountDoub: Double = Double(newAmount!)!
+
+            let newAmount: String? = editBalanceTextField.text
+            let newAmountDoub: Double = Double(newAmount!)!
             var newChangeAmount: Double = defaults.double(forKey: "changeAmount")
             
             if (newAmountDoub > availableBalanceDoub) {

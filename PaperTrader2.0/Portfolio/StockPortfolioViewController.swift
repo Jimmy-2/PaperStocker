@@ -104,6 +104,8 @@ class StockPortfolioViewController: UITableViewController,ChartViewDelegate {
             noStockLabel.isHidden = true
         }
         
+        getNewPrices()
+        
         for (index, stock) in balances.enumerated(){
             var stockValue: Double = Double(balances[index].value!)!
             totalValueDouble = totalValueDouble + stockValue
@@ -198,86 +200,9 @@ class StockPortfolioViewController: UITableViewController,ChartViewDelegate {
             totalValueLabel.text = String(format: "%.2f", totalValueDouble)
             
             
-            // datetime graph entry
-            let currentDateTime = Date()
-            let formatter = DateFormatter()
-            formatter.timeStyle = .none
-            formatter.dateStyle = .medium
-            formatter.timeZone = TimeZone.current
-            let dateTimeString = formatter.string(from: currentDateTime)
-       
-            
-            let fetchRequestDailyBalance = NSFetchRequest<DailyBalance>()
-            let entityDailyBalance = DailyBalance.entity()
-            fetchRequestDailyBalance.entity = entityDailyBalance
-            let sortDescriptorDailyBalance = NSSortDescriptor(
-                key: "date",
-                ascending: true)
-            fetchRequestDailyBalance.sortDescriptors = [sortDescriptorDailyBalance]
-            do {
-                dailyBalances = try context.fetch(fetchRequestDailyBalance)
-                
-            } catch {
-                //fatalCoreDataError(error
-            }
-            
-            if dailyBalances.count == 0 {
-                addDailyBalanceItem(date: currentDateTime, balanceAmount: availableBalance ?? "0", dateString: "Start")
-            }else if dailyBalances.count > 0 && dateTimeString == dailyBalances[dailyBalances.count-1].dateString {
-                updateDailyBalanceItem(item: self.dailyBalances[dailyBalances.count-1], newBalance: String(format: "%.2f", totalValueDouble))
-            }else {
-                addDailyBalanceItem(date: currentDateTime, balanceAmount: String(format: "%.2f", totalValueDouble), dateString: dateTimeString)
-            }
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "newDailyBalanceDataNotif"), object: nil)
-            
-            //line chart
-       
-            lineChart.delegate = self
-            lineChart.frame = CGRect(x:0,y:0, width: self.view.frame.size.width, height:240)
-            
-            view.addSubview(lineChart)
-            var entries = [ChartDataEntry]()
-            for x in 0..<dailyBalances.count {
-                entries.append(ChartDataEntry(x:Double(x),y:Double(dailyBalances[x].balanceAmount!)!))
-            }
-            let set = LineChartDataSet(entries:entries)
-            let data = LineChartData(dataSet:set)
-            set.drawCirclesEnabled = false
-            lineChart.leftAxis.axisMinimum = 0
-            lineChart.rightAxis.axisMinimum = 0
-            lineChart.xAxis.axisMinimum = 0
-            lineChart.xAxis.axisMaximum = Double(dailyBalances.count-1)
-            lineChart.xAxis.labelTextColor = UIColor.white
-            lineChart.leftAxis.labelTextColor = UIColor.white
-            lineChart.rightAxis.labelTextColor = UIColor.white
-            data.setValueTextColor(UIColor.white)
-            set.drawFilledEnabled = true
-            lineChart.legend.enabled = false
-            lineChart.data = data
-            if (dailyBalances.count > 0) {
-                lineChart.xAxis.valueFormatter = self
-            }
-            if (dailyBalances.count > 4) {
-        
-                lineChart.xAxis.labelCount = 4
-                lineChart.setVisibleXRangeMaximum(4)
-            }
-            lineChart.leftAxis.drawGridLinesEnabled = false
-            lineChart.xAxis.drawGridLinesEnabled = false
-            lineChart.leftAxis.drawAxisLineEnabled = false
-            lineChart.xAxis.drawAxisLineEnabled = false
-            lineChart.moveViewToX(Double(dailyBalances.count))
-            
-            
-            lineChart.notifyDataSetChanged()
-            
-            lineChart.animate(xAxisDuration: 0.05)
-                
-                
-                
-                
-            
-            
+            self.addOrUpdateDailyBalanceData(availableBalance: availableBalance)
+                    
+            self.createLineChart()
             
             self.tableView.reloadData()
             
@@ -287,7 +212,93 @@ class StockPortfolioViewController: UITableViewController,ChartViewDelegate {
     }
     
     
+    
     // MARK: - Helper Methods
+    
+    func fetchPortfolioItems() {
+        
+    }
+    func addOrUpdateDailyBalanceData(availableBalance: String?) {
+        let currentDateTime = Date()
+        let formatter = DateFormatter()
+        formatter.timeStyle = .none
+        formatter.dateStyle = .medium
+        formatter.timeZone = TimeZone.current
+        let dateTimeString = formatter.string(from: currentDateTime)
+   
+        
+        let fetchRequestDailyBalance = NSFetchRequest<DailyBalance>()
+        let entityDailyBalance = DailyBalance.entity()
+        fetchRequestDailyBalance.entity = entityDailyBalance
+        let sortDescriptorDailyBalance = NSSortDescriptor(
+            key: "date",
+            ascending: true)
+        fetchRequestDailyBalance.sortDescriptors = [sortDescriptorDailyBalance]
+        do {
+            dailyBalances = try context.fetch(fetchRequestDailyBalance)
+            
+        } catch {
+            //fatalCoreDataError(error
+        }
+        
+        if dailyBalances.count == 0 {
+            addDailyBalanceItem(date: currentDateTime, balanceAmount: availableBalance ?? "0", dateString: "Start")
+        }else if dailyBalances.count > 0 && dateTimeString == dailyBalances[dailyBalances.count-1].dateString {
+            updateDailyBalanceItem(item: self.dailyBalances[dailyBalances.count-1], newBalance: String(format: "%.2f", totalValueDouble))
+        }else {
+            addDailyBalanceItem(date: currentDateTime, balanceAmount: String(format: "%.2f", totalValueDouble), dateString: dateTimeString)
+        }
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "newDailyBalanceDataNotif"), object: nil)
+    }
+    
+    func createLineChart() {
+        //line chart
+   
+        lineChart.delegate = self
+        lineChart.frame = CGRect(x:0,y:0, width: self.view.frame.size.width, height:240)
+        
+        view.addSubview(lineChart)
+        var entries = [ChartDataEntry]()
+        for x in 0..<dailyBalances.count {
+            entries.append(ChartDataEntry(x:Double(x),y:Double(dailyBalances[x].balanceAmount!)!))
+        }
+        let set = LineChartDataSet(entries:entries)
+        let data = LineChartData(dataSet:set)
+        set.drawCirclesEnabled = false
+        lineChart.leftAxis.axisMinimum = 0
+        lineChart.rightAxis.axisMinimum = 0
+        lineChart.xAxis.axisMinimum = 0
+        lineChart.xAxis.axisMaximum = Double(dailyBalances.count-1)
+        lineChart.xAxis.labelTextColor = UIColor.white
+        lineChart.leftAxis.labelTextColor = UIColor.white
+        lineChart.rightAxis.labelTextColor = UIColor.white
+        data.setValueTextColor(UIColor.white)
+        set.drawFilledEnabled = true
+        lineChart.legend.enabled = false
+        lineChart.data = data
+        if (dailyBalances.count > 0) {
+            lineChart.xAxis.valueFormatter = self
+        }
+        if (dailyBalances.count > 4) {
+    
+            lineChart.xAxis.labelCount = 4
+            lineChart.setVisibleXRangeMaximum(4)
+        }
+        lineChart.leftAxis.drawGridLinesEnabled = false
+        lineChart.xAxis.drawGridLinesEnabled = false
+        lineChart.leftAxis.drawAxisLineEnabled = false
+        lineChart.xAxis.drawAxisLineEnabled = false
+        lineChart.moveViewToX(Double(dailyBalances.count))
+        
+        
+        lineChart.notifyDataSetChanged()
+        
+        lineChart.animate(xAxisDuration: 0.05)
+            
+    }
+    
+    
+    
     func getNewPrices() {
         batchRequestString = ""
         for (index, stock) in balances.enumerated(){
@@ -329,20 +340,12 @@ class StockPortfolioViewController: UITableViewController,ChartViewDelegate {
                         if(self.newPrices[stockToUpdate] == nil) {
                            
                         }else {
-                            
-                            
-                            
-                        
-                            
-                   
+
                             var newPriceStr: String = self.balances[index].price!
                             var newPriceDoub: Double = Double(newPriceStr)!
                             var quantityStr: String = self.balances[index].quantity!
                             var quantityDoub: Double = Double(quantityStr)!
-                           
-                            
-                            
-                            
+           
                             
                             self.updatePrice(item: self.balances[index], newValue: self.newPrices[stockToUpdate]!)
                             
@@ -352,18 +355,11 @@ class StockPortfolioViewController: UITableViewController,ChartViewDelegate {
                             var oldStockValue: Double = Double(self.balances[index].avgPrice!)! * quantityDoub
                             var newGainLoss: Double = newTotalVal! - oldStockValue
                             var gainLossPercentage: Double = 100 * (newTotalVal! - oldStockValue)/oldStockValue
-                                //make a history screen that shows the profits of every stock traded
-                                
-                                //if your avg cost is 120 with 100 quanitiy and stock price is at 90, your stock value is down 3000. but if you sell like 10 stock at 90 dollars, your have truly lost 300. This -300 will be stored in the stockrecords database. I will visually display the gains/losses of the stock holdings based on the avg price and quantity of stock held in the portfolio tab and display the total losses in a summary tab.
-                            print(newGainLoss)
-                            print(gainLossPercentage)
-                            print(self.balances[index].avgPrice!)
+                         
+                
                             self.updateGainsLosses(item: self.balances[index], newGainloss: String(format: "%.2f",newGainLoss), newGainLossPercent: String(format: "%.2f",gainLossPercentage) + "%")
                         }
                         
-              
-                        print(stockToUpdate)
-                        print(self.newPrices[stockToUpdate])
                     }
                     
                     
@@ -389,6 +385,7 @@ class StockPortfolioViewController: UITableViewController,ChartViewDelegate {
     func stocksURL() -> URL {
         let urlString = String(format: "https://financialmodelingprep.com/api/v3/quote/"+batchRequestString+"?apikey="+apiKey.key)
         let url = URL(string: urlString)
+        //enter api key to the apiKey.swift file
         return url!
     }
     

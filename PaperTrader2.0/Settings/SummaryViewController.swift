@@ -72,19 +72,13 @@ class SummaryViewController: UITableViewController,ChartViewDelegate  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+
         dropDown.anchorView = dropDownButton
         dropDown.dataSource = ["Profit","Ticker"]
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.summaryRefresh), name: NSNotification.Name(rawValue: "newSummaryDataNotif"), object: nil)
         summaryRefresh()
-        
-        
-        
-        
-        
-        
+
     }
     
     @IBAction func dropDownClicked() {
@@ -92,7 +86,6 @@ class SummaryViewController: UITableViewController,ChartViewDelegate  {
         dropDown.show()
         dropDown.layer.zPosition = 1;
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
-            print("Selected item: \(item) at index: \(index)")
             //self.dropDownButton.setTitle(item,for: .normal)
             if (item == "Profit" && ascendedBy == "totalProfits") || (item == "Ticker" && ascendedBy == "stockSymbol"){
                 ascendingOrder = !ascendingOrder
@@ -127,7 +120,7 @@ class SummaryViewController: UITableViewController,ChartViewDelegate  {
         } catch {
             //fatalCoreDataError(error)
         }
-        let defaults = UserDefaults.standard
+       
         for i in 0..<stockRecords.count {
             allTimeProfit += stockRecords[i].totalProfits
             if (stockRecords[i].totalProfits > mostProfitableStockAmount) {
@@ -145,28 +138,33 @@ class SummaryViewController: UITableViewController,ChartViewDelegate  {
             leastProfitableStockSymbolLabel.text = leastProfitableStock
             leastProfitableStockProfitLabel.text = String(format: "%.2f",leastProfitableStockAmount)
             
-            if (mostProfitableStockAmount > 0) {
-                self.mostProfitableStockProfitLabel.textColor = UIColor(red: 35/255, green: 200/255, blue: 35/255, alpha: 1.0)
-            }else if(mostProfitableStockAmount < 0) {
-                self.mostProfitableStockProfitLabel.textColor = UIColor(red: 255/255, green: 20/255, blue: 25/255, alpha: 1.0)
-            }
             
-            if (leastProfitableStockAmount > 0) {
-                self.leastProfitableStockProfitLabel.textColor = UIColor(red: 35/255, green: 200/255, blue: 35/255, alpha: 1.0)
-            }else if (leastProfitableStockAmount < 0) {
-                self.leastProfitableStockProfitLabel.textColor = UIColor(red: 255/255, green: 20/255, blue: 25/255, alpha: 1.0)
-            }
+            labelColorChange(labelName: mostProfitableStockProfitLabel, amount: mostProfitableStockAmount)
             
+            labelColorChange(labelName: leastProfitableStockProfitLabel, amount: leastProfitableStockAmount)
+
             allTimeProfitLabel.text = String(format: "%.2f",allTimeProfit)
-            if (allTimeProfit > 0) {
-                self.allTimeProfitLabel.textColor = UIColor(red: 35/255, green: 200/255, blue: 35/255, alpha: 1.0)
-            }else if(allTimeProfit < 0) {
-                self.allTimeProfitLabel.textColor = UIColor(red: 255/255, green: 20/255, blue: 25/255, alpha: 1.0)
-            }
+            labelColorChange(labelName: allTimeProfitLabel, amount: allTimeProfit)
         }
         
-     
+        self.createPieChart()
         
+       
+        self.tableView.reloadData()
+    }
+    
+    func labelColorChange(labelName: UILabel, amount: Double) {
+        if (amount > 0) {
+            labelName.textColor = UIColor(red: 35/255, green: 200/255, blue: 35/255, alpha: 1.0)
+        }else if(amount < 0) {
+            labelName.textColor = UIColor(red: 255/255, green: 20/255, blue: 25/255, alpha: 1.0)
+        }
+    }
+    
+    func createPieChart() {
+        let defaults = UserDefaults.standard
+        
+        //put all portfolio items into list
         getAllPortfolioItems()
         
         pieChart.delegate = self
@@ -179,25 +177,17 @@ class SummaryViewController: UITableViewController,ChartViewDelegate  {
         var entries: [PieChartDataEntry] = Array()
         
         for x in 0..<balanceItems.count {
-            var pieVals: String = balanceItems[x].value!
+            let pieVals: String = balanceItems[x].value!
             entries.append(PieChartDataEntry(value: Double(pieVals)!, label: balanceItems[x].stockName))
         }
    
         let availableBalance: String? = defaults.string(forKey: "balanceAmount")
         let availableBalanceDoub: Double = Double(availableBalance!)!
         entries.append(PieChartDataEntry(value: availableBalanceDoub, label: "Cash"))
-        
-     
-                
         let dataSet = PieChartDataSet(entries: entries, label: "")
         dataSet.colors = ChartColorTemplates.material()
-     
-        
-
         dataSet.drawValuesEnabled = false
-                
         pieChart.data = PieChartData(dataSet: dataSet)
-        self.tableView.reloadData()
     }
     
     func getAllPortfolioItems() {
