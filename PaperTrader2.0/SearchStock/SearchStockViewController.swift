@@ -53,7 +53,7 @@ class SearchStockViewController: UIViewController {
     // MARK: - Helper Methods
     func stocksURL(searchText: String) -> URL {
         let encodedText = searchText.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
-        let urlString = String(format: "https://financialmodelingprep.com/api/v3/search?query=%@"+"&limit=100&exchange=NASDAQ,NYSE&apikey="+apiKey.key, encodedText)
+        let urlString = String(format: "https://financialmodelingprep.com/api/v3/search?query=%@"+"&limit=100&exchange=COMMODITY,INDEX,CRYPTO,AMEX,MUTUAL_FUND,ETF,NASDAQ,NYSE&apikey="+apiKey.key, encodedText)
             //
         let url = URL(string: urlString)
         return url!

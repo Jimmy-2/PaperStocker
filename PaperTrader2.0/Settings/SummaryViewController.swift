@@ -6,13 +6,20 @@
 //
 
 import UIKit
+import DropDown
 import CoreData
 import Charts
 
 class SummaryViewController: UITableViewController,ChartViewDelegate  {
     var pieChart = PieChartView()
+    let dropDown = DropDown()
+    @IBOutlet var dropDownButton: UIButton!
+    
+    var ascendingOrder: Bool = false
+    var ascendedBy: String = "totalProfits"
     
     @IBOutlet var allTimeProfitLabel: UILabel!
+    
     //store avg cost of each stock in database and set the label to the one with the highest gain
     @IBOutlet var mostProfitableStockSymbolLabel: UILabel!
     @IBOutlet var leastProfitableStockSymbolLabel: UILabel!
@@ -67,7 +74,8 @@ class SummaryViewController: UITableViewController,ChartViewDelegate  {
         super.viewDidLoad()
         
         
-        
+        dropDown.anchorView = dropDownButton
+        dropDown.dataSource = ["Profit","Ticker"]
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.summaryRefresh), name: NSNotification.Name(rawValue: "newSummaryDataNotif"), object: nil)
         summaryRefresh()
@@ -78,6 +86,29 @@ class SummaryViewController: UITableViewController,ChartViewDelegate  {
         
         
     }
+    
+    @IBAction func dropDownClicked() {
+        //if same button clicked, change ascending order else change which to sort by
+        dropDown.show()
+        dropDown.layer.zPosition = 1;
+        dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+            print("Selected item: \(item) at index: \(index)")
+            //self.dropDownButton.setTitle(item,for: .normal)
+            if (item == "Profit" && ascendedBy == "totalProfits") || (item == "Ticker" && ascendedBy == "stockSymbol"){
+                ascendingOrder = !ascendingOrder
+            }else {
+                if item == "Profit" {
+                    ascendedBy = "totalProfits"
+                }else {
+                    ascendedBy = "stockSymbol"
+                }
+                
+            }
+            
+            self.summaryRefresh()
+           
+        }
+    }
     @objc func summaryRefresh()  {
         //fatching portfolio items
         let fetchRequest = NSFetchRequest<StockRecords>()
@@ -86,8 +117,8 @@ class SummaryViewController: UITableViewController,ChartViewDelegate  {
         fetchRequest.entity = entity
           
         let sortDescriptor = NSSortDescriptor(
-            key: "totalProfits",
-            ascending: false)
+            key: ascendedBy,
+            ascending: ascendingOrder)
         fetchRequest.sortDescriptors = [sortDescriptor]
         do {
             stockRecords = try context.fetch(fetchRequest)

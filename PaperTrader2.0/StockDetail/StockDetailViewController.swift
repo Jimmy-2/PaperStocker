@@ -35,7 +35,7 @@ class StockDetailViewController: UITableViewController,ChartViewDelegate  {
     
     let refreshControll = UIRefreshControl()
     
-    var candleStickTime: String = "5min"
+    var candleStickTime: String = "1min"
     
     var searchResult: SearchResult!
     var balancePortfolio: Balance?
@@ -68,7 +68,7 @@ class StockDetailViewController: UITableViewController,ChartViewDelegate  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //dropdown menu view
+        
         dropDown.anchorView = dropDownButton
         dropDown.dataSource = ["1min","5min","15min"]
         
