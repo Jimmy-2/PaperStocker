@@ -70,7 +70,8 @@ class DailyBalanceViewController: UITableViewController {
         formatter.dateStyle = .medium
         formatter.timeZone = TimeZone.current
         let dateTimeString = formatter.string(from: currentDateTime)
-        addDailyBalanceItem(date: currentDateTime, balanceAmount: "140000", dateString: "Feb 2, 2022")
+        //addDailyBalanceItem(date: currentDateTime, balanceAmount: "140000", dateString: "Feb 2, 2022")
+        //deleteItem(item: dailyBalances[1])
        
         
     }
@@ -88,5 +89,15 @@ class DailyBalanceViewController: UITableViewController {
         }
     }
     
+    //for testing
+    func deleteItem(item: DailyBalance) {
+        context.delete(item)
+        
+        do {
+            try context.save()
+        }catch {
+            
+        }
+    }
    
 }

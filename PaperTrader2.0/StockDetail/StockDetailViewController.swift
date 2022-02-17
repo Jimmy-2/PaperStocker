@@ -352,10 +352,10 @@ class StockDetailViewController: UITableViewController,ChartViewDelegate  {
     /*
     
     func stocksURL() -> URL {
-        let urlString = String(format: "https://api.twelvedata.com/quote?symbol=%@"+"&interval=1day&apikey=313fd5808dc2469abf9380853265bca3", stockSymbol!)
+        let urlString = String(format: "https://api.twelvedata.com/quote?symbol=%@"+"&interval=1day&apikey=", stockSymbol!)
         let url = URL(string: urlString)
         return url!
-        //"https://api.twelvedata.com/quote?symbol=%@"+"&interval=1day&apikey=313fd5808dc2469abf9380853265bca3"
+        //"https://api.twelvedata.com/quote?symbol=%@"+"&interval=1day&apikey="
     }
     
     
@@ -392,7 +392,7 @@ class StockDetailViewController: UITableViewController,ChartViewDelegate  {
  
     */
     func historicalPriceURL() -> URL {
-        let urlString = String(format: "https://financialmodelingprep.com/api/v3/historical-chart/1min/"+stockSymbol!+"?apikey=d6d32343ce4ed4d79945c94ca7c9c383")
+        let urlString = String(format: "https://financialmodelingprep.com/api/v3/historical-chart/1min/"+stockSymbol!+"?apikey="+apiKey.key)
             //
         let url = URL(string: urlString)
         return url!
@@ -412,11 +412,11 @@ class StockDetailViewController: UITableViewController,ChartViewDelegate  {
     
     
     func stocksURL() -> URL {
-        let urlString = String(format: "https://financialmodelingprep.com/api/v3/quote/%@"+"?apikey=d1980c7326fed76a84ab12644fa786f9",stockSymbol!)
+        let urlString = String(format: "https://financialmodelingprep.com/api/v3/quote/%@"+"?apikey="+apiKey.key,stockSymbol!)
         let url = URL(string: urlString)
         return url!
         
-        //let urlString = String(format: "https://financialmodelingprep.com/api/v3/quote/%@"+"?apikey=d1980c7326fed76a84ab12644fa786f9",stockSymbol!)
+        
     }
     
     func parse(data: Data) -> [StockDetail] {

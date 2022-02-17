@@ -39,19 +39,17 @@ struct SearchNewsResult: Codable {
     var newsBodyText = ""
     var sourceText = ""
     var dateText = ""
-    var sentimentText = ""
-    var typeText = ""
+    var symbol = ""
     //var tickers: String? = ""
     
     enum CodingKeys: String, CodingKey {
-        case imageSmall = "image_url"
-        case newsURLText = "news_url"
+        case imageSmall = "image"
+        case newsURLText = "url"
         case titleText = "title"
         case newsBodyText = "text"
-        case sourceText = "source_name"
-        case dateText = "date"
-        case sentimentText = "sentiment"
-        case typeText = "type"
+        case sourceText = "site"
+        case dateText = "publishedDate"
+        case symbol = "symbol"
         
        
     }
