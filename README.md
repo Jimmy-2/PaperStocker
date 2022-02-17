@@ -18,16 +18,12 @@ Personal iOS project. Gifs to be added once premium endpoints subscription is pu
 
 ##### Home screen and stock detail screen swipe down to refresh:
 
-<img src='https://github.com/Jimmy-2/HoodRobin/blob/master/gifs/AlertsScreen.gif?raw=true' title='Push Notifications' width='' alt='Push Notifications' />
-
-<img src='https://github.com/Jimmy-2/HoodRobin/blob/master/gifs/AlertsScreen2.gif?raw=true' title='Data Persistence' width='' alt='Data Persistence' />
+<img src='https://github.com/Jimmy-2/HoodRobin/blob/master/gifs/AlertsScreen.gif?raw=true' title='Push Notifications' width='' alt='Push Notifications' />    <img src='https://github.com/Jimmy-2/HoodRobin/blob/master/gifs/AlertsScreen2.gif?raw=true' title='Data Persistence' width='' alt='Data Persistence' />
 
 
 ##### Portfolio screen and graphs:
 
-<img src='https://github.com/Jimmy-2/HoodRobin/blob/master/gifs/PortfolioScreenAndGraphs1.gif?raw=true' title='Candlestick Screens' width='' alt='Candlestick Screens' />
-
-<img src='https://github.com/Jimmy-2/HoodRobin/blob/master/gifs/PortfolioScreenAndGraphs2.gif?raw=true' title='Portfolio Screen Graphs' width='' alt='Portfolio Screen Graphs' />
+<img src='https://github.com/Jimmy-2/HoodRobin/blob/master/gifs/PortfolioScreenAndGraphs1.gif?raw=true' title='Candlestick Screens' width='' alt='Candlestick Screens' /><img src='https://github.com/Jimmy-2/HoodRobin/blob/master/gifs/PortfolioScreenAndGraphs2.gif?raw=true' title='Portfolio Screen Graphs' width='' alt='Portfolio Screen Graphs' />
 
 
 ##### News screen:
