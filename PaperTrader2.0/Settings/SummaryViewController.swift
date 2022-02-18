@@ -77,6 +77,35 @@ class SummaryViewController: UITableViewController,ChartViewDelegate  {
         dropDown.dataSource = ["Profit","Ticker"]
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.summaryRefresh), name: NSNotification.Name(rawValue: "newSummaryDataNotif"), object: nil)
+        let fetchRequest = NSFetchRequest<StockRecords>()
+        
+        let entity = StockRecords.entity()
+        fetchRequest.entity = entity
+          
+        let sortDescriptor = NSSortDescriptor(
+            key: ascendedBy,
+            ascending: ascendingOrder)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        do {
+            stockRecords = try context.fetch(fetchRequest)
+            
+            
+        } catch {
+            //fatalCoreDataError(error)
+        }
+       
+        for i in 0..<stockRecords.count {
+            allTimeProfit += stockRecords[i].totalProfits
+            if (stockRecords[i].totalProfits > mostProfitableStockAmount) {
+                self.mostProfitableStockAmount = stockRecords[i].totalProfits
+                self.mostProfitableStock = stockRecords[i].stockSymbol!
+            }
+            if (stockRecords[i].totalProfits < leastProfitableStockAmount) {
+                self.leastProfitableStockAmount = stockRecords[i].totalProfits
+                self.leastProfitableStock = stockRecords[i].stockSymbol!
+            }
+        }
+
         summaryRefresh()
 
     }
@@ -120,7 +149,7 @@ class SummaryViewController: UITableViewController,ChartViewDelegate  {
         } catch {
             //fatalCoreDataError(error)
         }
-       
+        allTimeProfit = 0
         for i in 0..<stockRecords.count {
             allTimeProfit += stockRecords[i].totalProfits
             if (stockRecords[i].totalProfits > mostProfitableStockAmount) {

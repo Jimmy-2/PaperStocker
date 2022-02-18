@@ -124,7 +124,7 @@ extension SearchNewsViewController: UISearchBarDelegate {
             return
           }
         } else {
-          print("Failure! \(response!)")
+          //print("Failure! \(response!)")
         }
         DispatchQueue.main.async {
           self.hasSearched = false
