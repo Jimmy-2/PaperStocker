@@ -26,6 +26,13 @@ FinancialModelingPrep API
     
 
 ## Gifs
+##### Full App Demo:
+
+<img src='https://github.com/Jimmy-2/PaperStocker/blob/main/gifs/appDemoOldApp.gif?raw=true' title='Full Demo' width='' alt='Full Demo' />
+
+##### Fresh App Short Demo:
+
+<img src='https://github.com/Jimmy-2/PaperStocker/blob/main/gifs/appDemoNewApp.gif?raw=true' title='Short Demo' width='' alt='Short Demo' />
 
 ##### (Old) Home screen and stock detail screen swipe down to refresh:
 
