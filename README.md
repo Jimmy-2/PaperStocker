@@ -32,11 +32,12 @@ Stock paper trading app for the iOS platform.
     * Displays the history of the daily balance for the user. 
 * Summary Screen
     * Displays a pie chart of the portfolio distribution. Users can also access data relevant to their paper trading such as their best/worse stocks bought and sold as well as a list of all stocks ever bought and sold along with the profits/losses earned for the stocks.
-    * 
+    
+    
 ### Original Wireframe
 <img src="https://github.com/Jimmy-2/PaperStocker/blob/main/gifs/OriginalWireframe.png?raw=true" height=300>
 
-##### API
+##### APIs Used
 FinancialModelingPrep API
 - Base URL - [https://financialmodelingprep.com](https://site.financialmodelingprep.com/developer/docs)
 
