@@ -1684,12 +1684,20 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Default is 100000" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KQz-F4-Hwl">
+                                                    <rect key="frame" x="130.5" y="122" width="114.5" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" white="0.15484322632018405" alpha="0.48990131168450501" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="91u-E1-Z2E" firstAttribute="centerY" secondItem="G1w-Ch-8CZ" secondAttribute="centerY" id="3Dl-QR-d4g"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="91u-E1-Z2E" secondAttribute="trailing" id="L4P-1q-qp6"/>
+                                                <constraint firstItem="KQz-F4-Hwl" firstAttribute="bottom" secondItem="G1w-Ch-8CZ" secondAttribute="bottomMargin" id="LYu-ql-00R"/>
                                                 <constraint firstItem="91u-E1-Z2E" firstAttribute="leading" secondItem="G1w-Ch-8CZ" secondAttribute="leadingMargin" id="OYx-sc-Fhe"/>
                                                 <constraint firstItem="91u-E1-Z2E" firstAttribute="bottom" secondItem="G1w-Ch-8CZ" secondAttribute="bottomMargin" id="P0z-02-zRg"/>
+                                                <constraint firstItem="KQz-F4-Hwl" firstAttribute="centerX" secondItem="G1w-Ch-8CZ" secondAttribute="centerX" id="kM4-aQ-SC9"/>
                                                 <constraint firstItem="91u-E1-Z2E" firstAttribute="centerX" secondItem="G1w-Ch-8CZ" secondAttribute="centerX" id="qqZ-RK-U21"/>
                                                 <constraint firstItem="91u-E1-Z2E" firstAttribute="top" secondItem="G1w-Ch-8CZ" secondAttribute="topMargin" id="yLR-X2-TNg"/>
                                             </constraints>

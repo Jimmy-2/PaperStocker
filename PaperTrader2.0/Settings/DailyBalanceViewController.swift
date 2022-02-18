@@ -49,7 +49,7 @@ class DailyBalanceViewController: UITableViewController {
         super.viewDidLoad()
         
         dropDown.anchorView = dropdownButton
-        dropDown.dataSource = ["DESC\u{2193}","ASC\u{2191}"]
+        dropDown.dataSource = ["DESC","ASC"]
         
         refreshTable()
         
@@ -78,14 +78,10 @@ class DailyBalanceViewController: UITableViewController {
         dropDown.show()
         dropDown.layer.zPosition = 1;
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
-            print("Selected item: \(item) at index: \(index)")
-            //self.dropDownButton.setTitle(item,for: .normal)
-            if item == "\u{2793}" {
-                sortingOrder = false
-            }
-                
-            else {
-                sortingOrder = true
+            if (item == "DESC" && sortingOrder == true) {
+                sortingOrder = !sortingOrder
+            }else if (item == "ASC" && sortingOrder == false) {
+                sortingOrder = !sortingOrder
             }
             
             self.refreshTable()
