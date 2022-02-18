@@ -33,8 +33,6 @@ class ChangeBalanceViewController: UITableViewController, UITextFieldDelegate  {
         
         if (defaults.double(forKey: "changeAmount") > 0) {
             changeAmountText = "+" + changeAmountText
-        }else if (defaults.double(forKey: "changeAmount") < 0) {
-            changeAmountText = "-" + changeAmountText
         }
         changeAmountLabel.text = changeAmountText
     }
