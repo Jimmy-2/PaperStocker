@@ -26,12 +26,19 @@ FinancialModelingPrep API
     
 
 ## Gifs
+##### Full App Demo:
 
-##### Home screen and stock detail screen swipe down to refresh:
+<img src='https://github.com/Jimmy-2/PaperStocker/blob/main/gifs/appDemoOldApp.gif?raw=true' title='Full Demo' width='' alt='Full Demo' />
+
+##### Fresh App Short Demo:
+
+<img src='https://github.com/Jimmy-2/PaperStocker/blob/main/gifs/appDemoNewApp.gif?raw=true' title='Short Demo' width='' alt='Short Demo' />
+
+##### (Old) Home screen and stock detail screen swipe down to refresh:
 
 <img src='https://raw.githubusercontent.com/Jimmy-2/PaperStocker/main/gifs/Refresh1.gif' title='Refresh gif' width='' alt='Refresh gif' />
 
-##### Home screen and stock detail screen swipe down to refresh when phone has no internet(Minor adjustments need to be made on dismissing the refreshing symbol):
+##### (Old) Home screen and stock detail screen swipe down to refresh when phone has no internet(Minor adjustments need to be made on dismissing the refreshing symbol):
 
 <img src='https://raw.githubusercontent.com/Jimmy-2/PaperStocker/main/gifs/IfNoInternet.gif' title='Refresh gif' width='' alt='Refresh gif' />
 
