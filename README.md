@@ -16,8 +16,8 @@ Personal iOS project. Gifs to be added once premium endpoints subscription is pu
 FinancialModelingPrep API
 - Base URL - [https://financialmodelingprep.com](https://site.financialmodelingprep.com/developer/docs)
 
-   HTTP Verb | Endpoint | Demolink| Description
-   ----------|----------|------------|------------
+   HTTP Verb | Endpoint | Description
+   ----------|----------|------------
     `GET`    | /api/v3/quote-short/AAPL,FB | gets realtime price of stock(s) at the time of request
     `GET`    | /api/v3/quote/AAPL | gets realtime price of stock(s) at the time of request as well as other important information
     `GET`    | /api/v3/search?query=AA&limit=10&exchange=NASDAQ | gets list of stocks based on searched stock/ticker
