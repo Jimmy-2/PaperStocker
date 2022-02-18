@@ -26,12 +26,17 @@ Stock paper trading app for the iOS platform.
     *  User can search for a stock's ticker and access news articles relating to the searched ticker. Users can also search for more than 1 stock ticker to access news relating to multiple stocks. 
 * 4th tab: Settings
     * Users can access the change balance, daily balance, and the summary screens from this tab. 
-* Change Balance Screen
-    * Users can change their current balance in case they need access to more money or less money.
-* Daily Balance Screen
-    * Displays the history of the daily balance for the user. 
-* Summary Screen
-    * Displays a pie chart of the portfolio distribution. Users can also access data relevant to their paper trading such as their best/worse stocks bought and sold as well as a list of all stocks ever bought and sold along with the profits/losses earned for the stocks.
+    * Change Balance Screen
+      ** Users can change their current balance in case they need access to more money or less money.
+    * Daily Balance Screen
+      ** Displays the history of the daily balance for the user. 
+    * Summary Screen
+      ** Displays a pie chart of the portfolio distribution. Users can also access data relevant to their paper trading such as their best/worse stocks bought and sold as well as a list of all stocks ever bought and sold along with the profits/losses earned for the stocks.
+
+* Detail Screen
+    * Displays relevant data and price quotes for the stock as well as a historical price candle stick chart. Users can buy and sell stocks by accessing the trade screen from here.
+* Trade Screen
+    * Users can directly buy and sell stocks.
     
     
 ### Original Wireframe
