@@ -47,6 +47,7 @@ FinancialModelingPrep API
     `GET`    | /api/v3/quote/AAPL | gets realtime price of stock(s) at the time of request as well as other important information
     `GET`    | /api/v3/search?query=AA&limit=10&exchange=NASDAQ | gets list of stocks based on searched stock/ticker
     `GET`    | /api/v3/historical-chart/1min/AAPL | gets list of historical prices for the stock for graphs
+    `GET`    | /api/v3/stock_news?tickers=AAPL,FB,GOOG,AMZN | gets list of news relating to the searched tickers
     
     
 
